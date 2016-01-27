@@ -10,10 +10,10 @@ Assuming you have atleast java 7:
 
 ## RESTful Endpoints
 
-GET     /api/blogs
-GET     /api/blogs/{id}
-POST    /api/blogs
-DELETE  /api/blogs/{id}
+- GET     /api/blogs
+- GET     /api/blogs/{id}
+- POST    /api/blogs
+- DELETE  /api/blogs/{id}
 
 ## Payload
 
