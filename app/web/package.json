@@ -2,18 +2,39 @@
   "name": "hei-workshop",
   "version": "1.0.0",
   "description": "Web UI for HEI Workshop",
+  "author": "toro.io dev",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/toro-io/hei-workshop#readme",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/toro-io/hei-workshop.git"
   },
-  "author": "toro.io dev",
-  "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/toro-io/hei-workshop/issues"
   },
-  "homepage": "https://github.com/toro-io/hei-workshop#readme"
+  "devDependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
+    "bourbon": "^4.2.5",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "imagemin-pngquant": "^4.2.0",
+    "shelljs": "^0.5.3"
+  },
+  "dependencies": {
+    "coffee-script": "^1.10.0"
+  }
 }
