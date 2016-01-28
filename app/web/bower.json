@@ -1,0 +1,19 @@
+{
+  "name": "hei-workshop",
+  "description": "Web UI for HEI Workshop",
+  "main": "index.js",
+  "authors": [
+    "toro.io dev"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/toro-io/hei-workshop",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
