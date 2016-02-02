@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 
 import io.toro.workshop.blog.BlogService;
 import io.toro.workshop.blog.InMemoryBlogServiceImpl;
+import io.toro.workshop.blog.event.BlogEventListener;
 
 @SpringBootApplication
 public class BloggingApp {
@@ -17,5 +18,10 @@ public class BloggingApp {
     @Bean
     BlogService blogService() {
         return new InMemoryBlogServiceImpl();
+    }
+    
+    @Bean
+    BlogEventListener blogEventListener(){
+        return new BlogEventListener();
     }
 }

@@ -1,8 +1,10 @@
 package io.toro.workshop.blog;
 
+import io.toro.workshop.blog.event.BlogUpdatedEvent;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogApiController {
 
     private final BlogService blogService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    BlogApiController( BlogService blogService ) {
+    BlogApiController( BlogService blogService, ApplicationEventPublisher publisher ) {
         this.blogService = blogService;
+        this.eventPublisher = publisher;
     }
 
     @RequestMapping( method = RequestMethod.GET )
@@ -38,6 +42,7 @@ public class BlogApiController {
     @RequestMapping( method = RequestMethod.POST )
     ResponseEntity<Blog> saveBlog( @RequestBody Blog blog ) {
         blog = blogService.saveBlog( blog );
+        eventPublisher.publishEvent(new BlogUpdatedEvent(blog));
 
         return ResponseEntity.ok( blog );
     }
