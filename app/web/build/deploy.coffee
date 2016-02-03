@@ -38,28 +38,3 @@ gulp.task 'process-sass', () ->
 # @desc task to process html and replace development markup
 ###
 gulp.task 'process-html', () ->
-
-
-###
-# @name task: eslint
-# @desc
-#   task that lints our javascript files making
-#   sure we comply to the team's coding standards
-###
-gulp.task 'eslint', () ->
-  return gulp.src "#{path.join(__dirname, '/../src/javascript/*.js')}"
-    .pipe eslint()
-    .pipe eslint.format()
-    .pipe eslint.failAfterError()
-
-###
-# @name task: coffee-lint
-# @desc
-#   task that lints our coffeescript files making
-#  sure we comply to the team's coding standards
-###
-gulp.task 'coffeelint', () ->
-  return gulp.src "#{path.join(__dirname, '*.coffee')}"
-    .pipe coffeelint()
-    .pipe coffeelint.reporter('coffeelint-stylish')
-    .pipe coffeelint.reporter('fail')
