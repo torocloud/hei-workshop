@@ -6,15 +6,16 @@
     .config(AppConfig)
 
   AppConfig.$inject = [
-    '$routerProvider',
+    '$routeProvider',
     '$locationProvider'
   ]
 
-  function AppConfig ($routerProvider, $locationProvider) {
+  function AppConfig ($routeProvider, $locationProvider) {
 
     $locationProvider
       .html5Mode(false)
       .hashPrefix('!')
+
   }
 
 })();

@@ -37,6 +37,17 @@ options.app = [
   './src/javascript/services/user.js'
 ]
 
+options.sass = {
+  outputStyle: 'expanded'
+  includePaths: [
+    './src/sass/bootstrap'
+    './src/sass/bourbon'
+  ]
+}
+
+options.babel = {
+  presets: ['es2015']
+}
 
 ###
 # @name sass-install
@@ -64,6 +75,45 @@ gulp.task 'sass-install', () ->
 
 
 ###
+# @name sass-build
+# @desc
+###
+gulp.task 'sass-build', () ->
+  return gulp.src './src/sass/workshop.scss'
+    .pipe sass(options.sass)
+    .pipe gulp.dest './public/css'
+    .pipe sourcemap.init()
+    .pipe rename extname: '.min.css'
+    .pipe sourcemap.write('.')
+    .pipe gulp.dest './public/css'
+
+###
+# @name task: eslint
+# @desc
+#   task that lints our javascript files making
+#   sure we comply to the team's coding standards
+###
+gulp.task 'eslint', () ->
+  return gulp.src "#{path.join(__dirname, '/../src/javascript/*.js')}"
+    .pipe eslint()
+    .pipe eslint.format()
+    .pipe eslint.failAfterError()
+
+
+###
+# @name task: coffee-lint
+# @desc
+#   task that lints our coffeescript files making
+#  sure we comply to the team's coding standards
+###
+gulp.task 'coffeelint', () ->
+  return gulp.src "#{path.join(__dirname, '*.coffee')}"
+    .pipe coffeelint()
+    .pipe coffeelint.reporter('coffeelint-stylish')
+    .pipe coffeelint.reporter('fail')
+
+
+###
 # @name build-angular
 # @desc
 ###
@@ -82,10 +132,31 @@ gulp.task 'build-angular', () ->
 # @desc
 ###
 gulp.task 'build-app', () ->
+  gulp.src './src/javascript/views'
+    .pipe gulp.dest('./public/app')
+
+
   return gulp.src options.app
     .pipe sourcemap.init()
+    .pipe babel(options.babel)
     .pipe concat('workshop.js')
-    .pipe gulp.dest './public/app'
-    .pipe rename extname: '.min.js'
+    .pipe gulp.dest('./public/app')
+    .pipe rename(extname: '.min.js')
     .pipe sourcemap.write('.')
-    .pipe gulp.dest './public/app'
+    .pipe gulp.dest('./public/app')
+
+
+gulp.task 'develop', () ->
+  if util.env.app
+    return gulp.watch [
+      './src/javascript/**/*.js'
+      './src/javascript/**/*.html'
+    ], [
+      'build-angular'
+      'build-app'
+    ]
+
+  if util.env.sass
+    return gulp.watch [
+      './src/sass/**/*.scss'
+    ], ['sass-build']
