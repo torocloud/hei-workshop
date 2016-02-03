@@ -1,4 +1,4 @@
-package io.toro.workshop.connectors.twitter;
+package io.toro.workshop.connectors;
 
 import twitter4j.Status;
 import twitter4j.Twitter;

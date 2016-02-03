@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 
-import io.toro.workshop.connectors.twitter.TwitterConnector;
+import io.toro.workshop.connectors.TwitterConnector;
 
 public class BlogEventListener {
 

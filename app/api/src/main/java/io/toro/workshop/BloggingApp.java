@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import io.toro.workshop.blog.BlogService;
 import io.toro.workshop.blog.InMemoryBlogServiceImpl;
 import io.toro.workshop.blog.event.BlogEventListener;
-import io.toro.workshop.connectors.twitter.TwitterConnector;
+import io.toro.workshop.connectors.TwitterConnector;
 
 @SpringBootApplication
 public class BloggingApp {
