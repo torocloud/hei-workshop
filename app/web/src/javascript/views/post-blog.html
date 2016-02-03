@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+      <h1 class="title">Create new blog</h1>
+      <div class="new-blog-title">
+        Title
+        <input class="form-control text-fields" ng-model="newBlog.title" type="text" placeholder="Enter blog title here" required>
+      </div>
+
+      <div class="new-blog-content">
+        Content
+        <textarea class="form-control text-fields" ng-model="newBlog.content" placeholder="Enter blog content here" required></textarea>
+      </div>
+
+      <button class="btn btn-default pull-right" ng-click="postBlog()">Post</button>
+    </div>
+  </div>
+</div>
