@@ -32,10 +32,8 @@ public class ExceptionController implements ErrorController {
     }
 
     @RequestMapping( value = "error" )
-    ResponseEntity<ApiExceptionModel> handleEndpointNotFound( HttpServletRequest request ) {
-        String uri = request.getRequestURI();
-        return handleNotFound(
-            new ResourceNotFoundException( "No uri " + uri + " found in server" ) );
+    ResponseEntity<ApiExceptionModel> handleEndpointNotFound( HttpServletRequest request, Exception ex ) {
+        return handleAllException( ex );
     }
 
     @Override
