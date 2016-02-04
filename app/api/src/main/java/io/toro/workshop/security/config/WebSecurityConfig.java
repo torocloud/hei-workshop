@@ -1,4 +1,4 @@
-package io.toro.workshop.config;
+package io.toro.workshop.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
