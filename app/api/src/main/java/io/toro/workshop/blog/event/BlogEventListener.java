@@ -9,11 +9,14 @@ import io.toro.workshop.connectors.TwitterConnector;
 
 public class BlogEventListener {
 
+	private final TwitterConnector twitterConnector;
+	private final ExecutorService executorService;
+	
 	@Autowired
-	TwitterConnector twitterConnector;
-
-	@Autowired
-	ExecutorService executorService;
+	BlogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ) {
+		this.twitterConnector = twitterConnector;
+		this.executorService = executorService;
+	}
 
 	@EventListener
 	public void postToTwitterOnBlogUpdate(final BlogUpdatedEvent blogUpdatedEvent) {
@@ -22,10 +25,10 @@ public class BlogEventListener {
 			@Override
 			public void run() {
 				try {
-					twitterConnector.twitterUpdateStatus(
-							"Create a New Blog: " + blogUpdatedEvent.getSource().getTitle());
+					twitterConnector
+							.twitterUpdateStatus("Create a New Blog: " + blogUpdatedEvent.getSource().getTitle());
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.err.println("Unable to post tweet. Cause: " + e);
 				}
 
 			}

@@ -15,27 +15,27 @@ import io.toro.workshop.connectors.TwitterConnector;
 @SpringBootApplication
 public class BloggingApp {
 
-    public static void main( String[] args ) {
-        SpringApplication.run(BloggingApp.class, args );
+	public static void main(String[] args) {
+		SpringApplication.run(BloggingApp.class, args);
+	}
+
+	@Bean
+	BlogService blogService() {
+		return new InMemoryBlogServiceImpl();
+	}
+
+	@Bean
+    BlogEventListener blogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ){
+        return new BlogEventListener( twitterConnector , executorService );
     }
 
-    @Bean
-    BlogService blogService() {
-        return new InMemoryBlogServiceImpl();
-    }
-    
-    @Bean
-    BlogEventListener blogEventListener(){
-        return new BlogEventListener();
-    }
-   
-    @Bean
-    TwitterConnector twitterConnector(){
-        return new TwitterConnector();
-    }
-    
-    @Bean
-    ExecutorService executorService(){
-    	return Executors.newCachedThreadPool();
-    }
+	@Bean
+	TwitterConnector twitterConnector() {
+		return new TwitterConnector();
+	}
+
+	@Bean
+	ExecutorService executorService() {
+		return Executors.newCachedThreadPool();
+	}
 }
