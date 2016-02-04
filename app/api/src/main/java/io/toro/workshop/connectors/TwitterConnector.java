@@ -20,7 +20,9 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 
 public class TwitterConnector {
-
+	
+	private static TwitterFactory tf = new TwitterFactory( authorizeTwitter().build() );
+	
 	/**
 	 * Handles Twitter Authorization Process<br/>
 	 * Authorize Twitter Connector using ConfigurationBuilder
@@ -44,7 +46,6 @@ public class TwitterConnector {
 	 * @return returns the twitter instance
 	 */
 	private static Twitter initHandler() {
-		TwitterFactory tf = new TwitterFactory( authorizeTwitter().build() );
 		Twitter twitter = tf.getInstance();
 		return twitter;
 	}
@@ -55,7 +56,7 @@ public class TwitterConnector {
 	 * @param message the tweet or status update
 	 * @return returns information about the status
 	 */
-	public Status twitterUpdateStatus( String message ) throws Exception {
+	public static Status twitterUpdateStatus( String message ) throws Exception {
 		return initHandler().updateStatus( message );
 	}
 }
