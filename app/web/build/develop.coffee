@@ -14,6 +14,7 @@ minify      = require 'gulp-cssnano'
 uglify      = require 'gulp-uglify'
 eslint      = require 'gulp-eslint'
 rename      = require 'gulp-rename'
+htmlmin     = require 'gulp-minify-html'
 imagemin    = require 'gulp-imagemin'
 pngquant    = require 'imagemin-pngquant'
 sourcemap   = require 'gulp-sourcemaps'
@@ -94,7 +95,7 @@ gulp.task 'sass-build', () ->
 #   sure we comply to the team's coding standards
 ###
 gulp.task 'eslint', () ->
-  return gulp.src "#{path.join(__dirname, '/../src/javascript/*.js')}"
+  return gulp.src ['./src/javascript/**/*.js']
     .pipe eslint()
     .pipe eslint.format()
     .pipe eslint.failAfterError()
@@ -107,7 +108,7 @@ gulp.task 'eslint', () ->
 #  sure we comply to the team's coding standards
 ###
 gulp.task 'coffeelint', () ->
-  return gulp.src "#{path.join(__dirname, '*.coffee')}"
+  return gulp.src './build/**/*.coffee'
     .pipe coffeelint()
     .pipe coffeelint.reporter('coffeelint-stylish')
     .pipe coffeelint.reporter('fail')
@@ -117,7 +118,7 @@ gulp.task 'coffeelint', () ->
 # @name build-angular
 # @desc
 ###
-gulp.task 'build-angular', () ->
+gulp.task 'app-angular', () ->
   return gulp.src options.angular
     .pipe sourcemap.init()
     .pipe concat('angular.js')
@@ -129,12 +130,12 @@ gulp.task 'build-angular', () ->
 
 ###
 # @name build-app
-# @desc
+# @desc task that transpiles src es6 syntax js to es5 via babel
 ###
-gulp.task 'build-app', () ->
-  gulp.src './src/javascript/views'
-    .pipe gulp.dest('./public/app')
-
+gulp.task 'app-build', () ->
+  gulp.src './src/javascript/views/**/*.html'
+    .pipe htmlmin(empty: true)
+    .pipe gulp.dest('./public/app/views')
 
   return gulp.src options.app
     .pipe sourcemap.init()
@@ -145,7 +146,11 @@ gulp.task 'build-app', () ->
     .pipe sourcemap.write('.')
     .pipe gulp.dest('./public/app')
 
-
+###
+# @name develop
+# @desc task that watches for file changes on specific tasks
+# @param --app or --sass
+###
 gulp.task 'develop', () ->
   if util.env.app
     return gulp.watch [
@@ -160,3 +165,13 @@ gulp.task 'develop', () ->
     return gulp.watch [
       './src/sass/**/*.scss'
     ], ['sass-build']
+
+
+gulp.task 'default', [
+  'sass-install',
+  'sass-build',
+  'coffeelint',
+  'eslint',
+  'app-build',
+  'app-angular'
+]

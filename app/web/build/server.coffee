@@ -21,5 +21,6 @@ app.use '/css', express.static(path.join(__dirname, '/../public/css'))
 app.use router
 
 app.listen app.get('port'), ->
-  console.info "\nExpress running on <http://0.0.0.0:#{process.env.PORT || 9000}>"
+  console.info "
+    Express running on <http://0.0.0.0:#{process.env.PORT || 9000}>"
   return

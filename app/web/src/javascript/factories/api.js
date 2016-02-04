@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+  'use strict'
 
   angular
     .module('app')
@@ -11,8 +11,6 @@
   ]
 
   function ApiFactory ($scope, context) {
-    let api = this
-
   }
 
 })()
