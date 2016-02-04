@@ -1,0 +1,16 @@
+{
+  "name": "hei-workshop-slides",
+  "version": "1.0.0",
+  "description": "HEI Workshop Workshop Slides",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "toro.io dev",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "coffee-script": "^1.10.0",
+    "node-static": "^0.7.7",
+    "socket.io": "^1.4.5"
+  }
+}
