@@ -11,9 +11,10 @@ public class BlogEventListener {
 
 	private final TwitterConnector twitterConnector;
 	private final ExecutorService executorService;
-	
+	private String defaultMessagePrefix = "Created a new blog: ";
+
 	@Autowired
-	BlogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ) {
+	public BlogEventListener(TwitterConnector twitterConnector, ExecutorService executorService) {
 		this.twitterConnector = twitterConnector;
 		this.executorService = executorService;
 	}
@@ -26,13 +27,16 @@ public class BlogEventListener {
 			public void run() {
 				try {
 					twitterConnector
-							.twitterUpdateStatus("Create a New Blog: " + blogUpdatedEvent.getSource().getTitle());
+							.twitterUpdateStatus(defaultMessagePrefix + blogUpdatedEvent.getSource().getTitle());
 				} catch (Exception e) {
-					System.err.println("Unable to post tweet. Cause: " + e);
+					System.err.println("Unable to post tweet. " + e);
 				}
 
 			}
 		});
 	}
 
+	void setDefaultMessagePrefix(String message) {
+		this.defaultMessagePrefix = message;
+	}
 }
