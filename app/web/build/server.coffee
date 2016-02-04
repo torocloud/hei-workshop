@@ -8,7 +8,7 @@ app     = express()
 router  = express.Router()
 
 router
-  .route '/admin/'
+  .route '*'
   .get (req, res, next) ->
     res.sendFile 'index.html', root: path.join(__dirname, '/../public')
 

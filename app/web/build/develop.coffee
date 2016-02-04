@@ -22,9 +22,9 @@ coffeelint  = require 'gulp-coffeelint'
 
 options.angular = [
   './bower_components/angular/angular.js'
-  './bower_components/angular-route/angular-route.js'
   './bower_components/angular-cookies/angular-cookies.js'
   './bower_components/angular-resource/angular-resource.js'
+  './bower_components/angular-ui-router/release/angular-ui-router.js'
 ]
 
 
@@ -157,8 +157,8 @@ gulp.task 'develop', () ->
       './src/javascript/**/*.js'
       './src/javascript/**/*.html'
     ], [
-      'build-angular'
-      'build-app'
+      'app-angular'
+      'app-build'
     ]
 
   if util.env.sass
