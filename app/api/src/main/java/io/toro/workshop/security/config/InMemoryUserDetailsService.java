@@ -20,7 +20,6 @@ public class InMemoryUserDetailsService implements UserDetailsService {
 
         Collection<GrantedAuthority> adminAuthorities = new HashSet<>();
         adminAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        adminAuthorities.add(new SimpleGrantedAuthority("ROLE_GUEST"));
         User adminUser = new User("admin", "admin", adminAuthorities);
 
         userStore.put(adminUser.getUsername(), adminUser);

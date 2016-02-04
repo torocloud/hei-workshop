@@ -1,11 +1,12 @@
 package io.toro.workshop.security.config;
 
-import io.jsonwebtoken.Jwts;
 import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,11 +15,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.Jwts;
+
 public class JwtHeaderFilter extends OncePerRequestFilter {
 
+    private final JwtSigningKeyProvider signingKeyProvider;
     private final UserDetailsService userDetailsService;
 
-    JwtHeaderFilter(UserDetailsService userDetailsService) {
+    JwtHeaderFilter(JwtSigningKeyProvider signingKeyProvider, UserDetailsService userDetailsService) {
+        this.signingKeyProvider = signingKeyProvider;
         this.userDetailsService = userDetailsService;
     }
 
@@ -35,8 +40,8 @@ public class JwtHeaderFilter extends OncePerRequestFilter {
 
         // parse the token
         String username = Jwts.parser()
-                .setSigningKey("sup3rs3cr3t")
-                .parseClaimsJws(token)
+                .setSigningKey( signingKeyProvider.getSigningKey() )
+                .parseClaimsJws( token )
                 .getBody()
                 .getSubject();
         // resolve actual user

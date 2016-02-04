@@ -11,9 +11,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private JwtSigningKeyProvider jwtSigningKeyProvider;
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -22,14 +25,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/api/blogs", "/api/blogs/**").hasRole("GUEST")
+                .antMatchers(HttpMethod.GET, "/api/blogs", "/api/blogs/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/blogs").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/blogs/*").hasRole("ADMIN")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtHeaderFilter(userDetailsService), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JwtHeaderFilter(jwtSigningKeyProvider, userDetailsService), BasicAuthenticationFilter.class)
                 .csrf()
                 .disable();
     }
@@ -43,6 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
         return new InMemoryUserDetailsService();
+    }
+    
+    @Bean
+    JwtSigningKeyProvider jwtSigningKeyProvider(){
+        return new UuidBasedJwtSigningKeyProvider();
     }
 
 }

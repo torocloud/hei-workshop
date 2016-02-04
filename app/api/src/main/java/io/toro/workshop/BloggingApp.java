@@ -18,4 +18,5 @@ public class BloggingApp {
     BlogService blogService() {
         return new InMemoryBlogServiceImpl();
     }
+    
 }
