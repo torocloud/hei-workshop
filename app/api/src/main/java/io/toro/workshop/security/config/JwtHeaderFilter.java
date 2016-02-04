@@ -1,4 +1,4 @@
-package io.toro.workshop.config;
+package io.toro.workshop.security.config;
 
 import io.jsonwebtoken.Jwts;
 import java.io.IOException;

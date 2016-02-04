@@ -1,4 +1,4 @@
-package io.toro.workshop.config;
+package io.toro.workshop.security.config;
 
 import java.util.Collection;
 import java.util.HashSet;
