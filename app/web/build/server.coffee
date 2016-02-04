@@ -8,9 +8,15 @@ app     = express()
 router  = express.Router()
 
 router
-  .route '*'
+  .route '/'
   .get (req, res, next) ->
     res.sendFile 'index.html', root: path.join(__dirname, '/../public')
+
+router
+  .route '/*'
+  .get (req, res, next) ->
+    res.sendFile 'index.html', root: path.join(__dirname, '/../public')
+
 
 app.set 'port', process.env.PORT || 9000
 app.enable 'trust proxy', 1

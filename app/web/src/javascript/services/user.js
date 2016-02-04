@@ -8,19 +8,25 @@
   Context.$inject = ['$cookies']
 
   function Context ($cookies) {
-
-    // Current Context Setter
-    this.setCurrentUser = (userdata) => {
-      this.currentUser = userdata
+    return {
+      currentSession: null,
+      setCookies (context) {
+        for (var obj in context) {
+          $cookies.put(obj, context[obj], {path: '/'})
+        }
+      },
+      setCurrentUser (data) {
+        return (data && Object.keys(data).length > 0) ?
+          this.setCookies(data) : null
+      },
+      getCurrentUser () {
+        return (Object.keys($cookies.getAll()).length > 0) ?
+          Object.assign({}, {
+            username: $cookies.get('username'),
+            token: $cookies.get('token'),
+          }) : null
+      }
     }
-
-    // Current Context Getter
-    this.getCurrentUser = () => {
-      return this.currentUser ?
-        this.currentUser : null
-    }
-
-    return this
   }
 
 })()

@@ -3,14 +3,31 @@
 
   angular
     .module('app')
-    .directive('header', HeaderDirective)
+    .directive('appHeader', HeaderDirective)
 
-  HeaderDirective.$inject = []
+  HeaderDirective.$inject = [
+    '$rootScope'
+  ]
 
-  function HeaderDirective () {
-    let directive = {}
+  function HeaderDirective ($rootScope) {
+    let views = '/app/views/'
+    let directive = {
+      scope: {currentUser: '='},
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      templateUrl: `${views}header.html`,
+      link: (scope, element, attrs) => {
+        $rootScope.$on('$stateChangeStart', () => {
+          element.remove()
+          element.parent().empty()
+          scope.$destroy()
+        })
+      }
+    }
 
     return directive
   }
+
 
 })()
