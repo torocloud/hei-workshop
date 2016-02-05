@@ -1,18 +1,28 @@
-<div class="container">
+<div class="container-fluid m-t-3">
   <div class="row">
-    <div class="col-sm-offset-3 col-sm-6">
-      <h1 class="title">Create new blog</h1>
-      <div class="new-blog-title">
-        Title
-        <input class="form-control text-fields" ng-model="newBlog.title" type="text" placeholder="Enter blog title here" required>
+    <div class="col-xs-12">
+      <div ng-show="post.alert" class="alert alert-danger m-t-1 m-b-3">
+        <h5 class="m-b-1">Woops, Something went wrong.</h5>
       </div>
-
-      <div class="new-blog-content">
-        Content
-        <textarea class="form-control text-fields" ng-model="newBlog.content" placeholder="Enter blog content here" required></textarea>
+      <div class="blog-container m-t-1">
+        <div class="blog-header p-a-1">
+          <h1>Create new blog</h1>
+        </div>
+        <hr class="m-t-0">
+        <div class="blog-content">
+          <form name="postBlogForm" ng-submit="post.postBlog()" class="card-block p-b-3">
+            <div class="new-blog-title">
+              Title
+              <input class="form-control m-b-1 b-r-0" ng-model="post.newBlog.title" type="text" placeholder="Enter blog title here" required>
+            </div>
+            <div class="new-blog-content">
+              Content
+              <textarea id="postBlogEditor"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success-outline pull-right m-t-1"><i class="ion-document-text"></i> Post</button>
+          </form>
+        </div>
       </div>
-
-      <button class="btn btn-default pull-right" ng-click="postBlog()">Post</button>
     </div>
   </div>
 </div>
