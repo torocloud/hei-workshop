@@ -144,4 +144,4 @@ $ git clone --depth=1 --branch=master --recurse-submodules https://github.com/to
 | 2:30 pm 	| Front end development Build Tasks 	| 1. Demo (Philip and Alex) 2. Hands-on 	|
 | 3:30 pm 	| Break 	|  	|
 | 4:00 pm 	| Twitter integration and Google Sheets integration 	| 1. Demo (Connectors Team) 2. Hands-on 	|
-|  	|  	|  	|
+| 5:00 pm 	| Wrap-up	|  	|
