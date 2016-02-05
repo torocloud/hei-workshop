@@ -12,6 +12,7 @@
   })
 
   $(document).on('keydown', function (e) {
+    $('[data-key='+ e.keyCode +']').addClass('active')
     socket.emit('key down', {
       keyCode: e.keyCode,
       shiftKey: e.shiftKey,
@@ -21,7 +22,11 @@
     })
   })
 
-  $('body').on('click','.btn', function(e) {
+  $(document).on('keyup', function (e) {
+    $('[data-key='+ e.keyCode +']').removeClass('active')
+  })
+
+  $('body').on('click', function(e) {
     e.preventDefault();
       if ($(this).attr('data-key')) {
         socket.send($(this).attr('data-key'));

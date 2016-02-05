@@ -1,6 +1,13 @@
 HEI Workshop 2016
 ===
 
+Cloning this repository.
+
+```bash
+$ git clone --depth=1 --branch=master --recurse-submodules https://github.com/toro-io/hei-workshop.git
+```
+
+
 | TIME 	| TOPIC 	| ACTIVITIES 	|
 |----------	|-------------------------------------------------------------------	|---------------------------------------	|
 | 8:30 am 	| Building a RESTful service with Spring 	| 1. Demo (Jerrick Pua) 2. Hands-on 	|
