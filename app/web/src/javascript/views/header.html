@@ -1,21 +1,39 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-  <div class="container">
-    <a class="navbar-brand" ui-sref="app.default">HEI Blog</a>
+<div class="jumbotron">
+  <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+    <div class="container">
+      <a class="navbar-brand" ui-sref="app.default">HEI Blog</a>
 
-    <ul class="nav navbar-nav pull-xs-right">
-      <li class="nav-item">
-        <a ui-sref="app.profile(currentUser)" class="nav-link">
-          Welcome back, <span ng-bind="currentUser"></span>
+      <ul class="nav navbar-nav pull-xs-right">
+        <li class="nav-item">
+          <a ui-sref="app.profile(currentUser)" class="nav-link">
+            Welcome back, <span ng-bind="currentUser"></span>
+          </a>
+        </li>
+
+        <li class="nav-item" ng-if="!currentUser">
+          <a class="nav-link" ui-sref="app.login">Login</a>
+        </li>
+
+        <li class="nav-item" ng-if="currentUser">
+          <a class="nav-link"  ui-sref="app.logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container" style="padding-top: 150px;">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8">
+
+        <h1 class="display-3 text-warning">HEI Workshop 2016 Blogs</h1>
+        <p class="lead text-warning">
+          A blog app that developed by TORO.IO Devs for educational purposes.
+        </p>
+
+        <br>
+        <a class="btn btn-lg btn-warning-outline" target="_blank" href="https://github.com/TORO-IO/hei-workshop">
+          Read the Docs
         </a>
-      </li>
-
-      <li class="nav-item" ng-if="!currentUser">
-        <a class="nav-link" ui-sref="app.login">Login</a>
-      </li>
-
-      <li class="nav-item" ng-if="currentUser">
-        <a class="nav-link"  ui-sref="app.logout">Logout</a>
-      </li>
-    </ul>
+      </div>
+    </div><!-- end of .row -->
   </div>
-</nav>
+</div>

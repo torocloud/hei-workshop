@@ -2,7 +2,7 @@
   <div class="block-wrapper">
     <div class="block-wrapper-content">
 
-      <div class="container">
+      <div class="container login-container">
         <div class="row">
           <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-xl-4 col-xl-offset-4">
 
@@ -25,9 +25,12 @@
 
                 <fieldset class="form-group" ng-class="{ 'has-danger': (loginForm.username.$touched && loginForm.username.$invalid) || login.alert }">
                   <label class="sr-only">Username</label>
-                  <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" required
-                    ng-model="login.ngModel.username"
-                    ng-class="{ 'form-control-danger': (loginForm.username.$touched && loginForm.username.$invalid) || login.alert}">
+                  <div class="input-group">
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" required
+                      ng-model="login.ngModel.username"
+                      ng-class="{ 'form-control-danger': (loginForm.username.$touched && loginForm.username.$invalid) || login.alert}">
+                    <span class="input-group-addon" id="basic-addon1"><i class="ion ion-person"></i></span>
+                  </div>
                   <small class="center-block p-y-1 text-danger text-sm-right"
                     ng-messages="loginForm.username.$error"
                     ng-if="loginForm.username.$touched && loginForm.username.$invalid">
@@ -37,9 +40,12 @@
 
                 <fieldset class="form-group" ng-class="{ 'has-danger': (loginForm.password.$touched && loginForm.password.$invalid) || login.alert }">
                   <label class="sr-only">Password</label>
-                  <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required
-                    ng-model="login.ngModel.password"
-                    ng-class="{ 'form-control-danger': (loginForm.password.$touched && loginForm.password.$invalid) || login.alert }">
+                  <div class="input-group">
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required
+                      ng-model="login.ngModel.password"
+                      ng-class="{ 'form-control-danger': (loginForm.password.$touched && loginForm.password.$invalid) || login.alert }">
+                    <span class="input-group-addon" id="basic-addon1" style="padding-bottom: 9px; padding-top: 10px;"><i class="ion ion-android-lock"></i></span>
+                  </div>
                   <small class="center-block p-y-1 text-danger text-sm-right"
                     ng-messages="loginForm.password.$error"
                     ng-if="loginForm.password.$touched && loginForm.password.$invalid">

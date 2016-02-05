@@ -42,7 +42,7 @@
         views: {
           '@': {
             template: `
-              <header ui-view="header" style="padding-top:75px;"></header>
+              <header ui-view="header" style="padding-top: 45px;"></header>
               <div ui-view="content" role="main"></div>
               <footer ui-view="footer"></footer>
             `
