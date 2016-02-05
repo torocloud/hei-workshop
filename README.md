@@ -71,38 +71,29 @@ If you're a `*nix`, you probably know this already or have a better method in
 doing it (please create a PR!).
 
 ```bash
-## Install JDK 8
+## Prepare repositories
 $ sudo add-apt-repository ppa:webupd8team/java
-$ sudo apt-get update
-$ sudo apt-get install oracle-java8-installer
-
-# Verify Installation
-$ java -version
-
-# Configure Java Env
-# In Webupd8 ppa repository also providing a package to
-# set environment $ variables, Install this package using
-# following command.
-$ sudo apt-get install oracle-java8-set-default
-
-## Install Git
-# Update Aptitude
-$ sudo apt-get update && apt-get dist-upgrade
-
-# Install Git latest version
 $ sudo add-apt-repository ppa:git-core/ppa
-$ sudo apt-get update && apt-get install git
-
-# Setup for Ubuntu info from:
-# https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
 $ curl -sL https://deb.nodesource.com/setup | sudo bash -
 $ sudo apt-get update
+
+## Install JDK 8
+$ sudo apt-get install oracle-java8-installer
+
+# Verify installation
+$ java -version
+
+## Install Git
+$ sudo apt-get install git
+
+## Install nodejs
+# Setup for Ubuntu info from https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
 $ sudo apt-get install nodejs
 
 # Install Packages
 npm install -g npm bower
 
-# Cleanup package cache
+# Cleanup package cache (optional)
 $ sudo apt-get clean
 ```
 
