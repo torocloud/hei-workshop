@@ -12,8 +12,6 @@
   ]
 
   function AppConfig ($stateProvider, $locationProvider, $urlRouterProvider) {
-    let views    = '/app/views/'
-
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -42,8 +40,8 @@
         views: {
           '@': {
             template: `
-              <header ui-view="header" style="padding-top:75px;"></header>
-              <div ui-view="content" role="main"></div>
+              <header ui-view="header"></header>
+              <div ui-view="content" role="main" style="margin-bottom: 20px; min-height: 96%;"></div>
               <footer ui-view="footer"></footer>
             `
           }
@@ -55,10 +53,14 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
           'content@app': {
-            templateUrl: `${views}blogs.html`,
-            controller: 'BlogsCtrl as blogs'
+            template: '<app-blogs/>',
+          },
+          'footer@app': {
+            template: '<app-footer/>'
           }
         }
       })
@@ -68,7 +70,9 @@
         cache: false,
         data: {private: false},
         views: {
-          'content@app': {template: '<user-login ng-model="auth.user"/>'}
+          'content@app': {
+            template: '<user-login ng-model="auth.user"/>'
+          }
         }
       })
 
@@ -105,8 +109,46 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {template: '{{ auth.currentUser.username }}'}
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '{{ auth.currentUser.username }}'
+          }
+        }
+      })
+
+      .state('app.post', {
+        url: 'post',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-post-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
+        }
+      })
+
+      .state('app.view', {
+        url: 'view/:id',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-get-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
         }
       })
 

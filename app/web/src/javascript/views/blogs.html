@@ -1,3 +1,19 @@
+<div class="jumbotron banner">
+  <div class="container" style="padding-top: 150px;">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8">
+        <h1 class="display-3 text-warning">HEI Workshop 2016 Blogs</h1>
+        <p class="lead text-warning">
+          A blog app that developed by TORO.IO Devs for educational purposes.
+        </p>
+        <br>
+        <a class="btn btn-lg btn-warning-outline" target="_blank" href="https://github.com/TORO-IO/hei-workshop">
+          Read the Docs
+        </a>
+      </div>
+    </div><!-- end of .row -->
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
@@ -16,11 +32,24 @@
         <a href="/view/{{ blog.id }}" >View blog post</a>
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="blog-container">
-        <p class="title">About</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="col-sm-3" ng-if="blogs.data.length > 0">
+      <div class="blog-container m-b-2">
+        <div class="blog-header p-a-1">
+         <h3>Blog Archive</h3>
+       </div>
+       <div class="blog-content blog-list">
+         <ul class="list-group">
+           <a href="/view/{{ blog.id }}" class="list-group-item" ng-repeat="blog in blogs.data">
+            <p>{{ blog.title }}</p>
+          </a>
+          </ul>
+       </div>
       </div>
+    </div>
+  </div>
+  <div class="row" ng-if="blogs.data.length <= 0">
+    <div class="col-sm-12">
+      <h3>No blogs posted at the moment</h3>
     </div>
   </div>
 </div>
