@@ -84,16 +84,16 @@ body.blur:after {
 .reveal h6 {
   font-family: "Montserrat", Impact, sans-serif;
   font-weight: 700;
-  line-height: 0.9em;
+  line-height: 1.2em;
   letter-spacing: -0.03em;
   text-transform: none;
-  text-shadow: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .55);
 }
 
 .toro-io {
   position: fixed;
-  bottom: -10px;
-  left: 10px;
+  bottom: 5px;
+  left: 5px;
   z-index: 1000;
   width: 200px;
   height: auto;
@@ -115,4 +115,11 @@ body.blur:after {
 
 .reveal.overview section {
   background-color: #000;
+}
+
+.clearfix {
+  content: " ";
+  clear: both;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
