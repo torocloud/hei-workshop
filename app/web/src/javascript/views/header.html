@@ -2,20 +2,27 @@
   <div class="container">
     <a class="navbar-brand" ui-sref="app.default">HEI Blog</a>
 
-    <ul class="nav navbar-nav pull-xs-right">
+    <ul class="nav navbar-nav pull-xs-right" ng-if="!currentUser">
+      <li class="nav-item">
+        <a class="nav-link" ui-sref="app.login">Login</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav pull-xs-right" ng-if="currentUser">
       <li class="nav-item">
         <a ui-sref="app.profile(currentUser)" class="nav-link">
           Welcome back, <span ng-bind="currentUser"></span>
         </a>
       </li>
 
-      <li class="nav-item" ng-if="!currentUser">
-        <a class="nav-link" ui-sref="app.login">Login</a>
+      <li class="nav-item">
+        <a class="nav-link"  ui-sref="app.post">Post</a>
       </li>
 
-      <li class="nav-item" ng-if="currentUser">
+      <li class="nav-item">
         <a class="nav-link"  ui-sref="app.logout">Logout</a>
       </li>
     </ul>
+
   </div>
 </nav>

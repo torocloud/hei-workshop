@@ -17,10 +17,9 @@
 
     auth.currentUser = userContext.getCurrentUser()
 
-    $rootScope.$on('$stateChangeSuccess', () => {
-      (userContext.getCurrentUser() == null &&
-        $state.current.data.private) &&
-        $state.go('app.default', {reload: true})
+    // notifies the AuthController to update `currentUser` on login/logout
+    $rootScope.$on('auth::setUser', () => {
+      auth.currentUser = userContext.getCurrentUser()
     })
   }
 
