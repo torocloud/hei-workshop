@@ -2,9 +2,12 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="blog-container">
-        <h3 class="blog-title">{{ blog.title }}</h3>
-        <p class="blog-content">{{ blog.content }}</p>
-        <button ng-click="deleteBlog()" class="btn btn-default">Delete blog</button>
+        <div ng-show="view.alert" class="alert alert-danger m-t-3 m-b-3">
+          <h5 class="m-b-1">Woops, Something went wrong.</h5>
+        </div>
+        <h3 class="blog-title">{{ view.blog.title }}</h3>
+        <p class="blog-content">{{ view.blog.content }}</p>
+        <button ng-click="view.deleteBlog()" class="btn btn-default">Delete blog</button>
       </div>
     </div>
   </div>

@@ -49,13 +49,17 @@
           }
         }
       })
+
       .state('app.default', {
         url: '',
         cache: false,
         data: {private: false},
         views: {
           'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {templateUrl: `${views}index.html`}
+          'content@app': {
+            templateUrl: `${views}blogs.html`,
+            controller: 'BlogsCtrl as blogs'
+          }
         }
       })
 
@@ -69,22 +73,25 @@
       })
 
       .state('app.logout', {
-        url: 'logout/',
+        url: 'logout',
         cache: false,
         data: {private: false},
         views: {
           'content@app': {
             template: '',
             controller: [
+              '$rootScope',
               '$cookies',
               '$state',
               '$timeout',
               'context',
-              ($cookies, $state, $timeout, userContext) => {
+              ($rootScope, $cookies, $state, $timeout, userContext) => {
                 $cookies.remove('username', {path: '/'})
                 $cookies.remove('sessionId', {path: '/'})
+                $cookies.remove('token', {path: '/'})
                 $cookies.remove('loginSucceeded', {path: '/'})
                 userContext.setCurrentUser(null)
+                $rootScope.$emit('auth::setUser')
                 $timeout(() => {
                   $state.go('app.login', {reload: true})
                 }, 1000, true)
@@ -100,6 +107,58 @@
         views: {
           'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
           'content@app': {template: '{{ auth.currentUser.username }}'}
+        }
+      })
+
+      .state('app.post', {
+        url: 'post',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'content@app': {
+            templateUrl: `${views}post-blog.html`,
+            controller: 'PostBlog as post'
+          }
+        }
+      })
+
+      .state('app.view', {
+        url: 'view/:id',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'content@app': {
+            templateUrl: `${views}blog.html`,
+            controller: 'GetBlog as view'
+          }
+        }
+      })
+
+      .state('app.unauthorized', {
+        url: 'unauthorized',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'content@app': {
+            templateUrl: `${views}unauthorized.html`,
+            controller: [
+              '$rootScope',
+              '$cookies',
+              '$state',
+              '$timeout',
+              'context',
+              ($rootScope, $cookies, $state, $timeout, userContext) => {
+                $cookies.remove('username', {path: '/'})
+                $cookies.remove('sessionId', {path: '/'})
+                $cookies.remove('token', {path: '/'})
+                $cookies.remove('loginSucceeded', {path: '/'})
+                userContext.setCurrentUser(null)
+                $rootScope.$emit('auth::setUser')
+            }]
+          }
         }
       })
   }
