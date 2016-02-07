@@ -1,18 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
+      <div ng-show="post.alert" class="alert alert-danger m-t-3 m-b-3">
+        <h5 class="m-b-1">Woops, Something went wrong.</h5>
+      </div>
       <h1 class="title">Create new blog</h1>
-      <div class="new-blog-title">
-        Title
-        <input class="form-control text-fields" ng-model="newBlog.title" type="text" placeholder="Enter blog title here" required>
-      </div>
+      <form name="postBlogForm" ng-submit="post.postBlog()" class="card-block p-t-3">
 
-      <div class="new-blog-content">
-        Content
-        <textarea class="form-control text-fields" ng-model="newBlog.content" placeholder="Enter blog content here" required></textarea>
-      </div>
+        <div class="new-blog-title">
+          Title
+          <input class="form-control text-fields" ng-model="post.newBlog.title" type="text" placeholder="Enter blog title here" required>
+        </div>
+        <div class="new-blog-content">
+          Content
+          <textarea class="form-control text-fields" ng-model="post.newBlog.content" placeholder="Enter blog content here" required></textarea>
+        </div>
 
-      <button class="btn btn-default pull-right" ng-click="postBlog()">Post</button>
+        <button type="submit" class="btn btn-default pull-right">Post</button>
+
+      </form>
     </div>
   </div>
 </div>

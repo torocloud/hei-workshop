@@ -7,10 +7,13 @@
   <br>
   <div class="row">
     <div class="col-sm-9">
-      <div class="blog-container" ng-repeat="blog in blogs">
+      <div ng-show="blogs.alert" class="alert alert-danger m-t-3 m-b-3">
+        <h5 class="m-b-1">Woops, Something went wrong.</h5>
+      </div>
+      <div class="blog-container" ng-repeat="blog in blogs.data">
         <h3 class="blog-title">{{ blog.title }}</h3>
         <p class="blog-content">{{ blog.content }}</p>
-        <a href="/blog/{{ blog.id }}" >View blog post</a>
+        <a href="/view/{{ blog.id }}" >View blog post</a>
       </div>
     </div>
     <div class="col-sm-3">
