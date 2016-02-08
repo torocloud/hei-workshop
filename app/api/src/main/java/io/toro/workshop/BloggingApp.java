@@ -23,19 +23,5 @@ public class BloggingApp {
     BlogService blogService() {
         return new InMemoryBlogServiceImpl();
     }
-    
-    @Bean
-    BlogEventListener blogEventListener(){
-        return new BlogEventListener();
-    }
-   
-    @Bean
-    TwitterConnector twitterConnector(){
-        return new TwitterConnector();
-    }
-    
-    @Bean
-    ExecutorService executorService(){
-    	return Executors.newCachedThreadPool();
-    }
+
 }
