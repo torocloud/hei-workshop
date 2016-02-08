@@ -12,8 +12,6 @@
   ]
 
   function AppConfig ($stateProvider, $locationProvider, $urlRouterProvider) {
-    let views    = '/app/views/'
-
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -55,10 +53,11 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
           'content@app': {
-            templateUrl: `${views}blogs.html`,
-            controller: 'BlogsCtrl as blogs'
+            template: '<app-blogs/>',
           }
         }
       })
@@ -68,7 +67,9 @@
         cache: false,
         data: {private: false},
         views: {
-          'content@app': {template: '<user-login ng-model="auth.user"/>'}
+          'content@app': {
+            template: '<user-login ng-model="auth.user"/>'
+          }
         }
       })
 
@@ -105,8 +106,12 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {template: '{{ auth.currentUser.username }}'}
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '{{ auth.currentUser.username }}'
+          }
         }
       })
 
@@ -115,10 +120,11 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
           'content@app': {
-            templateUrl: `${views}post-blog.html`,
-            controller: 'PostBlog as post'
+            template: '<app-post-blog/>'
           }
         }
       })
@@ -128,36 +134,11 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
           'content@app': {
-            templateUrl: `${views}blog.html`,
-            controller: 'GetBlog as view'
-          }
-        }
-      })
-
-      .state('app.unauthorized', {
-        url: 'unauthorized',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {
-            templateUrl: `${views}unauthorized.html`,
-            controller: [
-              '$rootScope',
-              '$cookies',
-              '$state',
-              '$timeout',
-              'context',
-              ($rootScope, $cookies, $state, $timeout, userContext) => {
-                $cookies.remove('username', {path: '/'})
-                $cookies.remove('sessionId', {path: '/'})
-                $cookies.remove('token', {path: '/'})
-                $cookies.remove('loginSucceeded', {path: '/'})
-                userContext.setCurrentUser(null)
-                $rootScope.$emit('auth::setUser')
-            }]
+            template: '<app-get-blog/>'
           }
         }
       })

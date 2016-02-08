@@ -18,7 +18,8 @@
     let user = userContext.getCurrentUser()
     let headers = {
       'Content-Type': 'application/json',
-      'Authorization': (user && user.token) ? `Bearer ${user.token}` : undefined
+      'Authorization': (user && user.token) ?
+        `Bearer ${user.token}` : undefined
     }
 
     this.login = (credentials) =>
@@ -45,9 +46,14 @@
     }
 
     function handleError(error) {
-      switch (response.status) {
+      switch (error.status) {
         case 401:
-          return $state.go('unauthorized')
+          $state.go('app.login')
+          return $q.reject(error)
+          break
+        case -1:
+          $state.go('app.login')
+          return $q.reject(error)
           break
         default:
           return $q.reject(error)
@@ -57,7 +63,8 @@
     // notifies ApiFactory to update `user` and `Authorization` on login/logout
     $rootScope.$on('auth::setUser', () => {
       user = userContext.getCurrentUser()
-      headers.Authorization = user.token ? `Bearer ${user.token}` : undefined
+      headers.Authorization = (user && user.token) ?
+        `Bearer ${user.token}` : undefined
     })
 
     return this

@@ -70,6 +70,7 @@ html, body {
 }
 body {
   position: relative;
+  padding-top: $spacer * 2;
   z-index: 1;
 }
 .btn-default {
@@ -85,7 +86,6 @@ body {
 }
 
 header {
-  margin-bottom: $spacer * 2;
   width: 100%;
 
   .navbar {
@@ -151,11 +151,15 @@ header {
 }
 
 .login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 100vh;
   background-image: url('http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/demo/architecture.jpg');
 
   .card {
-    margin: 100px auto;
+    margin: 50px auto;
     width: 400px;
     background-color: rgba(38, 34, 48, 0.64);
     border: 1px solid #F0AD4D;
