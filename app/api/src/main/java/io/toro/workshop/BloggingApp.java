@@ -8,8 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import io.toro.workshop.blog.BlogService;
-import io.toro.workshop.blog.InMemoryBlogServiceImpl;
+import io.toro.workshop.blog.GoogleSheetsBlogService;
 import io.toro.workshop.blog.event.BlogEventListener;
+import io.toro.workshop.connectors.GoogleSheetsConnector;
 import io.toro.workshop.connectors.TwitterConnector;
 
 @SpringBootApplication
@@ -21,7 +22,7 @@ public class BloggingApp {
 
 	@Bean
 	BlogService blogService() {
-		return new InMemoryBlogServiceImpl();
+		return new GoogleSheetsBlogService( new GoogleSheetsConnector() );
 	}
 
 	@Bean
@@ -32,6 +33,11 @@ public class BloggingApp {
 	@Bean
 	TwitterConnector twitterConnector() {
 		return new TwitterConnector();
+	}
+
+	@Bean
+	GoogleSheetsConnector googleSheetsConnector() {
+		return new GoogleSheetsConnector();
 	}
 
 	@Bean
