@@ -5,15 +5,19 @@ import java.util.concurrent.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 
-import io.toro.workshop.connectors.twitter.TwitterConnector;
+import io.toro.workshop.connectors.TwitterConnector;
 
 public class BlogEventListener {
 
-	@Autowired
-	TwitterConnector twitterConnector;
+	private final TwitterConnector twitterConnector;
+	private final ExecutorService executorService;
+	private String defaultMessagePrefix = "Created a new blog: ";
 
 	@Autowired
-	ExecutorService executorService;
+	public BlogEventListener(TwitterConnector twitterConnector, ExecutorService executorService) {
+		this.twitterConnector = twitterConnector;
+		this.executorService = executorService;
+	}
 
 	@EventListener
 	public void postToTwitterOnBlogUpdate(final BlogUpdatedEvent blogUpdatedEvent) {
@@ -22,14 +26,17 @@ public class BlogEventListener {
 			@Override
 			public void run() {
 				try {
-					twitterConnector.twitterUpdateStatus(
-							"Create a New Blog: " + blogUpdatedEvent.getSource().getTitle());
+					twitterConnector
+							.twitterUpdateStatus(defaultMessagePrefix + blogUpdatedEvent.getSource().getTitle());
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.err.println("Unable to post tweet. " + e);
 				}
 
 			}
 		});
 	}
 
+	void setDefaultMessagePrefix(String message) {
+		this.defaultMessagePrefix = message;
+	}
 }

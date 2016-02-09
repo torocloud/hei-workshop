@@ -8,20 +8,40 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import io.toro.workshop.blog.BlogService;
-import io.toro.workshop.blog.InMemoryBlogServiceImpl;
+import io.toro.workshop.blog.GoogleSheetsBlogService;
 import io.toro.workshop.blog.event.BlogEventListener;
-import io.toro.workshop.connectors.twitter.TwitterConnector;
+import io.toro.workshop.connectors.GoogleSheetsConnector;
+import io.toro.workshop.connectors.TwitterConnector;
 
 @SpringBootApplication
 public class BloggingApp {
 
-    public static void main( String[] args ) {
-        SpringApplication.run(BloggingApp.class, args );
+	public static void main(String[] args) {
+		SpringApplication.run(BloggingApp.class, args);
+	}
+
+	@Bean
+	BlogService blogService() {
+		return new GoogleSheetsBlogService( new GoogleSheetsConnector() );
+	}
+
+	@Bean
+    BlogEventListener blogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ){
+        return new BlogEventListener( twitterConnector , executorService );
     }
 
-    @Bean
-    BlogService blogService() {
-        return new InMemoryBlogServiceImpl();
-    }
+	@Bean
+	TwitterConnector twitterConnector() {
+		return new TwitterConnector();
+	}
 
+	@Bean
+	GoogleSheetsConnector googleSheetsConnector() {
+		return new GoogleSheetsConnector();
+	}
+
+	@Bean
+	ExecutorService executorService() {
+		return Executors.newCachedThreadPool();
+	}
 }
