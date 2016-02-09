@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.toro.workshop.connectors.GoogleSheetsConnector;
+import io.toro.workshop.exception.ResourceNotFoundException;
 
 /**
  * Uses GoogleSheets as a data store for blogs
@@ -33,18 +34,18 @@ public class GoogleSheetsBlogService implements BlogService {
 
 	@Override
 	public Blog findBlog(Long id) {
-		Blog blog = null;
+		Blog blog = new Blog();
 		try {
 			blog = googleSheetsConnector.getRowByID(googleSheetsConnector.findIndex(id));
 		} catch (Exception e) {
-			System.err.println("Oopps! Somethings wrong! " + e.getMessage().toString());
+			throw new ResourceNotFoundException( "Blog not Found!\nMake sure id is correct!" );
 		}
 		return blog;
 	}
 
 	@Override
 	public Blog saveBlog(Blog blog) {
-		Blog savedBlog = null;
+		Blog savedBlog = blog;
 		try {
 			googleSheetsConnector.addListRow( blog.getId(), blog.getTitle(), blog.getContent() );
 			savedBlog = googleSheetsConnector.getRowByID(googleSheetsConnector.findIndex(blog.getId()));
@@ -58,8 +59,8 @@ public class GoogleSheetsBlogService implements BlogService {
 	public void deleteBlogById(Long id) {
 		try {
 			googleSheetsConnector.deleteRow( googleSheetsConnector.findIndex(id) );
-		} catch (Exception e) {
-			System.err.println("Oopps! Somethings wrong! " + e.getMessage().toString());
+		} catch ( Exception e) {
+			throw new ResourceNotFoundException( "Blog not Found!\nMake sure id is correct!" );
 		}
 	}
 
