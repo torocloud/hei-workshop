@@ -11,7 +11,7 @@ public class BlogEventListener {
 
 	private final TwitterConnector twitterConnector;
 	private final ExecutorService executorService;
-	private String defaultMessagePrefix = "Created a new blog: ";
+	private String defaultMessagePrefix = "Created a new blog, titled: ";
 
 	@Autowired
 	public BlogEventListener(TwitterConnector twitterConnector, ExecutorService executorService) {
