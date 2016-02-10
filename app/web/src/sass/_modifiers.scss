@@ -72,6 +72,7 @@ body {
   position: relative;
   padding-top: $spacer * 2;
   z-index: 1;
+  background: -webkit-linear-gradient(45deg, rgba(198,198,198,1) 0%,rgba(224,224,224,1) 56%,rgba(255,255,255,1) 80%);
 }
 .btn-default {
   background-color: $header-bg;
@@ -196,24 +197,6 @@ header {
       a {
         color: $header-color;
       }
-    }
-  }
-}
-
-.unauthorized {
-  height: 80vh;
-  display: table;
-
-  div {
-    display: table-cell;
-    vertical-align: middle;
-
-    i {
-      font-size: 200px;
-      color: #FB3B3B;
-    }
-    .title {
-      font-size: 36px;
     }
   }
 }

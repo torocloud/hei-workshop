@@ -41,7 +41,7 @@
           '@': {
             template: `
               <header ui-view="header"></header>
-              <div ui-view="content" role="main"></div>
+              <div ui-view="content" role="main" style="min-height: 96%;"></div>
               <footer ui-view="footer"></footer>
             `
           }
@@ -58,6 +58,9 @@
           },
           'content@app': {
             template: '<app-blogs/>',
+          },
+          'footer@app': {
+            template: '<app-footer/>'
           }
         }
       })
@@ -125,6 +128,9 @@
           },
           'content@app': {
             template: '<app-post-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
           }
         }
       })
@@ -139,6 +145,9 @@
           },
           'content@app': {
             template: '<app-get-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
           }
         }
       })

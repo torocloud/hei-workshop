@@ -36,6 +36,7 @@ options.app = [
   './src/javascript/directives/post-blog.js'
   './src/javascript/directives/get-blog.js'
   './src/javascript/directives/header.js'
+  './src/javascript/directives/footer.js'
   './src/javascript/directives/login.js'
   './src/javascript/factories/api.js'
   './src/javascript/services/user.js'
