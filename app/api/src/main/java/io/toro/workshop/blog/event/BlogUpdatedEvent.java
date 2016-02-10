@@ -9,13 +9,13 @@ import org.springframework.context.ApplicationEvent;
  */
 public class BlogUpdatedEvent extends ApplicationEvent {
 
-    public BlogUpdatedEvent(Blog source) {
-        super(source);
+    public BlogUpdatedEvent( Blog source ) {
+        super( source );
     }
 
     @Override
     public Blog getSource() {
-        return (Blog) super.getSource();
+        return ( Blog ) super.getSource();
     }
 
 }

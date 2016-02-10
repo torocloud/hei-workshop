@@ -44,7 +44,7 @@ public class BlogApiController {
     @RequestMapping( method = RequestMethod.POST )
     ResponseEntity<Blog> saveBlog( @RequestBody Blog blog ) {
         blog = blogService.saveBlog( blog );
-        eventPublisher.publishEvent(new BlogUpdatedEvent(blog));
+        eventPublisher.publishEvent( new BlogUpdatedEvent( blog ) );
 
         return ResponseEntity.ok( blog );
     }

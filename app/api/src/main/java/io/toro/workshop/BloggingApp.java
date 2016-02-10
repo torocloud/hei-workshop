@@ -16,32 +16,32 @@ import io.toro.workshop.connectors.TwitterConnector;
 @SpringBootApplication
 public class BloggingApp {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BloggingApp.class, args);
-	}
-
-	@Bean
-	BlogService blogService() {
-		return new GoogleSheetsBlogService( new GoogleSheetsConnector() );
-	}
-
-	@Bean
-    BlogEventListener blogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ){
-        return new BlogEventListener( twitterConnector , executorService );
+    public static void main( String[] args ) {
+        SpringApplication.run( BloggingApp.class, args );
     }
 
-	@Bean
-	TwitterConnector twitterConnector() {
-		return new TwitterConnector();
-	}
+    @Bean
+    BlogService blogService() {
+        return new GoogleSheetsBlogService( new GoogleSheetsConnector() );
+    }
 
-	@Bean
-	GoogleSheetsConnector googleSheetsConnector() {
-		return new GoogleSheetsConnector();
-	}
+    @Bean
+    BlogEventListener blogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ) {
+        return new BlogEventListener( twitterConnector, executorService );
+    }
 
-	@Bean
-	ExecutorService executorService() {
-		return Executors.newCachedThreadPool();
-	}
+    @Bean
+    TwitterConnector twitterConnector() {
+        return new TwitterConnector();
+    }
+
+    @Bean
+    GoogleSheetsConnector googleSheetsConnector() {
+        return new GoogleSheetsConnector();
+    }
+
+    @Bean
+    ExecutorService executorService() {
+        return Executors.newCachedThreadPool();
+    }
 }
