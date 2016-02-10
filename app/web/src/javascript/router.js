@@ -12,8 +12,6 @@
   ]
 
   function AppConfig ($stateProvider, $locationProvider, $urlRouterProvider) {
-    let views    = '/app/views/'
-
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -42,20 +40,28 @@
         views: {
           '@': {
             template: `
-              <header ui-view="header" style="padding-top:75px;"></header>
-              <div ui-view="content" role="main"></div>
+              <header ui-view="header"></header>
+              <div ui-view="content" role="main" style="min-height: 96%;"></div>
               <footer ui-view="footer"></footer>
             `
           }
         }
       })
+
       .state('app.default', {
         url: '',
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {templateUrl: `${views}index.html`}
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-blogs/>',
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
         }
       })
 
@@ -64,27 +70,32 @@
         cache: false,
         data: {private: false},
         views: {
-          'content@app': {template: '<user-login ng-model="auth.user"/>'}
+          'content@app': {
+            template: '<user-login ng-model="auth.user"/>'
+          }
         }
       })
 
       .state('app.logout', {
-        url: 'logout/',
+        url: 'logout',
         cache: false,
         data: {private: false},
         views: {
           'content@app': {
             template: '',
             controller: [
+              '$rootScope',
               '$cookies',
               '$state',
               '$timeout',
               'context',
-              ($cookies, $state, $timeout, userContext) => {
+              ($rootScope, $cookies, $state, $timeout, userContext) => {
                 $cookies.remove('username', {path: '/'})
                 $cookies.remove('sessionId', {path: '/'})
+                $cookies.remove('token', {path: '/'})
                 $cookies.remove('loginSucceeded', {path: '/'})
                 userContext.setCurrentUser(null)
+                $rootScope.$emit('auth::setUser')
                 $timeout(() => {
                   $state.go('app.login', {reload: true})
                 }, 1000, true)
@@ -98,8 +109,46 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {template: '{{ auth.currentUser.username }}'}
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '{{ auth.currentUser.username }}'
+          }
+        }
+      })
+
+      .state('app.post', {
+        url: 'post',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-post-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
+        }
+      })
+
+      .state('app.view', {
+        url: 'view/:id',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-get-blog/>'
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
         }
       })
   }
