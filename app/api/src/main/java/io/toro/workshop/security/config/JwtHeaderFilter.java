@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,13 +38,17 @@ public class JwtHeaderFilter extends OncePerRequestFilter {
         }
 
         String token = header.substring( 7 );
-
-        // parse the token
-        String username = Jwts.parser()
-                .setSigningKey( signingKeyProvider.getSigningKey() )
-                .parseClaimsJws( token )
-                .getBody()
-                .getSubject();
+        String username;
+        try {
+            // parse the token
+            username = Jwts.parser()
+                    .setSigningKey( signingKeyProvider.getSigningKey() )
+                    .parseClaimsJws( token )
+                    .getBody()
+                    .getSubject();
+        } catch ( Exception ex ) {
+            throw new BadCredentialsException( "Invalid token: " + token );
+        }
         // resolve actual user
         UserDetails userDetails = userDetailsService.loadUserByUsername( username );
 

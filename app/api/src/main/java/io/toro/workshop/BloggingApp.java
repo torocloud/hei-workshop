@@ -22,12 +22,12 @@ public class BloggingApp {
 
     @Bean
     BlogService blogService() {
-        return new GoogleSheetsBlogService( new GoogleSheetsConnector() );
+        return new GoogleSheetsBlogService( googleSheetsConnector() );
     }
 
     @Bean
-    BlogEventListener blogEventListener( TwitterConnector twitterConnector, ExecutorService executorService ) {
-        return new BlogEventListener( twitterConnector, executorService );
+    BlogEventListener blogEventListener() {
+        return new BlogEventListener( twitterConnector(), executorService() );
     }
 
     @Bean

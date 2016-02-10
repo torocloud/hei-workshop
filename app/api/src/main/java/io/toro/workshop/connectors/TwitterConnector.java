@@ -1,64 +1,43 @@
 package io.toro.workshop.connectors;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import io.toro.workshop.security.properties.ConnectorProperties;
+
 import twitter4j.Status;
-import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-/**
- * Twitter Consumer for HEI Workshop<br/>
- * through the use of Twitter4j Java SDK<br/><br/>
- *
- * See SDK Resources
- * <a href="http://twitter4j.org/en/api-support.html">Here</a><br/>
- *
- * See Twitter Public API
- * <a href= "https://dev.twitter.com/rest/public">Here<a/><br/>
- *
- * @author ericdaluz
- * @author Yusuke Yamamoto - Twitter4j SDK
- */
-public class TwitterConnector {
+public class TwitterConnector implements InitializingBean {
 
-    private static TwitterFactory tf = new TwitterFactory( authorizeTwitter().build() );
+    private ConnectorProperties.Twitter twitterProperties;
+    private TwitterFactory twitterFactory;
 
-    /**
-     * Handles Twitter Authorization Process<br/>
-     * Authorize Twitter Connector using ConfigurationBuilder
-     *
-     * @param alias the name of the credentials on the property file
-     * @return returns the built configuration
-     */
-    private static ConfigurationBuilder authorizeTwitter() {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled( true )
-                .setOAuthConsumerKey( "RPkKrwvvG6KszMTG4ISkETygH" )
-                .setOAuthConsumerSecret( "P7dKtHUExfP57Kdj7usCB3zMuYwiHxMuCQWEVjkBdl9KmHT5KH" )
-                .setOAuthAccessToken( "3142269147-KmeWih2olwDo38c5vZq8u8lYs7PfcYk2Kh5v1gj" )
-                .setOAuthAccessTokenSecret( "71yFEdwBlFC3vsgjMGBwh5hzHtRW166i5G6dctss4SHf5" );
-        return cb;
+    @Autowired
+    public void setTwitterProperties( ConnectorProperties properties ) {
+        this.twitterProperties = properties.getTwitter();
     }
 
     /**
-     * Handles initialization of the Twitter instance<br/>
-     * <a href="http://twitter4j.org/javadoc/twitter4j/api/TimelinesResources.html#getHomeTimeline()">See Here</a>
+     * Initialize {@link #twitterFactory} after {@link #twitterProperties} is set.
      *
-     * @param alias the name of the credentials on the property file
-     * @return returns the twitter instance
+     * @throws Exception
      */
-    private static Twitter initHandler() {
-        Twitter twitter = tf.getInstance();
-        return twitter;
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Configuration config = new ConfigurationBuilder()
+                .setOAuthConsumerKey( twitterProperties.getConsumerKey() )
+                .setOAuthConsumerSecret( twitterProperties.getConsumerSecret() )
+                .setOAuthAccessToken( twitterProperties.getAccessToken() )
+                .setOAuthAccessTokenSecret( twitterProperties.getAccessTokenSecret() )
+                .build();
+        twitterFactory = new TwitterFactory( config );
     }
 
-    /**
-     * Post an update or tweet into Twitter<br/>
-     *
-     * @param alias the name of the credentials on the property file
-     * @param message the tweet or status update
-     * @return returns information about the status
-     */
-    public static Status twitterUpdateStatus( String message ) throws Exception {
-        return initHandler().updateStatus( message );
+    public Status tweet( String message ) throws TwitterException {
+        return twitterFactory.getInstance().updateStatus( message );
     }
 }
