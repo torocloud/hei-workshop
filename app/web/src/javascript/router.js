@@ -41,7 +41,8 @@
           '@': {
             template: `
               <header ui-view="header"></header>
-              <div ui-view="content" role="main" style="margin-bottom: 20px; min-height: 96%;"></div>
+              <div ui-view="content" role="main"
+                style="margin-bottom: 20px; min-height: 96%;"></div>
               <footer ui-view="footer"></footer>
             `
           }
@@ -148,58 +149,6 @@
           },
           'footer@app': {
             template: '<app-footer/>'
-          }
-        }
-      })
-
-      .state('app.post', {
-        url: 'post',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {
-            templateUrl: `${views}post-blog.html`,
-            controller: 'PostBlog as post'
-          }
-        }
-      })
-
-      .state('app.view', {
-        url: 'view/:id',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {
-            templateUrl: `${views}blog.html`,
-            controller: 'GetBlog as view'
-          }
-        }
-      })
-
-      .state('app.unauthorized', {
-        url: 'unauthorized',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
-          'content@app': {
-            templateUrl: `${views}unauthorized.html`,
-            controller: [
-              '$rootScope',
-              '$cookies',
-              '$state',
-              '$timeout',
-              'context',
-              ($rootScope, $cookies, $state, $timeout, userContext) => {
-                $cookies.remove('username', {path: '/'})
-                $cookies.remove('sessionId', {path: '/'})
-                $cookies.remove('token', {path: '/'})
-                $cookies.remove('loginSucceeded', {path: '/'})
-                userContext.setCurrentUser(null)
-                $rootScope.$emit('auth::setUser')
-            }]
           }
         }
       })
