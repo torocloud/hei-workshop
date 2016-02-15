@@ -42,7 +42,7 @@
             template: `
               <header ui-view="header"></header>
               <div ui-view="content" role="main"
-                style="margin-bottom: 20px; min-height: 96%;"></div>
+                style="min-height: 100%;"></div>
               <footer ui-view="footer"></footer>
             `
           }

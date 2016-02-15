@@ -27,14 +27,18 @@
         <div ng-show="blogs.alert" class="alert alert-danger m-t-3 m-b-3">
           <h5 class="m-b-1">Woops, Something went wrong.</h5>
         </div>
-        <div class="blog-container" ng-repeat="blog in blogs.data">
-          <h3 class="blog-title">{{ blog.title }}</h3>
-          <p class="blog-content">{{ blog.content }}</p>
-          <a href="/view/{{ blog.id }}" >View blog post</a>
+        <div class="blog-container blog-list m-b-2" ng-repeat="blog in blogs.data">
+          <div class="blog-header p-a-1">
+            <h3 class="blog-title">{{ blog.title }}</h3>
+          </div>
+          <div class="blog-content p-a-1">
+          <p>{{ blog.content }}</p>
+            <a href="/view/{{ blog.id }}" >View blog post</a>
+          </div>
         </div>
       </div>
       <div class="col-sm-3" ng-if="blogs.data.length > 0">
-        <div class="blog-container m-b-2">
+        <div class="blog-container blog-list m-b-2">
           <div class="blog-header p-a-1">
            <h3>Blog Archive</h3>
          </div>
