@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,39 +23,43 @@ public class JwtHeaderFilter extends OncePerRequestFilter {
     private final JwtSigningKeyProvider signingKeyProvider;
     private final UserDetailsService userDetailsService;
 
-    JwtHeaderFilter(JwtSigningKeyProvider signingKeyProvider, UserDetailsService userDetailsService) {
+    JwtHeaderFilter( JwtSigningKeyProvider signingKeyProvider, UserDetailsService userDetailsService ) {
         this.signingKeyProvider = signingKeyProvider;
         this.userDetailsService = userDetailsService;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain chain )
             throws ServletException, IOException {
-        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (header == null || !header.startsWith("Bearer ")) {
-            chain.doFilter(request, response);
+        String header = request.getHeader( HttpHeaders.AUTHORIZATION );
+        if ( header == null || !header.startsWith( "Bearer " ) ) {
+            chain.doFilter( request, response );
             return;
         }
 
-        String token = header.substring(7);
-
-        // parse the token
-        String username = Jwts.parser()
-                .setSigningKey( signingKeyProvider.getSigningKey() )
-                .parseClaimsJws( token )
-                .getBody()
-                .getSubject();
+        String token = header.substring( 7 );
+        String username;
+        try {
+            // parse the token
+            username = Jwts.parser()
+                    .setSigningKey( signingKeyProvider.getSigningKey() )
+                    .parseClaimsJws( token )
+                    .getBody()
+                    .getSubject();
+        } catch ( Exception ex ) {
+            throw new BadCredentialsException( "Invalid token: " + token );
+        }
         // resolve actual user
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername( username );
 
         // let's authenticate this request
-        Authentication auth = new PreAuthenticatedAuthenticationToken(userDetails, token, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        Authentication auth = new PreAuthenticatedAuthenticationToken( userDetails, token, userDetails.getAuthorities() );
+        SecurityContextHolder.getContext().setAuthentication( auth );
         // and allow the response the continue
-        chain.doFilter(request, response);
+        chain.doFilter( request, response );
 
         // remove authentication afterwards; RESTful APIs are stateless
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication( null );
     }
 
 }

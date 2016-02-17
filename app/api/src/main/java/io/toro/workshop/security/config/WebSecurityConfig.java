@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -21,25 +20,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure( HttpSecurity http ) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET, "/api/blogs", "/api/blogs/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/blogs").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/blogs/*").hasRole("ADMIN")
+                .antMatchers( "/api/login" ).permitAll()
+                .antMatchers( HttpMethod.OPTIONS ).permitAll()
+                .antMatchers( HttpMethod.GET, "/api/blogs", "/api/blogs/*" ).permitAll()
+                .antMatchers( HttpMethod.POST, "/api/blogs" ).hasRole( "ADMIN" )
+                .antMatchers( HttpMethod.DELETE, "/api/blogs/*" ).hasRole( "ADMIN" )
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy( SessionCreationPolicy.STATELESS )
                 .and()
-                .addFilterBefore(new JwtHeaderFilter(jwtSigningKeyProvider, userDetailsService), BasicAuthenticationFilter.class)
+                .addFilterBefore( new JwtHeaderFilter( jwtSigningKeyProvider, userDetailsService ), BasicAuthenticationFilter.class )
                 .csrf()
                 .disable();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+    protected void configure( AuthenticationManagerBuilder auth ) throws Exception {
+        auth.userDetailsService( userDetailsService );
     }
 
     @Bean
@@ -47,9 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsServiceBean() throws Exception {
         return new InMemoryUserDetailsService();
     }
-    
+
     @Bean
-    JwtSigningKeyProvider jwtSigningKeyProvider(){
+    JwtSigningKeyProvider jwtSigningKeyProvider() {
         return new UuidBasedJwtSigningKeyProvider();
     }
 

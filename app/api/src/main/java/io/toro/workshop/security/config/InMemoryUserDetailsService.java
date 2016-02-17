@@ -19,20 +19,20 @@ public class InMemoryUserDetailsService implements UserDetailsService {
         userStore = new LinkedHashMap<>();
 
         Collection<GrantedAuthority> adminAuthorities = new HashSet<>();
-        adminAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        User adminUser = new User("admin", "admin", adminAuthorities);
+        adminAuthorities.add( new SimpleGrantedAuthority( "ROLE_ADMIN" ) );
+        User adminUser = new User( "admin", "admin", adminAuthorities );
 
-        userStore.put(adminUser.getUsername(), adminUser);
+        userStore.put( adminUser.getUsername(), adminUser );
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null || username.isEmpty())
-            throw new UsernameNotFoundException("Username can't be empty");
+    public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
+        if ( username == null || username.isEmpty() )
+            throw new UsernameNotFoundException( "Username can't be empty" );
 
-        User user = userStore.get(username);
-        if (user == null)
-            throw new UsernameNotFoundException("Username '" + username + "' wasn't found");
+        User user = userStore.get( username );
+        if ( user == null )
+            throw new UsernameNotFoundException( "Username '" + username + "' wasn't found" );
 
         return user;
     }
