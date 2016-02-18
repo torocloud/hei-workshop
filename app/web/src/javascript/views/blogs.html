@@ -33,7 +33,7 @@
           </div>
           <div class="blog-content p-a-1">
           <p>{{ blog.content }}</p>
-            <a href="/view/{{ blog.id }}" >View blog post</a>
+            <a ui-sref="app.view({id: blog.id})">View blog post</a>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
          </div>
          <div class="blog-content blog-list">
            <ul class="list-group">
-             <a href="/view/{{ blog.id }}" class="list-group-item" ng-repeat="blog in blogs.data">
+             <a ui-sref="app.view({id: blog.id})" class="list-group-item" ng-repeat="blog in blogs.data">
               <p>{{ blog.title }}</p>
             </a>
             </ul>

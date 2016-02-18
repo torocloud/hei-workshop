@@ -52,7 +52,7 @@
           return $q.reject(error)
           break
         case -1:
-          $state.go('app.login')
+          $state.go('app.logout')
           return $q.reject(error)
           break
         default:
