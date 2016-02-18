@@ -40,7 +40,7 @@
         views: {
           '@': {
             template: `
-              <header ui-view="header" style="padding-top:75px;"></header>
+              <header ui-view="header"></header>
               <div ui-view="content" role="main"></div>
               <footer ui-view="footer"></footer>
             `
@@ -88,14 +88,10 @@
               'context',
               ($rootScope, $cookies, $state, $timeout, userContext) => {
                 $cookies.remove('username', {path: '/'})
-                $cookies.remove('sessionId', {path: '/'})
                 $cookies.remove('token', {path: '/'})
-                $cookies.remove('loginSucceeded', {path: '/'})
                 userContext.setCurrentUser(null)
                 $rootScope.$emit('auth::setUser')
-                $timeout(() => {
-                  $state.go('app.login', {reload: true})
-                }, 1000, true)
+                $state.go('app.login', {reload: true})
             }]
           }
         }

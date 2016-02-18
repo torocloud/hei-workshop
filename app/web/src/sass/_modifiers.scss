@@ -1,6 +1,9 @@
 // Bourbon Mixins
 @import "bourbon/bourbon";
 
+header {
+  padding-top: 75px;
+}
 
 // Pre-Processor Variables
 // examples
@@ -20,11 +23,3 @@
 // 2. Maintainable: Declaration Order
 // 3. Modular: Element Box Model
 // 4. Modular: Element Modifier
-
-.selector {
-  // box model
-}
-
-.selector-modifier {
-  // styles
-}
