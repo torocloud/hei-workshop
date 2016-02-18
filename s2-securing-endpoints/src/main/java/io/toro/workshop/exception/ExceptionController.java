@@ -3,6 +3,7 @@ package io.toro.workshop.exception;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,11 @@ public class ExceptionController implements ErrorController {
     @ExceptionHandler( HttpMessageNotReadableException.class )
     ResponseEntity<ApiException> handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
         return processApiException( new ApiException( 400, ex ) );
+    }
+
+    @ExceptionHandler( AuthenticationException.class )
+    ResponseEntity<ApiException> handleInvalidCredentials( AuthenticationException ex ) {
+        return processApiException( new ApiException( 401, ex ) );
     }
 
     @ExceptionHandler( ApiException.class )

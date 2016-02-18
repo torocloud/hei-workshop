@@ -20,3 +20,7 @@ Access your server via: [http://localhost:8080]()
   - `DELETE`  /api/blogs/{id}
 
 **Extras**: Build a well-defined error responses for exceptions.
+
+## **Session 2**: Securing RESTful endpoints with Spring
+**Goal**: Secure URL endpoints by implementing a token-based authentication-authorization model.
+  - `POST`    /api/login
