@@ -24,3 +24,6 @@ Access your server via: [http://localhost:8080]()
 ## **Session 2**: Securing RESTful endpoints with Spring
 **Goal**: Secure URL endpoints by implementing a token-based authentication-authorization model.
   - `POST`    /api/login
+
+## **Session 3**: Integrating Twitter and Google Sheets
+**Goal**: Publish a tweet everytime a new blog is saved, and use google sheets as a blog data store.
