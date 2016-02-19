@@ -10,15 +10,15 @@
     </a>
   </div><!-- end of .header-title -->
 
-  <div class="card card-inverse card-profile" ng-if="currentUser">
+  <div class="card card-inverse card-profile">
     <img class="card-img-top" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" width="100%" height="auto" alt="">
     <div class="card-block">
-      <img class="img-circle card-profile-picture" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
+      <img class="img-circle card-profile-picture img-fluid" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
 
-      <div class="center-block text-xs-center p-t-3 p-b-2">
+      <div class="center-block text-xs-center p-t-3 p-b-2"  ng-if="currentUser">
         <p>Welcome back! &nbsp; <span ng-bind="currentUser | capitalize"></span></p>
 
-        <div class="btn-group">
+        <div class="btn-group" >
           <a class="btn btn-warning-outline" ui-sref="app.post">
             <i class="ion-document"></i> &nbsp;New Post
           </a>
@@ -27,6 +27,11 @@
           </a>
         </div>
       </div>
+
+      <div class="center-block text-xs-center p-t-3 p-b-2"  ng-if="!currentUser">
+        <p>Author: TORO Dev &nbsp; <span ng-bind="currentUser | capitalize"></span></p>
+      </div>
+
     </div><!-- end of .card-block -->
   </div><!-- end of .card.card-inverse -->
 </div><!-- end of .container-fluid -->

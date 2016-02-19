@@ -3,28 +3,35 @@
     <div class="col-xs-12">
     </div><!-- end of .col-xs-12 -->
 
-    <div class="col-xs-12 col-sm-8">
-      <article ng-repeat="entry in blog.entries track by $index" ng-if="blog.entries && blog.entries.length > 0">
-        <header class="p-y-2">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <article class="blog-container card m-b-3 b-r-0" ng-repeat="entry in blog.entries track by $index" ng-if="blog.entries && blog.entries.length > 0">
+        <header class="p-a-1 b-r-0">
           <a ui-sref="app.default.blog({id: entry.id})">
-            <h1 ng-bind="entry.title"></h1>
+            <h3 class="blog-header-title truncate truncate-1 m-b-0" ng-bind="entry.title"></h3>
           </a>
         </header>
-        <section class="p-y-2" ng-bind="entry.content"></section>
-        <a class="btn btn-danger-outline m-y-2 pull-xs-right" ui-sref="app.default.blog({id: entry.id})">
+        <hr class="m-b-0 m-t-0">
+        <section class="blog-content truncate truncate-5 p-l-1 p-r-1 p-t-1" ng-bind="entry.content"></section>
+        <a class="btn btn-info-outline m-a-2 pull-xs-right" ui-sref="app.default.blog({id: entry.id})">
           Continue Reading &nbsp;&rarr;
         </a>
         <div class="clearfix"></div>
-        <hr ng-if="!$last">
+        <!-- <hr ng-if="!$last"> -->
       </article>
 
       <div ng-if="blog.alert" class="alert" ng-class="blog.alert.success ? 'alert-success' : 'alert-danger'">
-        {{ blog.alert | json }}
+        {{ blog.alert.message }}
       </div>
 
       <article ng-if="blog.entry && !blog.entries">
         <header class="p-y-2">
-          <h1 ng-if="!blog.editMode" ng-bind="blog.entry.title"></h1>
+          <h2 ng-if="!blog.editMode" ng-bind="blog.entry.title" class="m-b-1"></h2>
+          <small ng-if="!blog.editMode">
+            <a ng-click="blog.editMode = true" class="btn btn-success-outline" href="#"><i class="ion-edit"></i>&nbsp; Edit</a>
+          </small>
+          <small ng-if="!blog.editMode">
+            <a ng-click="#" class="btn btn-danger-outline" href="#"><i class="ion-trash-b"></i>&nbsp; Delete</a>
+          </small>
           <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="form-inline">
             <div class="form-group">
               <label class="sr-only">Title</label>
@@ -34,9 +41,10 @@
             <button class="btn btn-lg btn-success" type="submit">Save</button>
             <button ng-click="blog.editMode = false" class="btn btn-lg btn-default" type="button">Cancel</button>
           </form>
-          <small ng-if="!blog.editMode"><a ng-click="blog.editMode = true" href="#">Edit</a></small>
+
         </header>
-        <section ng-if="!blog.editMode" class="p-y-2" ng-bind="blog.entry.content"></section>
+        <div class="clearfix"></div>
+        <section ng-if="!blog.editMode" class="blog-content p-y-2" ng-bind="blog.entry.content"></section>
         <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="p-y-2">
           <div class="form-group">
             <textarea ng-model="blog.entry.content" class="form-control" rows="6"></textarea>
@@ -51,6 +59,38 @@
       <div class="block" ng-if="blog.entries && blog.entries.length <= 0">
         Nothing To See Here
       </div>
-    </div><!-- end of .col-xs-12.col-sm-8 -->
+    </div><!-- end of .col-xs-12.col-sm-9 -->
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+      <div class="card b-r-0">
+        <div class="card-header b-r-0 p-a-1">
+          <h3 class="text-xs-center m-b-0">Archive</h3>
+        </div>
+        <div class="card-block">
+          <a ng-repeat="entry in blog.entries" ui-sref="app.default.blog({id: entry.id})">
+            <p class="truncate truncate-1" >
+              {{ entry.title }}
+            </p>
+          </a>
+        </div>
+      </div> <!-- end of card -->
+      <div class="card b-r-0">
+        <div class="card-header b-r-0 p-a-1">
+          <h3 class="text-xs-center m-b-0">Author</h3>
+        </div>
+        <div class="card-block">
+          <img class="img-circle center-block img-fluid" ng-src="http://placehold.it/150/e8117f/ffffff" alt="">
+          <p class="text-xs-center m-t-1 m-b-0">John Doe</p>
+          <p class="text-xs-center">
+            <small>Senior Fullstack Developer</small>
+          </p>
+          <p class="text-justify">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          </p>
+        </div>
+      </div> <!-- end of card -->
+    </div> <!-- end of col-sm-3-->
   </div><!-- end of .row -->
 </div><!-- end of .container-fluid -->

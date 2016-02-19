@@ -108,14 +108,10 @@
               'context',
               ($rootScope, $cookies, $state, $timeout, userContext) => {
                 $cookies.remove('username', {path: '/'})
-                $cookies.remove('sessionId', {path: '/'})
                 $cookies.remove('token', {path: '/'})
-                $cookies.remove('loginSucceeded', {path: '/'})
                 userContext.setCurrentUser(null)
                 $rootScope.$emit('auth::setUser')
-                $timeout(() => {
-                  $state.go('app.login', {reload: true})
-                }, 1000, true)
+                $state.go('app.login', {reload: true})
             }]
           }
         }
