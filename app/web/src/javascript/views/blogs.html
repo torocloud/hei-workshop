@@ -1,61 +1,56 @@
-<div>
-  <div class="jumbotron banner">
-    <div class="container" style="padding-top: 150px;">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8">
-          <h1 class="display-3 text-warning">HEI Workshop 2016 Blogs</h1>
-          <p class="lead text-warning">
-            A blog app that developed by TORO.IO Devs for educational purposes.
-          </p>
-          <br>
-          <a class="btn btn-lg btn-warning-outline" target="_blank" href="https://github.com/TORO-IO/hei-workshop">
-            Read the Docs
+<div class="container-fluid p-y-3">
+  <div class="row">
+    <div class="col-xs-12">
+    </div><!-- end of .col-xs-12 -->
+
+    <div class="col-xs-12 col-sm-8">
+      <article ng-repeat="entry in blog.entries track by $index" ng-if="blog.entries && blog.entries.length > 0">
+        <header class="p-y-2">
+          <a ui-sref="app.default.blog({id: entry.id})">
+            <h1 ng-bind="entry.title"></h1>
           </a>
-        </div>
-      </div><!-- end of .row -->
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h1 class="title">HEI Members Blogs</h1>
+        </header>
+        <section class="p-y-2" ng-bind="entry.content"></section>
+        <a class="btn btn-danger-outline m-y-2 pull-xs-right" ui-sref="app.default.blog({id: entry.id})">
+          Continue Reading &nbsp;&rarr;
+        </a>
+        <div class="clearfix"></div>
+        <hr ng-if="!$last">
+      </article>
+
+      <div ng-if="blog.alert" class="alert" ng-class="blog.alert.success ? 'alert-success' : 'alert-danger'">
+        {{ blog.alert | json }}
       </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-sm-9">
-        <div ng-show="blogs.alert" class="alert alert-danger m-t-3 m-b-3">
-          <h5 class="m-b-1">Woops, Something went wrong.</h5>
-        </div>
-        <div class="blog-container blog-list m-b-2" ng-repeat="blog in blogs.data">
-          <div class="blog-header p-a-1">
-            <h3 class="blog-title">{{ blog.title }}</h3>
+
+      <article ng-if="blog.entry && !blog.entries">
+        <header class="p-y-2">
+          <h1 ng-if="!blog.editMode" ng-bind="blog.entry.title"></h1>
+          <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="form-inline">
+            <div class="form-group">
+              <label class="sr-only">Title</label>
+              <input class="form-control form-control-lg" type="text" ng-model="blog.entry.title">
+            </div>
+            &nbsp;
+            <button class="btn btn-lg btn-success" type="submit">Save</button>
+            <button ng-click="blog.editMode = false" class="btn btn-lg btn-default" type="button">Cancel</button>
+          </form>
+          <small ng-if="!blog.editMode"><a ng-click="blog.editMode = true" href="#">Edit</a></small>
+        </header>
+        <section ng-if="!blog.editMode" class="p-y-2" ng-bind="blog.entry.content"></section>
+        <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="p-y-2">
+          <div class="form-group">
+            <textarea ng-model="blog.entry.content" class="form-control" rows="6"></textarea>
           </div>
-          <div class="blog-content p-a-1">
-          <p>{{ blog.content }}</p>
-            <a href="/view/{{ blog.id }}" >View blog post</a>
+          <div class="text-xs-right form-group">
+            <button class="btn btn-success" type="submit">Save</button>
+            <button ng-click="blog.editMode = false" class="btn btn-default" type="button">Cancel</button>
           </div>
-        </div>
+        </form>
+      </article>
+
+      <div class="block" ng-if="blog.entries && blog.entries.length <= 0">
+        Nothing To See Here
       </div>
-      <div class="col-sm-3" ng-if="blogs.data.length > 0">
-        <div class="blog-container blog-list m-b-2">
-          <div class="blog-header p-a-1">
-           <h3>Blog Archive</h3>
-         </div>
-         <div class="blog-content blog-list">
-           <ul class="list-group">
-             <a href="/view/{{ blog.id }}" class="list-group-item" ng-repeat="blog in blogs.data">
-              <p>{{ blog.title }}</p>
-            </a>
-            </ul>
-         </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" ng-if="blogs.data.length <= 0">
-      <div class="col-sm-12">
-        <h3>No blogs posted at the moment</h3>
-      </div>
-    </div>
-  </div>
-</div>
+    </div><!-- end of .col-xs-12.col-sm-8 -->
+  </div><!-- end of .row -->
+</div><!-- end of .container-fluid -->

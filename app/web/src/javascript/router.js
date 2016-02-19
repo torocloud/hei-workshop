@@ -41,8 +41,7 @@
           '@': {
             template: `
               <header ui-view="header"></header>
-              <div ui-view="content" role="main"
-                style="min-height: 100%;"></div>
+              <div ui-view="content" role="main"></div>
               <footer ui-view="footer"></footer>
             `
           }
@@ -51,6 +50,23 @@
 
       .state('app.default', {
         url: '',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-blogs/>',
+          },
+          'footer@app': {
+            template: '<app-footer/>'
+          }
+        }
+      })
+
+      .state('app.default.blog', {
+        url: 'blog/:id',
         cache: false,
         data: {private: false},
         views: {
@@ -136,22 +152,7 @@
         }
       })
 
-      .state('app.view', {
-        url: 'view/:id',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {
-            template: '<app-header current-user="auth.currentUser.username"/>'
-          },
-          'content@app': {
-            template: '<app-get-blog/>'
-          },
-          'footer@app': {
-            template: '<app-footer/>'
-          }
-        }
-      })
+
   }
 
 })()

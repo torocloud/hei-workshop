@@ -42,6 +42,7 @@
     }
 
     function handleSuccess(response) {
+      console.log(response.headers())
       return response.data
     }
 
