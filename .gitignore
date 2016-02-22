@@ -28,6 +28,13 @@ Thumbs.db
 *.esproj
 *.sublime-project
 *.sublime-workspace
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
 
 # Folders to ignore
 node_modules
