@@ -42,22 +42,18 @@
     }
 
     function handleSuccess(response) {
-      console.log(response.headers())
       return response.data
     }
 
     function handleError(error) {
-      switch (error.status) {
-        case 401:
-          $state.go('app.login')
-          return $q.reject(error)
-          break
-        case -1:
-          $state.go('app.logout')
-          return $q.reject(error)
-          break
-        default:
-          return $q.reject(error)
+      if ( error.status === 401 ) {
+        $state.go('app.login')
+        return $q.reject(error)
+      } else if ( error.status === -1 ) {
+        $state.go('app.logout')
+        return $q.reject(error)
+      } else {
+        return $q.reject(error)
       }
     }
 

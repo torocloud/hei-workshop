@@ -57,27 +57,10 @@
             template: '<app-header current-user="auth.currentUser.username"/>'
           },
           'content@app': {
-            template: '<app-blogs/>',
+            template: '<app-blogs current-user="auth.currentUser"/>',
           },
           'footer@app': {
-            template: '<app-footer/>'
-          }
-        }
-      })
-
-      .state('app.default.blog', {
-        url: 'blog/:id',
-        cache: false,
-        data: {private: false},
-        views: {
-          'header@app': {
-            template: '<app-header current-user="auth.currentUser.username"/>'
-          },
-          'content@app': {
-            template: '<app-blogs/>',
-          },
-          'footer@app': {
-            template: '<app-footer/>'
+            template: '<app-footer></app-footer>'
           }
         }
       })
@@ -141,14 +124,26 @@
           },
           'content@app': {
             template: '<app-post-blog/>'
-          },
-          'footer@app': {
-            template: '<app-footer/>'
           }
         }
       })
 
-
+      .state('app.view', {
+        url: 'view/:id/',
+        cache: false,
+        data: {private: false},
+        views: {
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
+          'content@app': {
+            template: '<app-blogs current-user="auth.currentUser"/>'
+          },
+          'footer@app': {
+            template: '<app-footer></app-footer>'
+          }
+        }
+      })
   }
 
 })()

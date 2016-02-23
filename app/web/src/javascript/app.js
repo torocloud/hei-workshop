@@ -5,7 +5,8 @@
     .module('app', [
       'ui.router',
       'ngCookies',
-      'ngResource'
+      'ngResource',
+      'ngSanitize'
     ])
     .run(InitStates)
     .filter('capitalize', Capitalize)

@@ -10,7 +10,7 @@
 
   function appBlogs ($rootScope) {
     let directive = {
-      scope: true,
+      scope: {currentUser: '='},
       restrict: 'E',
       templateUrl: '/app/views/blogs.html',
       controller: BlogsCtrl,
@@ -41,31 +41,26 @@
   function BlogsCtrl ($scope, $state, $stateParams, $timeout, api) {
     let blog = this
 
-    blog.editMode   = false
-    blog.getEntry   = getEntry
-    blog.getEntries = getEntries
-    blog.editEntry  = editEntry
+    blog.editMode    = false
+    blog.viewMode    = false
+    blog.getEntry    = getEntry
+    blog.getEntries  = getEntries
+    blog.editContent = editContent
+    blog.editEntry   = editEntry
+    blog.deleteEntry = deleteEntry
 
     // Check whether the state is not an entry view
     // then fetch entries from server
-    if ($state.current.name !== 'app.default.blog') {
-      blog.getEntries()
-    } else {
+    if ($state.current.name === 'app.view') {
+      blog.viewMode = true
       blog.getEntry($stateParams.id)
+    } else {
+      blog.viewMode = false
     }
 
-    $scope.$watch('blog.entries', (value) => {
-      if (!value) { return }
-      blog.entries = value
-    })
+    blog.getEntries()
 
-    $scope.$watch('blog.entry', (value) => {
-      if (!value) { return }
-      blog.entry = value
-    })
-
-
-    function getEntries () {
+    function getEntries() {
       api.getBlogs().then(
         (data) => {
           blog.entries = data
@@ -76,31 +71,62 @@
       )
     }
 
-
     function getEntry (id) {
       api.getBlog(id).then(
         (data) => {
           blog.entry = data
         },
         (error) => {
-
+          $state.go('app.default')
         }
       )
     }
 
-    function editEntry (content) {
+    function editContent () {
+      blog.editMode = true
+      $timeout(function () {
+        CKEDITOR.replace('editBlogEditor')
+      })
+    }
+
+    function editEntry (entry) {
+      entry.content = CKEDITOR.instances.editBlogEditor.getData()
       blog.editMode = false
-      api.postBlog(content).then(
+
+      api.postBlog(entry).then(
         (data) => {
           blog.alert = {
             success: true,
             message: 'Successfully saved'
           }
           blog.entry = data
+          getEntries()
 
           $timeout(function () {
             blog.alert = null
-          }, 2000)
+          }, 1500)
+        },
+        (error) => {
+          blog.alert = {
+            success: false,
+            message: `Something Went Wrong... ${error}`
+          }
+        }
+      )
+    }
+
+    function deleteEntry () {
+      api.deleteBlog($state.params.id).then(
+        (data) => {
+          blog.alert = {
+            success: true,
+            message: 'Successfully deleted'
+          }
+
+          $timeout(function () {
+            blog.alert = null
+            $state.go('app.default')
+          }, 1500)
         },
         (error) => {
           blog.alert = {
