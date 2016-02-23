@@ -29,15 +29,31 @@ h1, h2, h3, h4, h5, h6 {
   word-wrap: break-word;
 }
 
+@mixin box-shadow($style: 0 0 5px $gray-dark) {
+  -webkit-box-shadow: $style;
+  -moz-box-shadow: $style;
+  -ms-box-shadow: $style;
+  box-shadow: $style;
+}
+
 .truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+
   &.truncate-1 { @include ellipsis(1); }
   &.truncate-3 { @include ellipsis(3); }
   &.truncate-5 { @include ellipsis(5); }
 }
 
-.b-r-0 {
-  border-radius: 0;
+.bs {
+  &.bs-1 { @include box-shadow(0 0 3px $gray-dark); }
+  &.bs-2 { @include box-shadow(); }
 }
+
+.b-r-0 {
+  border-radius: 0 !important;
+}
+
 // Header Section
 ui-view > header {
   @include transition(width .4s ease, height .4s ease);
@@ -132,15 +148,32 @@ ui-view > [role="main"] {
   }
 
   .blog-container {
+    header,
+    .card-header {
 
-    header {
-      background-color: #F5F5F5;
+      word-wrap: break-word;
+      color: $gray-dark;
       a {
         color: $gray-dark;
       }
     }
     .blog-content {
       white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+  .login-container {
+    margin: auto;
+
+    @include media-breakpoint-up(md) {
+      width: 400px;
+    }
+    @include media-breakpoint-down(sm) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .card-profile-picture {
+      margin-top: -70px;
     }
   }
 }

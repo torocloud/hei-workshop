@@ -41,6 +41,7 @@
   function BlogsCtrl ($scope, $state, $stateParams, $timeout, api) {
     let blog = this
 
+
     blog.editMode   = false
     blog.getEntry   = getEntry
     blog.getEntries = getEntries
@@ -89,6 +90,7 @@
     }
 
     function editEntry (content) {
+
       blog.editMode = false
       api.postBlog(content).then(
         (data) => {
