@@ -39,6 +39,8 @@
   function PostBlogCtrl ($scope, $state, api) {
     let post = this
 
+    CKEDITOR.replace('postBlogEditor')
+
     post.newBlog = {
       title: '',
       content: ''
@@ -52,6 +54,7 @@
      */
 
     post.postBlog = () => {
+      post.newBlog.content = CKEDITOR.instances.postBlogEditor.getData()
       api.postBlog(post.newBlog).then((data) => {
         return $state.go('app.default')
       }, (error) => {

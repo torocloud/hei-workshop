@@ -20,6 +20,8 @@ Table of Contents
 - Java SE Development Kit 8
 - Git `>= v2.x.x`
 - Node.js `>= 4.x.x || >= 5.x.x`
+- Maven `>= 3.2.5`
+- Eclipse, NetBeans or any preferred IDE
 
 ## Dev Tools Installation
 
@@ -63,6 +65,9 @@ scoop install git
 
 # Install Node.js
 scoop install nodejs4
+
+# Install Maven
+scoop install maven
 ```
 
 ### Linux
@@ -95,6 +100,9 @@ npm install -g npm bower
 
 # Cleanup package cache (optional)
 $ sudo apt-get clean
+
+## Install Maven
+$ sudo apt-get install maven
 ```
 
 ### OSX
@@ -111,6 +119,7 @@ $ brew tap homebrew/versions
 $ brew cask install java
 $ brew install git
 $ brew install node
+$ brew install maven
 ```
 
 ## Getting Started

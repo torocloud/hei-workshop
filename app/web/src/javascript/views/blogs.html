@@ -1,29 +1,30 @@
 <div class="container-fluid p-y-3">
   <div class="row">
-    <div class="col-xs-12 m-b-1" onclick="window.history.back()" ng-if="blog.entry && !blog.entries">
-      <button class="btn btn-success-outline"><i class="ion-arrow-left-a"></i> Back</button>
-    </div><!-- end of .col-xs-12 -->
-
     <div class="col-xs-12 col-md-8 col-lg-9">
-      <article class="blog-container card m-b-2 b-r-0" ng-repeat="entry in blog.entries track by $index" ng-if="blog.entries && blog.entries.length > 0">
+      <div class="text-xs-center" ng-if="blog.entries.length <= 0">
+        <h3>There are no blogs right now</h3>
+        <button ng-if="blog.currentUser.username" ui-sref="app.post" class="btn btn-primary m-t-1">Create one now</button>
+        <span ng-if="!blog.currentUser.username">Please <a ui-sref="app.login">login</a> to post</span>
+      </div>
+
+      <article ng-if="blog.viewMode === false && blog.entries.length > 0" ng-repeat="entry in blog.entries track by $index" class="blog-container card m-b-2 b-r-0">
         <header class="p-a-1 b-r-0">
+          <img src="http://placehold.it/70/373A3C/ffffff" class="img-circle pull-xs-left m-r-1" alt="" />
           <a ui-sref="app.default.blog({id: entry.id})">
             <h3 class="blog-header-title truncate truncate-1 m-b-0" ng-bind="entry.title"></h3>
           </a>
-          <div class=" m-t-1">
-            <img src="http://placehold.it/50/373A3C/ffffff" class="img-circle pull-xs-left m-r-1" alt="" />
-            <p class="m-b-0"><small class="display-5 m-t-2">Posted By: TORO Dev</small></p>
-            <small class="display-6 m-t-2">Posted on: February 10, 2016</small>
-          </div>
+          <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> February 10, 2016</small>
         </header>
         <hr class="m-b-0 m-t-0">
         <div class="clearfix"></div>
-        <section class="blog-content truncate truncate-5 p-l-1 p-r-1 p-t-1 m-b-1" ng-bind="entry.content"></section>
-        <a class="btn btn-info b-r-0 m-l-2 m-y-1 pull-xs-left"><i class="ion-social-facebook"></i></a>
-        <a class="btn btn-info b-r-0 m-y-1 m-x-1 pull-xs-left"><i class="ion-social-googleplus"></i></a>
-        <a class="btn btn-info b-r-0 m-y-1 pull-xs-left"><i class="ion-social-twitter"></i></a>
+        <section class="blog-content truncate truncate-5 p-l-1 p-r-1 p-t-1 m-b-1" ng-bind-html="entry.content"></section>
 
-        <a class="btn btn-info-outline m-a-1 pull-xs-right" ui-sref="app.default.blog({id: entry.id})">
+        <h5 class="display-5 m-l-2 m-t-2  pull-xs-left" href="#">Share on: </h5>
+        <a class="btn btn-info m-y-1 m-l-1 pull-xs-left social-media-icons facebook"><i class="ion-social-facebook"></i></a>
+        <a class="btn btn-info m-y-1 pull-xs-left social-media-icons google"><i class="ion-social-googleplus"></i></a>
+        <a class="btn btn-info m-y-1 pull-xs-left social-media-icons twitter"><i class="ion-social-twitter"></i></a>
+
+        <a class="btn btn-info-outline m-a-1 pull-xs-right" ui-sref="app.view({id: entry.id})">
           Continue Reading &nbsp;&rarr;
         </a>
         <div class="clearfix"></div>
@@ -34,52 +35,77 @@
         {{ blog.alert.message }}
       </div>
 
-      <article ng-if="blog.entry && !blog.entries" class="blog-container card">
+      <article ng-if="blog.viewMode === true" class="blog-container card">
         <header class="p-a-1">
           <h2 ng-if="!blog.editMode" ng-bind="blog.entry.title" class="m-b-1"></h2>
           <span class="pull-xs-right">
-            <small ng-if="!blog.editMode">
-              <button ng-click="blog.editMode = true" class="btn btn-sm btn-success-outline" href="#"><i class="ion-edit"></i>&nbsp; Edit</button>
-            </small>
-            <small ng-if="!blog.editMode">
-              <button ng-click="#" class="btn btn-sm btn-danger-outline" href="#"><i class="ion-trash-b"></i>&nbsp; Delete</button>
+            <small ng-if="!blog.editMode && blog.currentUser.username">
+              <button ng-click="blog.editContent()" class="btn btn-sm btn-success-outline" href="#"><i class="ion-edit"></i>&nbsp; Edit</button>
+              <button ng-click="blog.deleteEntry()" class="btn btn-sm btn-danger-outline" href="#"><i class="ion-trash-b"></i>&nbsp; Delete</button>
             </small>
           </span>
           <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="form-inline">
-            <div class="input-group">
-              <input class="form-control form-control-md" type="text" ng-model="blog.entry.title">
-              <span class="input-group-btn">
-                <button class="btn btn-md btn-success-outline m-x-1" type="submit">Save</button> &nbsp;
-                <button ng-click="blog.editMode = false" class="btn btn-md btn-warning-outline b-r-0" type="button">Cancel</button>
-              </span>
-            </div>
+            <small>Blog Title</small>
+            <input class="form-control form-control-md" style="width: 100%;" type="text" ng-model="blog.entry.title">
           </form>
-          <div class=" m-t-1">
-            <img src="http://placehold.it/50/373A3C/ffffff" class="img-circle pull-xs-left m-r-1" alt="" />
-            <p class="m-b-0"><small class="display-5 m-t-2">Posted By: TORO Dev</small></p>
-            <small class="display-6 m-t-2">Posted on: February 10, 2016</small>
+          <div ng-if="!blog.editMode" class=" m-t-1" >
+            <p class="m-b-0"><small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2">February 10, 2016</small></p>
           </div>
         </header>
         <div class="clearfix"></div>
-        <section ng-if="!blog.editMode" class="blog-content p-a-1" ng-bind="blog.entry.content"></section>
+        <section ng-if="!blog.editMode" class="blog-content p-a-1" ng-bind-html="blog.entry.content"></section>
         <form ng-submit="blog.editEntry(blog.entry)" ng-if="blog.editMode" class="p-a-1">
           <div class="form-group">
-            <textarea ng-model="blog.entry.content" id="edit-blog-editor" class="form-control" rows="6"></textarea>
+            <small>Blog Content</small>
+            <textarea ng-model="blog.entry.content" id="editBlogEditor" class="form-control" rows="6"></textarea>
           </div>
           <div class="text-xs-right form-group">
-            <button class="btn btn-success-outline b-r-0" type="submit">Save</button>
-            <button ng-click="blog.editMode = false" class="btn btn-warning-outline b-r-0" type="button">Cancel</button>
+            <button class="btn btn-success-outline" type="submit">Save</button>
+            <button ng-click="blog.editMode = false" class="btn btn-warning-outline" type="button">Cancel</button>
           </div>
         </form>
         <span ng-if="!blog.editMode">
-          <a class="btn btn-info b-r-0 m-l-2 m-y-1 pull-xs-left"><i class="ion-social-facebook"></i></a>
-          <a class="btn btn-info b-r-0 m-y-1 m-x-1 pull-xs-left"><i class="ion-social-googleplus"></i></a>
-          <a class="btn btn-info b-r-0 m-y-1 pull-xs-left"><i class="ion-social-twitter"></i></a>
+          <h5 class="display-5 m-l-2 m-t-2  pull-xs-left" href="#">Share on: </h5>
+          <a class="btn btn-info m-y-1 m-l-1  pull-xs-left social-media-icons facebook"><i class="ion-social-facebook"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons google"><i class="ion-social-googleplus"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons twitter"><i class="ion-social-twitter"></i></a>
         </span>
         <div class="clearfix"></div>
       </article>
+      <div ng-if="blog.viewMode === true && !blog.editMode" class="card m-t-2">
+        <div class="card-header b-r-0">
+          <h3>About the Author</h3>
+        </div>
+        <div class="card-block p-b-1">
+          <div class="pull-xs-left">
+            <img src="http://placehold.it/130/373A3C/ffffff" class="img-circle m-r-1" alt="" />
+          </div>
+          <div class="author-bio">
+            <h3>TORO Development Team</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+              in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+              <h6 class="display-5 m-l-2 m-t-2" href="#">Follow me:
+                <a class="btn btn-info m-l-1 social-media-icons facebook"><i class="ion-social-facebook"></i></a>
+                <a class="btn btn-info m-y-1 social-media-icons google"><i class="ion-social-googleplus"></i></a>
+                <a class="btn btn-info m-y-1 social-media-icons twitter"><i class="ion-social-twitter"></i></a>
+                <a class="btn btn-info m-y-1 social-media-icons instagram"><i class="ion-social-instagram"></i></a>
+                <a class="btn btn-info m-y-1 social-media-icons linkedin"><i class="ion-social-linkedin"></i></a>
+              </h6>
 
-      <div class="block" ng-if="blog.entries && blog.entries.length <= 0">
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+
+      <div  ng-if="blog.entries && blog.entries.length <= 0" class="block">
         <h2>No blogs at the moment</h2>
         <a class="btn btn-info btn-md m-t-2" ui-sref="app.post">
           <i class="ion-document"></i> &nbsp;Create one now
@@ -88,31 +114,13 @@
     </div><!-- end of .col-xs-12.col-sm-9 -->
 
     <div class="col-xs-12 col-md-4 col-lg-3">
-      <div class="card blog-container b-r-0 m-b-2">
-        <div class="card-header b-r-0 p-a-1">
-          <h3 class="text-xs-center m-b-0 ">Author</h3>
-        </div>
-        <div class="card-block">
-          <img class="img-circle center-block img-fluid" ng-src="http://placehold.it/150/e8117f/ffffff" alt="">
-          <p class="text-xs-center m-t-1 m-b-0">TORO Devs</p>
-          <p class="text-xs-center">
-            <small>Awesome Developers</small>
-          </p>
-          <p class="text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-          </p>
-        </div>
-      </div> <!-- end of card -->
-
       <div class="card blog-container b-r-0 m-b-2" ng-if="blog.entries && blog.entries.length > 0">
-        <div class="card-header b-r-0 p-a-1">
+        <div class="b-r-0 p-a-1">
           <h3 class="text-xs-center m-b-0">Archive</h3>
         </div>
         <div class="card-block p-a-0">
           <ul class="list-group">
-            <a class="list-group-item" ng-repeat="entry in blog.entries" ui-sref="app.default.blog({id: entry.id})">
+            <a class="list-group-item b-r-0" ng-repeat="entry in blog.entries" ui-sref="app.view({id: entry.id})">
               <p class="m-b-0 truncate truncate-1" ><span>{{ entry.title }}</span></p>
             </a>
           </ul>

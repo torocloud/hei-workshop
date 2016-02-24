@@ -15,6 +15,7 @@ html,
 body {
   height: 100%;
   min-height: 100%;
+  min-width: 320px;
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
@@ -64,7 +65,7 @@ ui-view > header {
   @include media-breakpoint-down(xs) {
     position: relative;
     width: 100%;
-    height: $header-responsive-height;
+    height: 70%;
     min-height: auto; // $header-responsive-height;
   }
 
@@ -114,6 +115,7 @@ ui-view > header {
       position: absolute;
       bottom: 0;
       left: 0;
+      text-align: center;
     }
   }
 }
@@ -136,9 +138,10 @@ ui-view > footer {
 ui-view > [role="main"] {
   height: 94%;
   min-height: 94%;
+  min-width: 320px;
 
   @include media-breakpoint-down(xs) {
-    padding-top: $header-responsive-height;
+    padding-top: $header-responsive-height / 12;
     padding-left: 0;
   }
 
@@ -147,21 +150,19 @@ ui-view > [role="main"] {
     padding-left: ($header-responsive-width + 15px);
   }
 
-  .blog-container {
-    header,
-    .card-header {
-
-      word-wrap: break-word;
+  header,
+  .card-header {
+    background-color: #fff;
+    word-wrap: break-word;
+    color: $gray-dark;
+    a {
       color: $gray-dark;
-      a {
-        color: $gray-dark;
-      }
-    }
-    .blog-content {
-      white-space: pre-wrap;
-      word-wrap: break-word;
     }
   }
+  .blog-content p {
+    margin-bottom: 0;
+  }
+
   .login-container {
     margin: auto;
 
@@ -175,5 +176,22 @@ ui-view > [role="main"] {
     .card-profile-picture {
       margin-top: -70px;
     }
+  }
+  .social-media-icons {
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 100%;
+    font-size: 20px;
+    &:hover {
+      @include box-shadow();
+    }
+    &.facebook { background-color: #3B5998; }
+    &.google {  background-color: #DD4B39; }
+    &.twitter { background-color: #55ACEE; }
+    &.instagram { background-color: #3F729B; }
+    &.linkedin { background-color: #0082CA; }
   }
 }
