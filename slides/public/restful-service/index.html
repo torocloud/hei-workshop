@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Building RESTful webservice with Spring</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="/controldeck/app.css">
+
+</head>
+<body id="body">
+  <div class="toro-io">
+    <a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+        <path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)"/>
+        <path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z" transform="translate(0 -0.156)"/>
+        <path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z" transform="translate(0 -0.156)"/>
+        <path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z" transform="translate(0 -0.156)"/>
+        <circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25"/>
+        <rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750"/>
+        <path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z" transform="translate(0 -0.156)"/>
+        <path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"/>
+      </svg>
+    </a><!-- end of toro-io-heading -->
+  </div><!-- end of .toro-io watermark -->
+
+
+  <div class="reveal">
+    <!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+    <div class="slides">
+
+      <!-- Hello, Let's introduce yourself. -->
+      <section data-state="blur-on">
+        <h2>Building RESTFul Webservice with through Spring</h2>
+        <h4>
+          HTML5 Presentation Framework powered by
+          <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+        </h4>
+        <p>
+          <small>Presented By <a href="mailto:jerrickpua@gmail.com">Jerrick M. Pua</a></small><br>
+          <a href="https://github.com/jerrickpua" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+          <a href="https://ph.linkedin.com/in/jerrickpua" target="_blank"><i class="ion-social-linkedin"></i></a> &nbsp;
+        </p>
+      </section>
+      <section> 
+	      <section>
+      			<h2>What exactly is Spring?</h2>
+		           <p class="fragment">-One of the most popular appication development framework for enterprise application</p>
+		           <p class="fragment">-A light weight solution in building your enterprise-ready applications</p>
+ 			  		<p class="fragment">-It is meant to make Java EE development easier to use by addresing the complexity of Enterprise application development</p>
+	      </section>
+
+      </section>
+  	      <section>
+      		<section>
+      			<h2>Spring aims to simplifiy Java Development</h2>
+            <p class="fragment">-Minimal Invasive development</p>
+            <p class="fragment">-Loose coupling through dependency injection</p>
+      		</section>
+	  	      <section>
+	      			<h1>Minamal invasive development</h2>
+					<p class="fragment">Spring avoids ( as much as possible ) littering your application code with its API.</p>
+		      </section>
+
+		      <section>
+          <h2>A simple non-invasive POJO</h2>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class BusinessLogicBean {
+  public void doSomeBusinessLogicCode() {
+  // Business logic code...
+  } 
+}
+              </code>
+            </pre>
+          <p class="fragment">This could function equally well in a Spring application as it could in a non-Spring application</p>
+		      </section>
+		      <section>
+		      	<h1>Loose coupling through dependency injection</h1>
+            <p class="fragment">Spring empowers POJO by assembling them using Dependency Injection</p>
+		      </section>
+	      </section>
+<section>
+  <section>
+    <h2>Dependency Injection a.k.a DI</h2>
+      <p>Core concept of Spring Framework</p>
+
+  </section>
+  <section>
+      <p>Most application is made up two or more classes collaborate with each other to perform business logic</p>
+  </section>
+  <section>
+        <p>A tightly coupled code</p>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class RescuingKnight {
+  private RescuePrincessQuest quest; 
+  public RescuingKnight() {
+    this.quest = new RescuePrincessQuest(); //Knight create his own quest
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+        <p class="fragment">What we have done here is create a dependency between RescuePrincessQuest and RescuingKnight. This code makes RescuingKnight tightly coupled to RescuePrincessQuest. This severely limits the knight capabilities. What if the knight needs to slay a dragon but the only thing he knows is to rescue the princess?</p>
+  </section>
+
+  <section>
+        <p>A loosely coupled code</p>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class BraveKnight {
+  private Quest quest; 
+  public BraveKnight(Quest quest) {
+    this.quest = quest;
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+        <p class="fragment">Unlick RescuingKnight. BraveKnight does not create his own quest. Instead we create a dependency between Quest and BraveKnight. He is given a quest on construction time. </p>
+  </section>
+
+  <section>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public interface Quest {
+  public void embark();
+}
+              </code>
+            </pre>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class RescuePrincessQuest implements Quest {
+  public void embark() {
+    System.out.println("Princess! This is I your knight in shining armor!")
+  }
+}
+              </code>
+            </pre>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class DragonSlayingQuest implements Quest{
+  public void embark() {
+    System.out.println("Dragon! Prepare to die!")
+  }
+}
+              </code>
+            </pre>
+  </section>
+  <section>
+    <h2>Where did dependency injection happened?</h2>
+            <pre class="fragment">
+              <code class="hljs" contenteditable="" data-trim="">
+public class BraveKnight {
+  private Quest quest; 
+  public BraveKnight(Quest quest) {
+    this.quest = quest;
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+  </section>
+
+</section>
+<section>
+  <h1>RESTFul webservice</h1>
+
+</section>
+
+      <section>
+        <section>
+          <h2>Vertical Slides</h2>
+          <p>Slides can be nested inside of each other.</p>
+          <p>Use the <em>Space</em> key to navigate through all slides.</p><br>
+          <a class="navigate-down" href="#"><img alt="Down arrow" data-src=
+          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
+          width="178"></a>
+        </section>
+        <section>
+          <h2>Basement Level 1</h2>
+          <p>Nested slides are useful for adding additional detail underneath a
+          high level horizontal slide.</p>
+        </section>
+        <section>
+          <h2>Basement Level 2</h2>
+          <p>That's it, time to go back up.</p><br>
+          <a href="#/2"><img alt="Up arrow" data-src=
+          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
+          style="transform: rotate(180deg); -webkit-transform: rotate(180deg);"
+          width="178"></a>
+        </section>
+      </section>
+      <section>
+        <h2>Slides</h2>
+        <p>Not a coder? Not a problem. There's a fully-featured visual editor for
+        authoring these, try it out at <a href="http://slides.com" target=
+        "_blank">http://slides.com</a>.</p>
+      </section>
+      <section>
+        <h2>Point of View</h2>
+        <p>Press <strong>ESC</strong> to enter the slide overview.</p>
+        <p>Hold down alt and click on any element to zoom in on it using <a href=
+        "http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom
+        back out.</p>
+      </section>
+      <section>
+        <h2>Touch Optimized</h2>
+        <p>Presentations look great on touch devices, like mobile phones and
+        tablets. Simply swipe through your slides.</p>
+      </section>
+      <section data-markdown="">
+        <script type="text/template">
+                            ## Markdown support
+
+                            Write content using inline or external Markdown.
+                            Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+
+                            ```
+                            <section data-markdown>
+                              ## Markdown support
+
+                              Write content using inline or external Markdown.
+                              Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+                            </section>
+                            ```
+        </script>
+      </section>
+      <section>
+        <section id="fragments">
+          <h2>Fragments</h2>
+          <p>Hit the next arrow...</p>
+          <p class="fragment">... to step through ...</p>
+          <p><span class="fragment">... a</span> <span class=
+          "fragment">fragmented</span> <span class="fragment">slide.</span></p>
+          <aside class="notes">
+            This slide has fragments which are also stepped through in the notes
+            window.
+          </aside>
+        </section>
+        <section>
+          <h2>Fragment Styles</h2>
+          <p>There's different types of fragments, like:</p>
+          <p class="fragment grow">grow</p>
+          <p class="fragment shrink">shrink</p>
+          <p class="fragment fade-out">fade-out</p>
+          <p class="fragment current-visible">current-visible</p>
+          <p class="fragment highlight-red">highlight-red</p>
+          <p class="fragment highlight-blue">highlight-blue</p>
+        </section>
+      </section>
+      <section id="transitions">
+        <h2>Transition Styles</h2>
+        <p>You can select from different transitions, like:<br>
+        <a href="?transition=none#/transitions">None</a> - <a href=
+        "?transition=fade#/transitions">Fade</a> - <a href=
+        "?transition=slide#/transitions">Slide</a> - <a href=
+        "?transition=convex#/transitions">Convex</a> - <a href=
+        "?transition=concave#/transitions">Concave</a> - <a href=
+        "?transition=zoom#/transitions">Zoom</a></p>
+      </section>
+      <section id="themes">
+        <h2>Themes</h2>
+        <p>reveal.js comes with a few themes built in:<br>
+        <!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+         <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">
+        Black (default)</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">
+        White</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">
+        League</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">
+        Sky</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">
+        Beige</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">
+        Simple</a><br>
+        <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">
+        Serif</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">
+        Blood</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">
+        Night</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">
+        Moon</a> - <a href="#" onclick=
+        "document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">
+        Solarized</a></p>
+      </section>
+      <section>
+        <section data-background="#dddddd">
+          <h2>Slide Backgrounds</h2>
+          <p>Set <code>data-background="#dddddd"</code> on a slide to change the
+          background color. All CSS color formats are supported.</p><a class=
+          "navigate-down" href="#"><img alt="Down arrow" data-src=
+          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
+          width="178"></a>
+        </section>
+        <section data-background=
+        "https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
+          <h2>Image Backgrounds</h2>
+          <pre>
+    <code class="hljs">&lt;section data-background="image.png"&gt;</code>
+    </pre>
+        </section>
+        <section data-background=
+        "https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png"
+        data-background-repeat="repeat" data-background-size="100px">
+          <h2>Tiled Backgrounds</h2>
+          <pre>
+    <code class="hljs" style=
+    "word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code>
+    </pre>
+        </section>
+        <section data-background-color="#000000" data-background-video=
+        "https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm">
+        <div style=
+        "background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+            <h2>Video Backgrounds</h2>
+            <pre>
+    <code class="hljs" style=
+    "word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code>
+    </pre>
+          </div>
+        </section>
+        <section data-background="http://i.giphy.com/90F8aUepslB84.gif">
+          <h2>... and GIFs!</h2>
+        </section>
+      </section>
+      <section data-background="#4d7e65" data-background-transition="zoom"
+      data-transition="slide">
+        <h2>Background Transitions</h2>
+        <p>Different background transitions are available via the
+        backgroundTransition option. This one's called "zoom".</p>
+        <pre>
+    <code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code>
+    </pre>
+      </section>
+      <section data-background="#b5533c" data-background-transition="zoom"
+      data-transition="slide">
+        <h2>Background Transitions</h2>
+        <p>You can override background transitions per-slide.</p>
+        <pre>
+    <code class="hljs" style=
+    "word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code>
+    </pre>
+      </section>
+      <section>
+        <h2>Pretty Code</h2>
+        <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    function linkify( selector ) {
+      if( supports3DTransforms ) {
+
+        var nodes = document.querySelectorAll( selector );
+
+        for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
+          var node = nodes[i];
+
+          if( !node.className ) {
+            node.className += ' roll';
+          }
+        }
+      }
+    }
+                        </code>
+    </pre>
+        <p>Code syntax highlighting courtesy of <a href=
+        "http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+      </section>
+      <section>
+        <h2>Marvelous List</h2>
+        <ul>
+          <li>No order here</li>
+          <li>Or here</li>
+          <li>Or here</li>
+          <li>Or here</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Fantastic Ordered List</h2>
+        <ol>
+          <li>One is smaller than...</li>
+          <li>Two is smaller than...</li>
+          <li>Three!</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Tabular Tables</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Value</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Apples</td>
+              <td>$1</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>Lemonade</td>
+              <td>$2</td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>Bread</td>
+              <td>$3</td>
+              <td>2</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Clever Quotes</h2>
+        <p>These guys come in two forms, inline: <q cite=
+        "http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;The nice thing about standards is that there are so many to choose
+        from&rdquo;</q> and block:</p>
+        <blockquote cite=
+        "http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at
+        random on millions of typewriters would reproduce the entire works of
+        Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+        </blockquote>
+      </section>
+      <section>
+        <h2>Intergalactic Interconnections</h2>
+        <p>You can link between slides internally, <a href="#/2/3">like
+        this</a>.</p>
+      </section>
+      <section>
+        <h2>Speaker View</h2>
+        <p>There's a <a href=
+        "https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It
+        includes a timer, preview of the upcoming slide as well as your speaker
+        notes.</p>
+        <p>Press the <em>S</em> key to try it out.</p>
+        <aside class="notes">
+          Oh hey, these are some notes. They'll be hidden in your presentation, but
+          you can see them if you open the speaker notes window (hit 's' on your
+          keyboard).
+        </aside>
+      </section>
+
+      <section>
+        <h2>Global State</h2>
+        <p>Set <code>data-state="something"</code> on a slide and
+        <code>"something"</code> will be added as a class to the document element
+        when the slide is open. This lets you apply broader style changes, like
+        switching the page background.</p>
+      </section>
+      <section data-state="customevent">
+        <h2>State Events</h2>
+        <p>Additionally custom events can be triggered on a per slide basis by
+        binding to the <code>data-state</code> name.</p>
+        <pre>
+    <code class="javascript" contenteditable="" data-trim="" style=
+    "font-size: 18px;">
+    Reveal.addEventListener( 'customevent', function() {
+        console.log( '"customevent" has fired' );
+    } );
+                        </code>
+    </pre>
+      </section>
+      <section>
+        <h2>Take a Moment</h2>
+        <p>Press B or . on your keyboard to pause the presentation. This is helpful
+        when you're on stage and want to take distracting slides off the
+        screen.</p>
+      </section>
+      <section>
+        <h2>Much more</h2>
+        <ul>
+          <li>Right-to-left support</li>
+          <li>
+            <a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript
+            API</a>
+          </li>
+          <li>
+            <a href=
+            "https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a>
+          </li>
+          <li>
+            <a href=
+            "https://github.com/hakimel/reveal.js#parallax-background">Parallax
+            backgrounds</a>
+          </li>
+          <li>
+            <a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom
+            keyboard bindings</a>
+          </li>
+        </ul>
+      </section>
+      <section style="text-align: left;">
+        <h1>THE END</h1>
+        <p>- <a href="http://slides.com">Try the online editor</a><br>
+        - <a href="https://github.com/hakimel/reveal.js">Source code &amp;
+        documentation</a></p>
+      </section>
+
+
+
+
+
+
+    </div><!-- end of .slides -->
+  </div><!-- end of .reveal -->
+
+
+
+
+
+  <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+</html>
