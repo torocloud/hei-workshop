@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+
+<title>Integrating Twitter GoogleSheets</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css"
+	id="theme">
+<link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="/controldeck/app.css">
+
+</head>
+
+<body id="body">
+	<div class="toro-io">
+		<a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+			<svg xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+				id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+				<path id="T" class="cls-1"
+					d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z"
+					transform="translate(0 -0.156)" />
+				<path id="O" class="cls-1"
+					d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z"
+					transform="translate(0 -0.156)" />
+				<path id="R" class="cls-1"
+					d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z"
+					transform="translate(0 -0.156)" />
+				<path id="O-2" data-name="O" class="cls-1"
+					d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z"
+					transform="translate(0 -0.156)" />
+				<circle id="_." data-name="." class="cls-2" cx="3190.91"
+					cy="670.938" r="81.25" />
+				<rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66"
+					height="750" />
+				<path id="O-3" data-name="O" class="cls-1"
+					d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z"
+					transform="translate(0 -0.156)" />
+				<path id="TM" class="cls-1"
+					d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z"
+					transform="translate(0 -0.156)" />
+			</svg>
+		</a>
+		<!-- end of toro-io-heading -->
+	</div>
+	<!-- end of .toro-io watermark -->
+
+
+	<div class="reveal">
+		<!-- Heads Up: Use this comment as a reference when working on your slide. -->
+		<div class="slides">
+
+			<!-- Hello, Let's introduce yourself. -->
+			<section data-state="blur-on">
+				<h2>Integrating Twitter GoogleSheets</h2>
+				<p>
+					<small>Presented By Eric James</small> <br> 
+					<a href="https://github.com/ejdev" target="_blank"><i class="ion-social-github"></i></a>
+					<a href="https://www.facebook.com/ejcdz" target="_blank"><i class="ion-social-facebook"></i></a>
+					<a href="https://www.twitter.com/" target="_blank"><i class="ion-social-twitter"></i><a/>
+					<a href="https://plus.google.com/102393190045433535645/posts" target="_blank"><i class="ion-social-googleplus"></i></a>
+				</p>
+			</section>
+			
+			<!-- slide #1 -->
+			<section>
+				<p>
+					Hey you have an awesome <a
+						href="https://github.com/TORO-IO/hei-workshop">Bloging App</a>.
+					Wouldn't it be more fascinating if we add some geeky stuffs into it,
+					such as integrating it with <a
+						href="https://twitter.com/TestToro">Twitter</a> and <a
+						href="https://www.google.com.ph/sheets/about/">GoogleSheets</a>
+				</p>
+			</section>
+
+			<!-- slide #2 -->
+			<section>
+				<!-- slide #2.0 -->
+				<section>
+					<h3>Heads Up!</h3>
+					<div class="fragment">
+						<p>
+							Before getting pretty hyped there, these are the requirements:
+						</p>
+						<ul>
+						<div class="fragment" >
+							<li><strong>Twitter App</strong></li>
+								<ul>
+									<li>your authenticated <a href="https://apps.twitter.com">Twitter App</a></li>
+									<li>take note of the keys</li>
+								</ul> 
+						</div>
+						<div class="fragment" style=" margin-top:2% " >
+							<li><strong>GoogleSheets App</strong></li>
+								<ul>
+									<li>your authenticated GoogleSheets App on <a href="https://console.developers.google.com/">Google Console</a></li>
+									<li>take note of the keys</li>
+								</ul>
+						</div>
+						</ul>
+						<div align="right" style=" margin-top:5% " class="fragment" >
+							<p style=" font-size:12px ">*Note: if you haven't configured and authenticateize your app, press down</p>
+						</div>
+					</div>
+				</section>
+					
+				<!-- slide #2.1 -->
+				<section>
+					<h3>Haven't authenticated your app yet?</h3>
+					<div class="fragment">
+						<p>
+							follow the steps below to authenticate your App
+						</p>
+					</div>
+				</section>
+			
+				<!-- slide #2.2 -->
+				<section>
+					<h3>Authorize your Twitter App</h3>
+					<div class="fragment">
+
+		                <p>
+		                <h6 align="left" >Step 1. Create a Twitter App</h6>
+		                    Visit <a href="https://apps.twitter.com/">Twitter App Manager</a>, 
+		                    then create a new App and fill out the form, but leave the CallBack Url if you don't want to be redirected during authentication.
+		                </p>
+		               
+		               	<p>
+		                <h6 align="left" >Step 2. Configure Twitter App</h6>
+		                    Configure the App permissions to <strong>Read and Write</strong>. 
+		                    Then click on to the <strong>Keys and Access Tokens</strong> tab, and generate your Access Tokens
+		                </p>
+		                
+		                <p>
+		                <h6 align="left" >Step 3. Take Note of the Keys</h6>
+		                    The keys will be used later on, to authenticate request to App.
+		                </p>
+
+					</div>
+				</section>
+			
+				<!-- slide #2.3 -->
+				<section>
+					<div>
+						<img src="assets/consumer.png" alt="Consumer Keys">
+					</div>
+				</section>
+				
+				<!-- slide #2.4 -->
+				<section>
+					<div>
+						<img src="assets/access.png" alt="Access Tokens">
+					</div>
+				</section>
+				
+				<!-- slide #2.5 -->
+				<section>
+					<h3>Authorize your GoogleSheets App</h3>
+					<div>
+		                <p>
+		                <h6 >Step 1. Create a GoogleSheets Project on Google Console</h6>
+		                    Visit <a href="https://console.developers.google.com">Google Console</a> and follow these steps:
+		                </p>   
+		                	<div>
+		                    	<video width="75%" height="70%" controls >
+		                    		<source src="assets/gOauth_stp1.webm" type="video/webm" >
+		                    	</video>
+		                    </div>
+					</div>
+				</section>
+
+				<!-- slide #2.5 -->
+				<section>
+					<div>
+					
+						<h6>Step 2. Access the Authorization URL and Allow Permissions</h6>
+						
+		                <div class="fragment" >
+		                	<p>
+		                    	Once you have grabbed your Client ID use it to construct your Authorization URL. Copy the URL and run it on a browser.
+		                	</p>
+		                	
+		                	<div>
+		                	 	<code class="hljs" >
+		                			<pre>https://accounts.google.com/o/oauth2/auth?scope=https://spreadsheets.google.com/feeds/&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={<strong>ClientID</strong>}</pre>
+		               			</code>
+		                	</div>
+		                	
+		                </div>
+				</section>
+			
+				<!-- slide #2.6 -->
+				<section>
+		    		<div class="fragment" >
+		    		
+		    			<div>
+                  			<img src="assets/permissions.png" alt="Permissions Page">
+		               	</div>
+		               	
+		               	<div>
+		               	 	<p>
+		               	 		Allow the App then you will be redirected on a Google Redirect Page.
+		               	 		Where you could take note of the <strong>Authorization Code</strong>, which will be used later on.
+		                	</p>
+		                	
+		                	<div>
+		                		<img src="assets/authcode.png" alt="Auth Code">
+		                	</div>
+		                	
+		                </div>
+		                	
+		            </div>
+				</section>
+				
+				<!-- slide #2.7 -->
+				<section>
+				
+					<div>
+						<h6 >Step 3. Exchange Authorization Code to Access and Refresh Tokens</h6>				
+					</div>
+				
+		    		<div class="fragment" >
+		    		
+		               	<div>
+		               	 	<p>
+								Go to <a href ="https://www.getpostman.com/">Postman</a>, click Body and tick URLEncoded Form then fill up the fields.
+		                	</p>
+		                	
+		                	<div>
+		                		<img src="assets/exchangeCode.png" alt="Exchange Code">
+		                	</div>
+		                	
+		                	<p>
+								After this step you will be given <strong>Access Token</strong> and <strong>Refresh Token</strong>.
+								Please take note of the keys.
+		                	</p>
+		                	
+		                </div>
+		                	
+		            </div>
+				</section>
+
+			</section>
+			
+		<!-- slide #3 -->
+		<section>
+		
+			<!-- slide #3.0 -->
+			<section>
+				<h3>Introduction</h3>
+			</section>
+			
+			<!-- slide #3.1 -->
+			<section>
+			
+				<div class="fragment">
+					<h4>You have learned earlier how to create ReSTful Applications through your <a href="https://github.com/TORO-IO/hei-workshop">Blogg App</a>.</h4>
+				</div>
+	
+			</section>
+			
+			<!-- slide #3.2 -->
+			<section>
+			
+				<div class="fragment">
+					<h4>But now you will play the role of consuming these<br/>ReSTful Web Applications.</h4>
+				</div>
+				
+			</section>
+			
+			<!-- slide #3.3 -->
+			<section>
+			
+				<div class="fragment">
+					<h4>
+						Specific to this module we are going to consume<br/>
+						<a href="https://dev.twitter.com/rest/public">Twitter API</a>
+						and 
+						<a href="https://developers.google.com/google-apps/spreadsheets/">GoogleSheets API</a>
+					</h4>
+				</div>
+				
+			</section>
+			
+		</section>
+				
+		<!-- slide #4 -->
+		<section>
+			<h3>Let Us Start!</h3>
+		</section>			
+	
+		<!-- slide #5 -->
+		<section>
+		
+			<h3>To Do</h3>
+			
+			<br/>
+			
+			<div>
+				<ul>
+					<li>add dependencies to the app</li>
+					<li>add externalized configurations</li>
+					<li>construct google sheets connector</li>
+					<li>construct twitter connector</li>
+					<li>inject the connector classes into the app</li>
+				</ul>
+			</div>
+		</section>
+		
+		<!-- slide #6 -->
+		<section>
+			
+			<!-- slide #6.0 -->
+			<section>
+				<h3>Adding the Dependencies</h3>
+			</section>
+			
+			<section>
+				
+				<h4>add the following dependencies to the  <a href ="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html">POM</a> file</h4>
+				
+			</section>
+			
+			<!-- slide #6.1 -->
+			<section>
+			<h4>dependency for <a href="http://twitter4j.org/en/index.html#maven">Twitter4j</a></h4>
+				<pre><code height="25px" class="hljs" contenteditable="false" data-trim="">
+<dependencies>
+...
+	<dependency>
+		<groupId>org.twitter4j</groupId>
+		<artifactId>twitter4j-core</artifactId>
+		<version>[4.0,)</version>
+	</dependency>
+...
+</dependencies></code></pre>
+				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/org.twitter4j/twitter4j-core">Twitter4j Core</a></small>
+			</section>
+			
+			<!-- slide #6.2 -->
+			<section>
+				<h4>dependencies for <a href="https://developers.google.com/google-apps/spreadsheets/">GoogleSheets</a></h4>
+				<pre><code height="25px" class="hljs" contenteditable="false" data-trim="">
+<dependencies>
+...
+	<dependency>
+		<groupId>com.google.gdata</groupId>
+		<artifactId>core</artifactId>
+		<version>1.47.1</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.google.api-client</groupId>
+		<artifactId>google-api-client</artifactId>
+		<version>1.20.0</version>
+	</dependency>
+...
+</dependencies></code></pre>
+				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/com.google.gdata/core">GData</a></small><br/>
+				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/com.google.api-client/google-api-client">Google API's Client Library</a></small>
+			</section>
+						
+		</section>
+		
+		<!-- slide #7 -->
+		<section>
+		
+			<!-- slide #7.0 -->
+			<section>
+				<h3>Adding Externalized Configuration</h3>
+			</section>
+			
+			<!-- slide #7.1 -->
+			<section>
+				<h3>What is it?</h3>
+				
+				<div class="fragment">
+					<p>
+						An <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html">Externalized Configuration</a> 
+						are key and value pairs of string that acts as pseudo database, for changelogs, dates, credentials, or anything that can be stored as key and value pairs.
+						<br/><br/>
+						an external configuration file are either
+						<a href ="http://www.yaml.org/start.html">YAML</a> File
+						or
+						<a href="https://docs.oracle.com/javase/tutorial/essential/environment/properties.html">Properties</a> File
+					</p>
+				</div>
+				
+			</section>
+			
+			<!-- slide #7.2 -->
+			<section>
+				<h4>YAML file</h4>
+				<div>
+		        	<img src="assets/yaml.png" alt="Exchange Code">
+		        </div>
+		        <small>See resources for YAML Files <a href ="http://www.yaml.org/start.html">here</a></small>
+			</section>
+			
+			<!-- slide #7.3 -->
+			<section>
+				<h4>Properties file</h4>
+				<div>
+		        	<img src="assets/propertiesFile.png" alt="Exchange Code">
+		        </div>
+		        <small>See more resources <a href="https://docs.oracle.com/javase/tutorial/essential/environment/properties.html">here</a></small>
+			</section>
+			
+			<!-- slide #7.4 -->
+			<section>
+				<h4>in our project we will be using the YML File with the format seen below</h4>
+				<div>
+		        	<pre>
+		        		<code class="hljs" contenteditable="" data-trim="" >
+connector:
+    twitter:
+        consumer-key        :
+        consumer-secret     :
+        access-token        :
+        access-token-secret :
+    google-sheets:
+        application-name    :
+        client-id           :
+        client-secret       :
+        access-token        :
+        refresh-token       :
+        
+		        		</code>
+		        	</pre>
+		        </div>
+			</section>
+			
+			<!-- slide #7.4 -->
+			<section>
+				<h3>So what now?</h3>				
+			</section>
+			
+			<!-- slide #7.5 -->
+			<section>
+				<h3>Authentication Process of Requests</h3>
+				
+				<p class="fragment" >There are various ways of securing and authenticating requests and the two of them are:</p>
+				
+				<div class="fragment">
+					<ul>
+						<li>Basic Authentication</li>
+						<li>Oauth</li>
+					</ul>
+				</div>
+							
+			</section>
+			
+			<!-- slide #7.6 -->
+			<section>
+				<h3>Basic Authentication</h3>
+				
+				<div>
+					<ul>
+						<li>Username and Password</li>
+						<li>passed on the HEADER</li>
+						<li>encrypted</li>
+					</ul>
+				</div>
+			</section>
+			
+			<!-- slide #7.6 -->
+			<section>
+				<h3>Oauth</h3>
+				
+				<div>
+					<ul>
+						<li>Consumer Tokens, Access Tokens and Refresh Tokens</li>
+						<li>passed on the HEADER or as URL Parameter</li>
+						<li>either 2 legged or 3 legged Oauth Flow
+						<li>Oauth 1.0 - deprecated</li>
+						<li>Oauth 2.0</li>
+					</ul>
+				</div>
+			</section>
+			
+			<section>
+			
+				<h3>Create a class that access the YML file</h3>
+				
+				<div>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="" >
+						@Configuration
+@ConfigurationProperties( prefix = "connector" )
+public class ConnectorProperties {
+	
+	 // TODO Constructors for Twitter and GoogleSheets properties
+	 
+	 // TODO Getters and Setters for the tokens
+	
+}
+						</code>
+					</pre>
+					
+					<small>the annotation <strong><i>@ConfigurationProperties</i></strong> binds the class to the structure <strong><i>connector</i></strong> on the YML file.</small>
+					
+				</div>
+				
+			</section>
+							
+		</section>
+		
+		<!-- slide #8 -->
+		<section>
+			
+			<!-- slide #8.0 -->
+			<section>
+				<h3>Google Sheets Connector</h3>
+			</section>
+			
+			<!-- slide #8.1 -->
+			<section>
+				<h4>in this app, we will be using <a href="https://developers.google.com/gdata/">GData</a> and <a href="https://developers.google.com/gdata/docs/client-libraries">GData Client Libraries</a></h4>
+				<p>
+					which are opensource Google API Java SDKs
+				</p>
+				<small>See Google Sheets API Documentation <a href="https://developers.google.com/google-apps/spreadsheets/">here</a>.</small>
+			</section>
+			
+			<!-- slide #8.2 -->
+			<section>
+				
+				<p>Create GoogleSheets Connector class that implements <code>InitializingBean</code> and <code>afterPropertiesSet()</code> method</p>
+				<div>
+					<pre>
+						<code class="hljs" contenteditable=true data-trim="true">
+						public class GoogleSheetsConnector implements InitializingBean {
+
+	public void afterPropertiesSet() throws Exception {
+		//TODO
+	}			
+}</code>
+					</pre>
+					<small>see resources on <code>InitializingBean</code> <a href = "http://docs.spring.io/spring-framework/docs/2.5.6/api/org/springframework/beans/factory/InitializingBean.html">here</a></small>
+				</div>
+
+			</section>
+			
+			<!-- slide #8.3 -->
+			<section>
+				<p>
+					create an instance of <code>ConnectorProperties</code> and <code>SpreadsheetService</code >
+					inside of <code>GoogleSheetsConnector</code> class. Then create a Constructor for the properties.
+				</p>
+				
+				<div>
+					<pre>
+						<code class="hljs" contenteditable=true data-trim="true" >public class GoogleSheetsConnector implements InitializingBean {
+	ConnectorProperties.GoogleSheets foo;
+	SpreadsheetService foo;
+					
+	@Autowired
+	public void setGoogleSheetsProperties( ConnectorProperties properties ) {
+		this.foo = properties.getGoogleSheets();
+	}
+	...
+}
+						</code>
+					</pre>
+					<small></small>
+				</div>
+			</section>
+			
+			<!-- slide #8.4 -->
+			<section>
+			
+				<p>
+					override <code>afterPropertiesSet()</code> and insert <a href ="https://developers.google.com/api-client-library/java/google-api-java-client/reference/1.19.1/com/google/api/client/googleapis/auth/oauth2/GoogleCredential"><code>GoogleCredetial</code></a> Builder and service builder into it
+				</p>
+				
+				<pre>
+						<code class="hljs" contenteditable=true data-trim="true" >
+		@Override
+public void afterPropertiesSet() throws Exception {
+	...
+	
+	GoogleCredential credential = new GoogleCredential.Builder()
+                .setClientSecrets( ClientId, ClientSecret )
+                .setTransport( new NetHttpTransport() )
+                .setJsonFactory( new JacksonFactory() )
+                .build();
+    	credential.setAccessToken( AccessToken )
+                .setRefreshToken( RefreshToken() );
+
+    	service = new SpreadsheetService( "MySpreadSheetIntegration" );
+    	service.setProtocolVersion( SpreadsheetService.Versions.V3 );
+    	service.setHeader( HttpHeaders.USER_AGENT, "MySpreadsheetIntegration-v1" );
+    	service.setOAuth2Credentials( credential );
+    	
+    	...
+
+}
+						</code>
+					</pre>
+				
+			</section>
+			
+			<!-- slide #8.5 -->			
+			<section>
+				<h4>the following methods will be used our connector</h4>
+				
+				<div>
+					<pre>
+						<code class="hljs" contenteditable=false >
+	// Define the URL to request.  This should never change.
+	URL SPREADSHEET_FEED_URL = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
+    
+	// Make a request to the API and get all spreadsheets.
+	SpreadsheetFeed feed = service.getFeed(SPREADSHEET_FEED_URL, SpreadsheetFeed.class);
+	List &lt;SpreadsheetEntry&gt; spreadsheets = feed.getEntries();
+    
+	//Get the first instance of your spreadsheets
+	SpreadsheetEntry spreadsheet = spreadsheets.get(0);
+    
+	//Make a request to the API and get all worksheets on the spreadsheet.
+	WorksheetFeed worksheetFeed = service.getFeed(spreadsheet.getWorksheetFeedUrl(), WorksheetFeed.class);
+    
+	//Make a request to the API and get all worksheets on the spreadsheet.
+	WorksheetFeed worksheetFeed = service.getFeed(spreadsheet.getWorksheetFeedUrl(), WorksheetFeed.class);
+	List &lt;WorksheetEntry&gt; worksheets = worksheetFeed.getEntries();
+    
+	//Get the first instance of worksheet on your spreadsheet.
+	WorksheetEntry worksheet = worksheets.get(0);
+	
+	// Fetch the list feed of the worksheet.
+	URL listFeedUrl = worksheet.getListFeedUrl();
+	ListFeed listFeed = service.getFeed(listFeedUrl, ListFeed.class);
+    
+	// Create a local representation of the new row.
+	ListEntry row = new ListEntry();
+	row.getCustomElements().setValueLocal("ColumnName", "value");
+
+	// Send the new row to the API for insertion.
+	row = service.insert(listFeedUrl, row);
+    
+	// Delete the row using the API.
+	row.delete();   
+						</code>
+					</pre>
+				</div>
+			</section>
+			
+			<!-- slide #8.6 -->
+			<section>
+			
+				<h4>set <code>WorksheetFeed</code> on <code>afterPropertiesSet()</code></h4>
+				<pre>
+					<code lass="hljs" contenteditable=true >
+	...
+	URL url = new URL( SPREADSHEET_FEED_URL );
+
+	// fetch my spreadsheets feed (raw response)
+	SpreadsheetFeed feed = service.getFeed( url, SpreadsheetFeed.class );
+	
+	// and look for a spreadsheet with title "Blogs"
+	SpreadsheetEntry currentSheet = null;
+	for ( SpreadsheetEntry entry : feed.getEntries() )
+		if ( entry.getTitle().getPlainText().contains( spreadsheetTitle ) ) {
+				currentSheet = entry;
+				break;
+		}
+	if ( currentSheet == null )
+		throw new ResourceNotFoundException( "Cannot find spreadsheet with name " );
+		
+	// then, fetch the first worksheet feed (raw response)
+	WorksheetFeed worksheetFeed = service.getFeed( currentSheet.getWorksheetFeedUrl(), WorksheetFeed.class );
+	
+	// and get the first worksheet
+	currentWorksheet = worksheetFeed.getEntries().get( 0 );
+	...
+					</code>
+				</pre>
+			
+			</section>
+			
+			<section>
+			
+				<h4>since the <code>currentWorksheet</code> is already set we should be able to use and add these method</h4>
+				<pre>
+				
+					<code class="hljs" contenteditable=true >
+	...
+	public List&lt;ListEntry&gt; getRowEntries() throws ServiceException, IOException {
+		ListFeed feed = service.getFeed( currentWorksheet.getListFeedUrl(), ListFeed.class );
+		return feed.getEntries();
+	}
+	
+	public ListEntry addRowEntry( ListEntry entry ) throws ServiceException, IOException {
+		ListEntry savedEntry = service.insert( currentWorksheet.getListFeedUrl(), entry );
+		return savedEntry;
+	}
+	...
+					</code>
+				
+				</pre>
+			
+			</section>
+			
+			<!-- slide #8.9 -->
+			<section>
+				<h3>click <a href="https://developers.google.com/google-apps/spreadsheets/">here</a> to see GoogleSheets API Documentation</h3>
+			</section>
+			
+		</section>
+		
+		
+		<!-- slide #9 -->
+		<section>
+		
+			<!-- slide #9.0 -->
+			<section>
+				<h3>Twitter Connector</h3>
+			</section>
+			
+			<!-- slide #9.1 -->
+			<section>
+				<h4>in this app, we will be using <a href="http://twitter4j.org/en/index.html">Twitter4j</a> Java SDK</h4>
+				
+				<div>
+					<p>
+						which is an opensource Java SDK for Twitter authored by <br/><a href="https://github.com/yusuke">Yusuke Yamamoto</a>.
+					</p>
+				</div>
+				<br/>
+				<div>
+					<small>See Twitter4j Resources <a href="http://twitter4j.org/en/api-support.html">here</a></small><br/>
+					<small>See Twitter API Documentation <a href="https://dev.twitter.com/rest/public">here</a></small>
+				</div>
+			</section>			
+			
+			<!-- slide #9.2 -->
+			<section>
+				
+				<p>Create Twitter Connector class that implements <code>InitializingBean</code> and <code>afterPropertiesSet()</code> method</p>
+				<div>
+					<pre>
+						<code class="hljs" contenteditable=true data-trim=true>
+						public class TwitterConnector implements InitializingBean {
+
+	public void afterPropertiesSet() throws Exception {
+		//TODO
+	}			
+}</code>
+					</pre>
+					<small>see resources on <code>InitializingBean</code> <a href = "http://docs.spring.io/spring-framework/docs/2.5.6/api/org/springframework/beans/factory/InitializingBean.html">here</a></small>
+				</div>
+
+			</section>
+			
+			<!-- slide #9.3 -->
+			<section>
+				<p>
+					create an instance of <code>ConnectorProperties</code> and <code>TwitterFactory</code >
+					inside of <code>TwitterConnector</code> class. Then create a Constructor for the properties.
+				</p>
+				
+				<div>
+					<pre>
+						<code class="hljs" contenteditable=true data-trim="true" >
+							public class TwitterConnector implements InitializingBean {
+
+	ConnectorProperties.Twitter foo;
+	TwitterFactory foo;
+	
+	@Autowired
+	public void setTwitterProperties( ConnectorProperties properties ) {
+		this.foo = properties.getTwitter();
+	}
+	...
+
+}
+						</code>
+					</pre>
+					<small> see resources on <code>TwitterFactory</code> <a href="http://twitter4j.org/javadoc/twitter4j/TwitterFactory.html">here</a> </small>
+				</div>
+			</section>
+			
+			<!-- slide #9.4 -->
+			<section>
+			
+				<p>
+					override <code>afterPropertiesSet()</code>, insert <a href ="http://twitter4j.org/javadoc/twitter4j/conf/ConfigurationBuilder.html"><code>ConfigurationBuilder</code></a> and instantiate <code>TwitterFactory</code> into it
+				</p>
+				
+				<pre class= "fragment" >
+						<code class="hljs" contenteditable=true data-trim="true" >
+public class TwitterConnector implements InitializingBean {
+	...
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Configuration config = new ConfigurationBuilder()
+			.setOAuthConsumerKey( consumerKey )
+			.setOAuthConsumerSecret( consumerSecret )
+			.setOAuthAccessToken( accessToken )
+			.setOAuthAccessTokenSecret( accessTokenSecret ) )
+			.build();
+		twitterFactory = new TwitterFactory( config );
+	}
+	...
+}
+						</code>
+					</pre>
+				<small >Twitter4j Configurations <a href="http://twitter4j.org/en/configuration.html">here</a></small>
+				
+			</section>
+			
+			<!-- slide #9.5 -->
+			<section>
+				<p>
+					create a method that posts a status update on Twitter
+				</p>
+				
+				<pre class= "fragment" >
+						<code class="hljs" contenteditable=true data-trim="true" >
+	public class TwitterConnector implements InitializingBean {	
+	...
+	
+	public Status tweet( String message ) throws TwitterException {
+		return twitterFactory.getInstance().updateStatus( message );
+	}
+	
+	...
+
+}
+						</code>
+					</pre>
+			<small class= "fragment" >see other Twitter4j Example <a href="http://twitter4j.org/en/code-examples.html#updatingStatus">here</a></small>
+			</section>
+			
+			<section>
+				<p>
+					to add other methods on your app see<br/>Twitter4j API Support Matrix <a href="http://twitter4j.org/en/api-support.html">here</a>
+				</p>
+			</section>
+			
+		</section>
+		
+		<!-- slide #10 -->
+		<section>
+			
+			<!-- slide #10.0 -->
+			<section>
+				<h3>Injecting Connectors into the App</h3>
+			</section>
+			
+			<!-- slide #10.1 -->
+			<section>
+			
+				<h4>Add the Connector Beans into the <code>BloggingApp</code></h4>
+				<pre>
+					<code class="hljs" contenteditable=false >
+	@Bean
+	TwitterConnector twitterConnector() {
+		return new TwitterConnector();
+	}
+
+	@Bean
+	GoogleSheetsConnector googleSheetsConnector() {
+		return new GoogleSheetsConnector();
+	}
+					</code>
+				</pre>
+				<small></small>
+			</section>
+			
+		</section>
+		
+		<!-- slide #11 -->
+		<section>
+			<h3>Add the Do'er Classes</h3>
+		</section>
+		
+		<!-- slide #12 -->
+		<section>
+		
+			<!-- slide #12.0 -->
+			<section>
+				<h3>Create <code>GoogleSheetsBlogService</code> Class</h3>
+				<small>this will be utilized as a database for our blogs</small>
+			</section>
+			
+			<!-- slide #12.1 -->
+			<section>
+				<h4>Create <code>GoogleSheetsBlogService</code> that implements the interface <code>BlogService</code></h4>
+				<pre>
+					<code class="hljs" contenteditable=false>
+public class GoogleSheetsBlogService implements BlogService {
+
+    private final GoogleSheetsConnector googleSheetsConnector;
+    
+    @Autowired
+    public GoogleSheetsBlogService( GoogleSheetsConnector googleSheetsConnector ) {
+        this.googleSheetsConnector = googleSheetsConnector;
+    }
+}
+					</code>
+				</pre>
+				
+			</section>
+			
+				<!-- slide #12.2 -->
+			<section>
+				<h4>add the Bean to <code>BloggingApp</code></h4>
+				<pre>
+					<code class="hljs" contenteditable=false>
+	@Bean
+	BlogService blogService() {
+		return new GoogleSheetsBlogService( googleSheetsConnector() );
+	}
+					</code>
+				</pre>
+			</section>
+			
+			<!-- slide #12.3 -->
+			<section>
+				<h3>Methods that will be Implemented</h3>
+				<ul>
+					 <li>List&lt;Blog&gt; findBlogs()</li>
+					 <li>Blog findBlog( Long id )</li>
+					 <li>Blog saveBlog( Blog blog )</li>
+					 <li>void deleteBlogById( Long id )</li>
+				</ul>
+			</section>
+			
+			<!-- slide #12.4 -->
+			<section>
+				<h4>Find Blogs - List all Blogs</h4>
+				<pre>
+					<code class="hljs" contenteditable=true >
+ @Override
+    public List&lt;Blog&gt; findBlogs() {
+    ...
+            List&lt;ListEntry&gt; rows
+            List&lt;Blog&gt; blogs
+
+            Blog blog = new Blog();
+            for ( ListEntry row : rows ){                    
+            	Get firstColumn
+                blog.setId( firstColumn )
+                // fetch suceeding columns
+                Get elements
+                blog.setTitle( columnTitle ) )
+                blog.setContent( columnContent) )
+
+                blogs.add( blog )
+            }
+    ...
+            return blogs;
+    }
+					</code>
+				</pre>
+				<small class="fragment" >see resources on <code>CustomeElementCollection</code> <a href="https://developers.google.com/gdata/javadoc/com/google/gdata/data/spreadsheet/CustomElementCollection">here</a></small>
+			</section>
+			
+			<!-- slide #12.5 -->
+			<section>
+				<h4>Find Blog - Get Specified Blog</h4>
+				<pre>
+					<code class="hljs" contenteditable=true>
+	...
+	@Override
+	public Blog findBlog( Long id ) {
+		if ( id == null )
+			throw new ResourceNotFoundException( "Blog id is requried." );
+		
+		List&lt;ListEntry&gt; blogs = findBlogs();
+		Blog foundBlog = findBlogWithId( id, blogs );
+		if ( foundBlog == null )
+			throw new ResourceNotFoundException( "No blog found with id " );
+		return foundBlog;
+	}
+	
+	private Blog findBlogWithId( Long id, List&lt;Blog&gt; blogs ) {
+		Blog foundBlog = null;
+		for ( Blog blog : blogs )
+			if ( blog.getId().equals( id ) ) {
+				foundBlog = blog;
+			}
+		return foundBlog;
+	}
+	...
+					</code>
+				</pre>
+			</section>
+			
+			<!-- slide #12.6 -->
+			<section>
+				<h4>Save Blog - Store a Blog to GoogleSheets</h4>
+				<pre>
+					<code class="hljs" contenteditable=true>
+ 	...
+ 	@Override
+ 	public Blog saveBlog( Blog blog ) {
+ 		
+ 		if( id == null ) {
+ 			
+ 			//TODO some logic for creating a new Blog entry
+ 			
+ 		}
+ 		
+ 		else {
+ 			
+ 			//TODO some logic for updating a Blog
+ 			
+ 		}
+ 		
+ 	}
+    	...
+					</code>
+				</pre>
+			</section>
+			
+			<!-- slide #12.7 -->
+			<section>
+				
+				<h4>Create a new Blog</h4>
+				
+				<pre>
+					<code class="hljs" contenteditable=true>
+	...
+	if( id == null ){
+
+		//TODO indexing logic
+		
+		blog.setId( index );
+		ListEntry entry 
+		entry.getCustomElements().setValueLocal( columnName, content );
+		googleSheetsConnector.addRowEntry( entry );
+	}
+	...
+					</code>
+				</pre>
+				
+			</section>
+			
+			<!-- slide #12.8 -->
+			<section>
+				<h4>Update a Blog</h4>
+				<pre>
+					<code class="hljs" contenteditable=true>
+	...
+	else {
+		
+		//TODO Logic for fetching the Blog to be Updated
+		
+		if ( found == null )
+			throw new ResourceNotFoundException( "No blog found with id " + providedId );
+		
+		found.getCustomElements().setValueLocal( columnName, blog.getTitle() );
+		found.update();
+	}
+}
+
+
+					</code>
+				</pre>
+			</section>
+			
+			<!-- slide #12.8 -->
+			<section>
+			
+				<h4>Delete a Blog</h4>
+				
+				<pre>
+					<code class="hljs" contenteditable=false>
+    @Override
+    public void deleteBlogById( Long id ) {
+    	
+    	//TODO logic for fetching the Blog
+    	
+    	 if ( found != null )
+            found.delete();
+    }
+
+					</code>
+				</pre>
+				
+			</section>
+		
+		</section>
+		
+		<!-- slide #13 -->
+		<section>
+		
+			<!-- slide #13.0 -->
+			<section>
+				<h3>Add <code>BlogEventListener</code> Class</h3>
+				<small>this will be utilized when there are saved or updated blogs</small>
+			</section>
+			
+			<!-- slide #13.1 -->
+			<section>
+				<h4>create an instance of <i><code>TwitterConnector</code></i>, create a constructor and a setter for the default template tweet</h4>
+				<pre>
+					<code class="hljs" contenteditable=false >
+public class BlogEventListener {
+
+    private final TwitterConnector twitterConnector;
+    private String defaultMessagePrefix = "Created a new blog, titled: ";
+
+    public BlogEventListener( TwitterConnector twitterConnector ) {
+        this.twitterConnector = twitterConnector;
+    }
+    
+    void setDefaultMessagePrefix( String message ) {
+        this.defaultMessagePrefix = message;
+    }
+        
+    ...
+}
+					</code>
+				</pre>
+			</section>
+			
+			<!-- slide #13.2 -->
+			<section>
+				
+				<h4>Add the Bean into the <code>BloggingApp</code></h4>
+				<pre>
+					<code class="hljs" contenteditable=false >
+	@Bean
+	BlogEventListener blogEventListener() {
+		return new BlogEventListener( twitterConnector() );
+	}</code></pre>
+				
+			</section>
+			
+			
+			<!-- slide #13.3 -->
+			<section>
+			
+			<h3>create the <code>BlogUpdatedEvent</code></h3>
+			<pre>
+				<code class="hljs" contenteditable=true>
+public class BlogUpdatedEvent extends ApplicationEvent {
+
+    public BlogUpdatedEvent( Blog source ) {
+        super( source );
+    }
+
+    @Override
+    public Blog getSource() {
+        return ( Blog ) super.getSource();
+    }
+
+}		
+				</code>
+			</pre>
+			
+			</section>
+			
+			<!-- slide #13.4 -->
+			<section>
+				<h3>Add <code>BlogUpdatedEvent</code> to <code>BlogEventListener</code></h3>
+				
+				<pre>
+					<code class="hljs" contenteditable=true >
+@EventListener
+public void postToTwitterOnBlogUpdate( final BlogUpdatedEvent foo ) {
+	
+	...
+	
+	Blog blog = blogUpdatedEvent.getSource();
+	
+	...
+}
+					</code>
+				</pre>
+
+			</section>		
+			
+			<!-- slide #13.5 -->
+			<section>
+				<h3>its your time to shine!</h3>
+				<p>try adding the method call <code>tweet( message )</code></p>
+			</section>		
+			
+			<!-- slide #13.6 -->
+			<section>
+				<h3>Add the method that post to Twitter</h3>
+				<pre>
+					<code class="hljs" contenteditable=true >
+@EventListener
+public void postToTwitterOnBlogUpdate() {
+	
+	...
+	
+	//TODO call the Twitter Connector Method here
+	
+	...
+}
+					</code>
+				</pre>
+				
+			</section>	
+		
+		</section>
+		
+		<section>
+		
+			<h1>Fin</h1>
+
+		</section>
+		
+		
+		</div>
+		<!-- end of slides -->
+		</div>
+		<!-- end of .reveal -->
+		<script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+		<script src="/controldeck/reveal.js/js/reveal.js"></script>
+		<script src="/controldeck/app.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/controldeck/deck.js"></script>
+</body>
+
+</html>
