@@ -57,7 +57,7 @@ public class BlogApiController {
      * TODO Annotate this method with @RequestMapping and set the suitable HTTP Method for the service
      */
     ResponseEntity<Blog> saveBlog( /* TODO annotate your parameter with @RequestBody annotation */ Blog blog,
-            UriComponentsBuilder uriBuilder ) {
+            UriComponentsBuilder ucb ) {
         // TODO Use blogService to save the incoming blog from client
         throw new UnsupportedOperationException( "Not yet implemented" );
         // TODO Return the blog entries with the suitable HTTPStatus
