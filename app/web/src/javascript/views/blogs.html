@@ -1,9 +1,9 @@
 <div class="container-fluid p-y-3">
   <div class="row">
     <div class="col-xs-12 col-md-8 col-lg-9">
-      <div class="text-xs-center" ng-if="blog.entries.length <= 0">
+      <div ng-if="blog.entries.length <= 0">
         <h3>There are no blogs right now</h3>
-        <button ng-if="blog.currentUser.username" ui-sref="app.post" class="btn btn-primary m-t-1">Create one now</button>
+        <button ng-if="blog.currentUser.username" ui-sref="app.post" class="btn btn-info m-t-1">Create one now</button>
         <span ng-if="!blog.currentUser.username">Please <a ui-sref="app.login">login</a> to post</span>
       </div>
 
@@ -102,14 +102,6 @@
           </div>
         </div>
         <div class="clearfix"></div>
-      </div>
-
-
-      <div  ng-if="blog.entries && blog.entries.length <= 0" class="block">
-        <h2>No blogs at the moment</h2>
-        <a class="btn btn-info btn-md m-t-2" ui-sref="app.post">
-          <i class="ion-document"></i> &nbsp;Create one now
-        </a>
       </div>
     </div><!-- end of .col-xs-12.col-sm-9 -->
 
