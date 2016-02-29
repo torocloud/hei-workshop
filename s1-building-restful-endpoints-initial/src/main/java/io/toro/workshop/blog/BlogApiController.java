@@ -1,8 +1,7 @@
 package io.toro.workshop.blog;
 
+import java.net.URI;
 import java.util.List;
-
-import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
