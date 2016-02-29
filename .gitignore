@@ -1,1 +1,9 @@
 target/
+
+*.prefs
+
+s1-building-restful-endpoints/.classpath
+
+s1-building-restful-endpoints/.project
+
+s1-building-restful-endpoints-initial/.project
