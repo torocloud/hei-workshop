@@ -77,7 +77,7 @@
           blog.entry = data
         },
         (error) => {
-
+          $state.go('app.default')
         }
       )
     }
