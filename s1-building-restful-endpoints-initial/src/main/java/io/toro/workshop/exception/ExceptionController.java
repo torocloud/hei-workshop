@@ -27,7 +27,12 @@ public class ExceptionController implements ErrorController {
      *  Have this method to catch ResourceNotFoundException
      */
     ResponseEntity<ApiException> handleNotFound( ResourceNotFoundException ex ) {
-        return processApiException( new ApiException( 404, ex ) );
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     /*
@@ -37,7 +42,12 @@ public class ExceptionController implements ErrorController {
      *  Have this method to catch HttpMessageNotReadableException
      */
     ResponseEntity<ApiException> handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
-        return processApiException( new ApiException( 400, ex ) );
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     /*
@@ -47,7 +57,12 @@ public class ExceptionController implements ErrorController {
      *  Have this method to catch ApiException
      */
     ResponseEntity<ApiException> processApiException( ApiException ex ) {
-        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     /*
@@ -60,7 +75,12 @@ public class ExceptionController implements ErrorController {
      *  Have this method to catch Exception
      */
     ResponseEntity<ApiException> handleAllException( Exception ex ) {
-        return processApiException( new ApiException( 500, ex ) );
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     /*
@@ -68,7 +88,12 @@ public class ExceptionController implements ErrorController {
      *  and set the path the same as the getErrorPath()
      */
     ResponseEntity<ApiException> handleEndpointNotFound( Exception ex ) {
-        return handleAllException( ex );
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     @Override
