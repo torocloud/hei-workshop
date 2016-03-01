@@ -20,6 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
  */
 public class ExceptionController implements ErrorController {
 
+    
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  Have this method to catch ApiException
+     */
+    @ExceptionHandler( ApiException.class )
+    ResponseEntity<ApiException> processApiException( ApiException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
+    }
+    
     /*
      *  TODO Annotate the class with @ExceptionHandler 
      *  and set what type of exception the method will catch
@@ -50,20 +67,6 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
-    /*
-     *  TODO Annotate the class with @ExceptionHandler 
-     *  and set what type of exception the method will catch
-     *  
-     *  Have this method to catch ApiException
-     */
-    ResponseEntity<ApiException> processApiException( ApiException ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( "Not yet implemented" );
-    }
 
     /*
      *  TODO Annotate the class with @ExceptionHandler 
