@@ -1,9 +1,9 @@
 connector:
     twitter:
-        consumer-key        : 6jC4AjmxBFEfLJ4klq5jMVQwt
-        consumer-secret     : 38mfr4dt2DtVear6d5zBVxpGLnb9ketiuIioqxdX1AIR8LyvNj
-        access-token        : 3142269147-vZdxuw2o3XuSjZc20Nqf6b4npGxj7kt469mgff5
-        access-token-secret : g6dwrhmu2os4TbnMQwnxUMtqKbvptrj2Fl5IDePtcjPE3
+        consumer-key        : RPkKrwvvG6KszMTG4ISkETygH
+        consumer-secret     : P7dKtHUExfP57Kdj7usCB3zMuYwiHxMuCQWEVjkBdl9KmHT5KH
+        access-token        : 3142269147-KmeWih2olwDo38c5vZq8u8lYs7PfcYk2Kh5v1gj
+        access-token-secret : 71yFEdwBlFC3vsgjMGBwh5hzHtRW166i5G6dctss4SHf5
     google-sheets:
         application-name    : MySpreadsheetIntegration
         client-id           : 271685667525-0o2jhghl7fts88vojtjg0n5ql3hd6ueo.apps.googleusercontent.com
