@@ -32,12 +32,13 @@
 
 
   UserLoginController.$inject = [
+    '$rootScope',
     '$state',
     'api',
     'context'
   ]
 
-  function UserLoginController ($state, api, userContext) {
+  function UserLoginController ($rootScope, $state, api, userContext) {
     let login = this
 
     login.alert     = false
@@ -60,18 +61,17 @@
        * @returns {Boolean}
        */
       this.userLogin = (redirect) => {
-        api.login(login.ngModel).success((data, status, headers) => {
-          if (status === 200 && data.hasOwnProperty('token')) {
+        api.login(login.ngModel).then((data) => {
+          if ( data.hasOwnProperty('token') ) {
             userContext.setCurrentUser(Object.assign({
               username: login.ngModel.username
             }, data))
-            return $state.go(redirect, {reload: true})
+            $rootScope.$emit('auth::setUser')
+            return $state.go(redirect)
           }
-
-          if (status !== 401 || !data.hasOwnProperty(token)) {
-            return this.userInvalid(data)
-          }
-        })
+        }, (error) =>
+          this.userInvalid()
+        )
         return true
       }
 
