@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+import java.net.URI;
 
 @CrossOrigin
 @RestController
@@ -42,11 +44,12 @@ public class BlogApiController {
     }
 
     @RequestMapping( method = RequestMethod.POST )
-    ResponseEntity<Blog> saveBlog( @RequestBody Blog blog ) {
+    ResponseEntity<Blog> saveBlog( @RequestBody Blog blog, UriComponentsBuilder ucb ) {
         blog = blogService.saveBlog( blog );
         eventPublisher.publishEvent( new BlogUpdatedEvent( blog ) );
 
-        return ResponseEntity.ok( blog );
+        URI locationURI = ucb.path( "/api/blogs/" ).path( String.valueOf( blog.getId() ) ).build().toUri();
+        return ResponseEntity.created( locationURI ).body( blog );
     }
 
     @RequestMapping( value = "{id}", method = RequestMethod.DELETE )
