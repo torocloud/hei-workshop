@@ -10,6 +10,7 @@
 
 $header-responsive-width: 330px;
 $header-responsive-height: 360px;
+$list-group-fixed-height: 350px;
 
 html,
 body {
@@ -37,6 +38,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: $style;
 }
 
+// utility clasess
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -65,7 +67,7 @@ ui-view > header {
   @include media-breakpoint-down(xs) {
     position: relative;
     width: 100%;
-    height: 70%;
+    // height: 70%;
     min-height: auto; // $header-responsive-height;
   }
 
@@ -115,6 +117,7 @@ ui-view > header {
       position: absolute;
       bottom: 0;
       left: 0;
+      right: 0;
       text-align: center;
     }
   }
@@ -159,24 +162,34 @@ ui-view > [role="main"] {
       color: $gray-dark;
     }
   }
-  .blog-content p {
+
+  section p {
     margin-bottom: 0;
+    word-wrap: break-word;
   }
 
-  .login-container {
-    margin: auto;
-
-    @include media-breakpoint-up(md) {
-      width: 400px;
-    }
-    @include media-breakpoint-down(sm) {
-      padding-left: 1rem;
-      padding-right: 1rem;
+  .block-wrapper {
+    &.block-wrapper-sm {
+      @include media-breakpoint-up(md) {
+        width: 400px;
+      }
+      @include media-breakpoint-down(sm) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
     }
     .card-profile-picture {
       margin-top: -70px;
     }
   }
+
+  .list-group {
+    &.list-group-fixed {
+      max-height: $list-group-fixed-height;
+      overflow: auto;
+    }
+  }
+
   .social-media-icons {
     margin-right: 10px;
     width: 45px;
@@ -185,13 +198,13 @@ ui-view > [role="main"] {
     background-color: #ccc;
     border-radius: 100%;
     font-size: 20px;
-    &:hover {
-      @include box-shadow();
-    }
-    &.facebook { background-color: #3B5998; }
-    &.google {  background-color: #DD4B39; }
-    &.twitter { background-color: #55ACEE; }
-    &.instagram { background-color: #3F729B; }
-    &.linkedin { background-color: #0082CA; }
+    // &:hover {
+    //   @include box-shadow();
+    // }
+    &.social-media-icons-facebook { background-color: #3B5998; }
+    &.social-media-icons-google {  background-color: #DD4B39; }
+    &.social-media-icons-twitter { background-color: #55ACEE; }
+    &.social-media-icons-instagram { background-color: #3F729B; }
+    &.social-media-icons-linkedin { background-color: #0082CA; }
   }
 }
