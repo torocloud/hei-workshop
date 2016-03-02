@@ -68,7 +68,7 @@ ui-view > header {
     position: relative;
     width: 100%;
     // height: 70%;
-    min-height: auto; // $header-responsive-height;
+    min-height: 568px; // $header-responsive-height;
   }
 
   @include media-breakpoint-up(xs) {
