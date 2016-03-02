@@ -51,7 +51,7 @@
       <section> 
 	      <section>
       			<h2>What exactly is Spring?</h2>
-		           <p class="fragment">-One of the most popular appication development framework for enterprise application</p>
+		           <p class="fragment">-One of the most popular application development framework for enterprise application</p>
 		           <p class="fragment">-A light weight solution in building your enterprise-ready applications</p>
  			  		<p class="fragment">-It is meant to make Java EE development easier to use by addresing the complexity of Enterprise application development</p>
 	      </section>
@@ -59,7 +59,7 @@
       </section>
   	      <section>
       		<section>
-      			<h2>Spring aims to simplifiy Java Development</h2>
+      			<h2>Spring aims to simplify Java Development</h2>
             <p class="fragment">-Minimal Invasive development</p>
             <p class="fragment">-Loose coupling through dependency injection</p>
       		</section>
@@ -128,7 +128,7 @@ public class BraveKnight {
 }
               </code>
             </pre>
-        <p class="fragment">Unlick RescuingKnight. BraveKnight does not create his own quest. Instead we create a dependency between Quest and BraveKnight. He is given a quest on construction time. </p>
+        <p class="fragment">Unlike RescuingKnight. BraveKnight does not create his own quest. Instead we create a dependency between Quest and BraveKnight. He is given a quest on construction time. </p>
   </section>
 
   <section>
@@ -207,375 +207,673 @@ public class BraveKnight {
     <p class="fragment">REST involves transferring resource data, in some representational form that is most appropriate for the client or server or vice versa</p>
   </section>
   <section>
-    <h2>Developing REST best practice</h2>
-    <p class="fragment">-Resource are identified through the URL</p>
-    <div class="fragment">
-    <p>The action to be perform on the resource are defined by HTTP Methods</p>
-        <ul>
-          <li><i>Create</i> - POST</li>
-          <li><i>Read</i> - GET</li>
-          <li><i>Update</i> - PUT or PATCH</li>
-          <li><i>Delete</i> - DELETE</li>
-        </ul>
-    </div>
+    <h1>REST Best Practice</h1>
   </section>
-  <section>
-    <h2>REST Example</h2>
-    <p>POST: http://localhost:8080/api/blogs</p>
-    <p>Response in JSON</p>
-      <pre>
-        <code class="hljs" contenteditable="" data-trim="">
+<section>
+  <h2>Resource should be identifiable through its URL</h2>
+  <p>Example: http://localhost:8080/api/blogs</p>
+</section>
+<section>
+  <h2>Actions in REST are defined by HTTP Methods</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>HTTP Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Create</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Read</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Update</td>
+        <td>PUT/PATCH</td>
+      </tr>
+      <tr>
+        <td>Delete</td>
+        <td>Delete</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>HTTP Status code to return after a successful REST calls</h2>
+  <table style=" font-size: 24px; ">
+    <thead>
+      <tr>
+        <th>HTTP Status code</th>
+        <th>HTTP Method</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>200 - OK</td>
+        <td>GET, PUT, DELETE, POST</td>
+        <td>No Error, Operation is successful. Can also be used for POST that doesn't result in resource creation</td>
+      </tr>
+      <tr>
+        <td>201 - Created</td>
+        <td>POST</td>
+        <td>Successful creation of resource. It's considered a good form to communicate the resource's URL in the Location header</td>
+      </tr>
+      <tr>
+        <td>204 - No Content</td>
+        <td>GET, PUT, DELETE</td>
+        <td>Request was processed successfully, but no response body is needed.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>HTTP Status code to return after an unsuccessful REST calls</h2>
+  <table style=" font-size: 24px; ">
+    <thead>
+      <tr>
+        <th>HTTP Status code</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>400 - Bad Request</td>
+        <td>Malformed request body</td>
+      </tr>
+      <tr>
+        <td>401 - Unauthorized</td>
+        <td>When no or invalid authentication details are provided.</td>
+      </tr>
+      <tr>
+        <td>403 - Forbidden</td>
+        <td>Authentication succeeded but user do not have access to resource.</td>
+      </tr>
+      <tr>
+        <td>404 - Not Found</td>
+        <td>Non-existent resource is requested</td>
+      </tr>
+      <tr>
+        <td>405 - Method Not Allowed</td>
+        <td>The HTTP method used is not supported/allowed on the resource</td>
+      </tr>
+      <tr>
+        <td>500 - Server Error</td>
+        <td>Internal server error. Possible cause could be due to exceptions thrown</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+<h5>A simple save blog request using HTTP POST</h5>
+  <img src="assets/example-post-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+  <h5>The headers of the save blog HTTP Post request</h5>
+    <img src="assets/post-request-headers.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+<h5>A simple get blog request using HTTP GET</h5>
+  <img src="assets/example-get-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+<section>
+<h5>A simple delete blog request using HTTP DELETE</h5>
+  <img src="assets/example-delete-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+</section>
+<section>
+<h1>Let's Spring into action!</h1>
+</section>
+<section>
+<section>
+<h2>BlogApiController code</h2>
+</section>
+<section>
+  <h3>POJO used around BlogApiController</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.blog;
+
+public class Blog {
+
+    private Long id;
+    private String title;
+    private String content;
+
+    public Blog() {
+    }
+
+    public Blog( Long id, String title, String content ) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId( Long id ) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle( String title ) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent( String content ) {
+        this.content = content;
+    }
+
+}
+    </code>
+  </pre>  
+
+</section>
+<section>
+<h3>Class level</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="" style="max-height: none;">
+/*
+ *  TODO Annotate the class with RestController 
+ *  to have Spring recognize the class as a Rest Service
+ */
+/*
+ *  TODO Annotate the class with RequestMapping 
+ *  and set the base url of your rest service as "api/blogs"
+ */
+public class BlogApiController {
+
+    /*
+     * BlogService is the object that performs the business logic
+     */
+    private final BlogService blogService;
+    
+    /*
+     * Spring automatically use dependency injection to inject the
+     * correct Concrete implementation of the BlogService
+     */
+    @Autowired
+    BlogApiController( BlogService blogService ) {
+        this.blogService = blogService;
+    }
+
+    /* REST SERVICE CODE HERE... */
+}
+
+    </code>
+  </pre>  
+</section>
+
+<section>
+<h3>Fetch a list of blogs</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate this method with RequestMapping 
+     *  and set the suitable HTTP Method for the service
+     */
+    ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
+        // TODO Use blogService to get all blogs entries
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        // TODO Return the blog entries with the suitable HTTPStatus
+    }
+    </code>
+  </pre>
+  <div class="fragment">
+    <h5>Example with response</h5>
+        <small>GET: http://localhost:8080/api/blogs</small><br/>
+    <pre>
+      <code class="hljs" contenteditable="" data-trim="">
+[
+    {
+        "id": 1,
+        "title": "Hello",
+        "content": "World"
+    },
+    {
+        "id": 2,
+        "title": "Dog",
+        "content": "The Pug"
+    }
+]
+      </code>
+    </pre>
+  </div>
+</section>
+
+<section>
+<h3>Fetch a blog through its id</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     * TODO Annotate this method with @RequestMapping with a value of {id} 
+     * and set the suitable HTTP Method
+     */
+    ResponseEntity&lt;Blog&gt; getBlog( /* TODO annotate your parameter 
+                                    with @PathVariable annotation. */ Long id ) {
+        // TODO Use blogService to get blog entry via id
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        // TODO Return the blog entries with the suitable HTTPStatus
+    }
+    </code>
+  </pre>
+  <div class="fragment">
+    <h5>Example with response</h5>
+        <small>GET: http://localhost:8080/api/blogs/4</small><br/>
+    <pre>
+      <code class="hljs" contenteditable="" data-trim="">
 {
-    "id": 2,
-    "title": "Doug",
-    "content": "The Pug"
+    "id": 4,
+    "title": "Hello",
+    "content": "World"
 }
       </code>
     </pre>
+  </div>
+</section>
 
+<section>
+<h3>Save a blog</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     * TODO Annotate this method with @RequestMapping 
+     * and set the suitable HTTP Method for the service
+     */
+    ResponseEntity&lt;Blog&gt; saveBlog( /* TODO annotate your parameter 
+                                    with @RequestBody annotation */ Blog blog,
+            UriComponentsBuilder ucb ) {
+        // TODO Use blogService to save the incoming blog from client
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        // TODO Return the blog entries with the suitable HTTPStatus
+    }
+    </code>
+  </pre>
+  <div class="fragment">
+    <h5>Example with response</h5>
+        <small>POST: http://localhost:8080/api/blogs</small><br/>
+    <pre>
+      <code class="hljs" contenteditable="" data-trim="">
+{
+    "id": 4,
+    "title": "Hello",
+    "content": "World"
+}
+      </code>
+    </pre>
+  </div>
+</section>
+
+<section>
+<h3>Delete a blog through its id</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     * TODO Annotate this method with @RequestMapping with a value of {id} 
+     * and set the suitable HTTP Method
+     */
+    ResponseEntity&lt;Void&gt; deleteblog( /* TODO annotate your parameter 
+                                        with @PathVariable annotation. */ Long id ) {
+        // TODO Use blogService to delete the blog entry via id
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        // TODO Return a empty response with the suitable HTTPStatus
+    }
+    </code>
+  </pre>
+  <div class="fragment">
+    <h5>Example</h5>
+        <small>DELETE: http://localhost:8080/api/blogs/4</small><br/>
+        <small>NO RESPONSE CONTENT</small>
+  </div>
+</section>
+
+
+<section>
+<h3>Your BlogApiController should look like this...</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.blog;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+@RestController
+@RequestMapping( value = &quot;api/blogs&quot; )
+public class BlogApiController {
+    
+    private final BlogService blogService;
+    
+    @Autowired
+    BlogApiController( BlogService blogService ) {
+        this.blogService = blogService;
+    }
+    
+    @RequestMapping( method = RequestMethod.GET )
+    ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
+        List&lt;Blog&gt; blogs = blogService.findBlogs();
+        
+        return ResponseEntity.ok( blogs );
+    }
+    
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
+    ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
+        Blog blog = blogService.findBlog( id );
+        
+        return ResponseEntity.ok( blog );
+    }
+    
+    @RequestMapping( method = RequestMethod.POST )
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, 
+                                    UriComponentsBuilder ucb ) {
+        blog = blogService.saveBlog( blog );
+        URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
+                            .path( String.valueOf( blog.getId() ) ).build().toUri();
+        return ResponseEntity.created( locationURI ).body( blog );
+    }
+    
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
+    ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
+        blogService.deleteBlogById( id );
+        
+        return ResponseEntity.noContent().build();
+    }
+}
+
+    </code>
+  </pre>
+</section>
+
+</section>
+<section>
+  <section>
+    <h2>How to deal the "What ifs" in REST request?</h2>
+  </section>
+  <section>
+    <h2>Create an REST error handler</h2>
+  </section>
+  <section>
+    <h2>ExceptionController</h2>
   </section>
 <section>
-<h1>Let's Spring into action!</h1>
+<h3>Class level</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+/*
+ *  TODO Annotate the class with @RestController 
+ *  to have Spring recognize the class as a Rest Service
+ */
+
+/*
+ *  TODO Annotate the class with @ControllerAdvice. 
+ *  This will make the class applied globally across all @RequestMapping on all
+ *  Controller in an application
+ */
+public class ExceptionController implements ErrorController {
+    /* EXCEPTION HANDLING CODE HERE... */
+}
+    </code>
+  </pre> 
+
+</section>
+
+<section>
+<h3>Handling APIException</h3>
+<p> Main exception handling method. Later on you will reuse this method to handle other types of exceptions.</p>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  Have this method to catch ApiException
+     */
+    ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    }
+    </code>
+  </pre> 
 </section>
 <section>
-<h1>Let's Spring into action!</h1>
-</section>
-</section>
-
-      <section>
-        <section>
-          <h2>Vertical Slides</h2>
-          <p>Slides can be nested inside of each other.</p>
-          <p>Use the <em>Space</em> key to navigate through all slides.</p><br>
-          <a class="navigate-down" href="#"><img alt="Down arrow" data-src=
-          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
-          width="178"></a>
-        </section>
-        <section>
-          <h2>Basement Level 1</h2>
-          <p>Nested slides are useful for adding additional detail underneath a
-          high level horizontal slide.</p>
-        </section>
-        <section>
-          <h2>Basement Level 2</h2>
-          <p>That's it, time to go back up.</p><br>
-          <a href="#/2"><img alt="Up arrow" data-src=
-          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
-          style="transform: rotate(180deg); -webkit-transform: rotate(180deg);"
-          width="178"></a>
-        </section>
-      </section>
-      <section>
-        <h2>Slides</h2>
-        <p>Not a coder? Not a problem. There's a fully-featured visual editor for
-        authoring these, try it out at <a href="http://slides.com" target=
-        "_blank">http://slides.com</a>.</p>
-      </section>
-      <section>
-        <h2>Point of View</h2>
-        <p>Press <strong>ESC</strong> to enter the slide overview.</p>
-        <p>Hold down alt and click on any element to zoom in on it using <a href=
-        "http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom
-        back out.</p>
-      </section>
-      <section>
-        <h2>Touch Optimized</h2>
-        <p>Presentations look great on touch devices, like mobile phones and
-        tablets. Simply swipe through your slides.</p>
-      </section>
-      <section data-markdown="">
-        <script type="text/template">
-                            ## Markdown support
-
-                            Write content using inline or external Markdown.
-                            Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-                            ```
-                            <section data-markdown>
-                              ## Markdown support
-
-                              Write content using inline or external Markdown.
-                              Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-                            </section>
-                            ```
-        </script>
-      </section>
-      <section>
-        <section id="fragments">
-          <h2>Fragments</h2>
-          <p>Hit the next arrow...</p>
-          <p class="fragment">... to step through ...</p>
-          <p><span class="fragment">... a</span> <span class=
-          "fragment">fragmented</span> <span class="fragment">slide.</span></p>
-          <aside class="notes">
-            This slide has fragments which are also stepped through in the notes
-            window.
-          </aside>
-        </section>
-        <section>
-          <h2>Fragment Styles</h2>
-          <p>There's different types of fragments, like:</p>
-          <p class="fragment grow">grow</p>
-          <p class="fragment shrink">shrink</p>
-          <p class="fragment fade-out">fade-out</p>
-          <p class="fragment current-visible">current-visible</p>
-          <p class="fragment highlight-red">highlight-red</p>
-          <p class="fragment highlight-blue">highlight-blue</p>
-        </section>
-      </section>
-      <section id="transitions">
-        <h2>Transition Styles</h2>
-        <p>You can select from different transitions, like:<br>
-        <a href="?transition=none#/transitions">None</a> - <a href=
-        "?transition=fade#/transitions">Fade</a> - <a href=
-        "?transition=slide#/transitions">Slide</a> - <a href=
-        "?transition=convex#/transitions">Convex</a> - <a href=
-        "?transition=concave#/transitions">Concave</a> - <a href=
-        "?transition=zoom#/transitions">Zoom</a></p>
-      </section>
-      <section id="themes">
-        <h2>Themes</h2>
-        <p>reveal.js comes with a few themes built in:<br>
-        <!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-         <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">
-        Black (default)</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">
-        White</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">
-        League</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">
-        Sky</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">
-        Beige</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">
-        Simple</a><br>
-        <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">
-        Serif</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">
-        Blood</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">
-        Night</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">
-        Moon</a> - <a href="#" onclick=
-        "document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">
-        Solarized</a></p>
-      </section>
-      <section>
-        <section data-background="#dddddd">
-          <h2>Slide Backgrounds</h2>
-          <p>Set <code>data-background="#dddddd"</code> on a slide to change the
-          background color. All CSS color formats are supported.</p><a class=
-          "navigate-down" href="#"><img alt="Down arrow" data-src=
-          "https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" height="238"
-          width="178"></a>
-        </section>
-        <section data-background=
-        "https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-          <h2>Image Backgrounds</h2>
-          <pre>
-    <code class="hljs">&lt;section data-background="image.png"&gt;</code>
-    </pre>
-        </section>
-        <section data-background=
-        "https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png"
-        data-background-repeat="repeat" data-background-size="100px">
-          <h2>Tiled Backgrounds</h2>
-          <pre>
-    <code class="hljs" style=
-    "word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code>
-    </pre>
-        </section>
-        <section data-background-color="#000000" data-background-video=
-        "https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm">
-        <div style=
-        "background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-            <h2>Video Backgrounds</h2>
-            <pre>
-    <code class="hljs" style=
-    "word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code>
-    </pre>
-          </div>
-        </section>
-        <section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-          <h2>... and GIFs!</h2>
-        </section>
-      </section>
-      <section data-background="#4d7e65" data-background-transition="zoom"
-      data-transition="slide">
-        <h2>Background Transitions</h2>
-        <p>Different background transitions are available via the
-        backgroundTransition option. This one's called "zoom".</p>
-        <pre>
-    <code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code>
-    </pre>
-      </section>
-      <section data-background="#b5533c" data-background-transition="zoom"
-      data-transition="slide">
-        <h2>Background Transitions</h2>
-        <p>You can override background transitions per-slide.</p>
-        <pre>
-    <code class="hljs" style=
-    "word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code>
-    </pre>
-      </section>
-      <section>
-        <h2>Pretty Code</h2>
-        <pre>
+<h3>Handling ResourceNotFoundException</h3>
+   <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    function linkify( selector ) {
-      if( supports3DTransforms ) {
-
-        var nodes = document.querySelectorAll( selector );
-
-        for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-          var node = nodes[i];
-
-          if( !node.className ) {
-            node.className += ' roll';
-          }
-        }
-      }
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  Have this method to catch ResourceNotFoundException
+     */
+    ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
-                        </code>
-    </pre>
-        <p>Code syntax highlighting courtesy of <a href=
-        "http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-      </section>
-      <section>
-        <h2>Marvelous List</h2>
-        <ul>
-          <li>No order here</li>
-          <li>Or here</li>
-          <li>Or here</li>
-          <li>Or here</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Fantastic Ordered List</h2>
-        <ol>
-          <li>One is smaller than...</li>
-          <li>Two is smaller than...</li>
-          <li>Three!</li>
-        </ol>
-      </section>
-      <section>
-        <h2>Tabular Tables</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Value</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Apples</td>
-              <td>$1</td>
-              <td>7</td>
-            </tr>
-            <tr>
-              <td>Lemonade</td>
-              <td>$2</td>
-              <td>18</td>
-            </tr>
-            <tr>
-              <td>Bread</td>
-              <td>$3</td>
-              <td>2</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section>
-        <h2>Clever Quotes</h2>
-        <p>These guys come in two forms, inline: <q cite=
-        "http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-        &ldquo;The nice thing about standards is that there are so many to choose
-        from&rdquo;</q> and block:</p>
-        <blockquote cite=
-        "http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-        &ldquo;For years there has been a theory that millions of monkeys typing at
-        random on millions of typewriters would reproduce the entire works of
-        Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-        </blockquote>
-      </section>
-      <section>
-        <h2>Intergalactic Interconnections</h2>
-        <p>You can link between slides internally, <a href="#/2/3">like
-        this</a>.</p>
-      </section>
-      <section>
-        <h2>Speaker View</h2>
-        <p>There's a <a href=
-        "https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It
-        includes a timer, preview of the upcoming slide as well as your speaker
-        notes.</p>
-        <p>Press the <em>S</em> key to try it out.</p>
-        <aside class="notes">
-          Oh hey, these are some notes. They'll be hidden in your presentation, but
-          you can see them if you open the speaker notes window (hit 's' on your
-          keyboard).
-        </aside>
-      </section>
+    </code>
+  </pre> 
+</section>
 
-      <section>
-        <h2>Global State</h2>
-        <p>Set <code>data-state="something"</code> on a slide and
-        <code>"something"</code> will be added as a class to the document element
-        when the slide is open. This lets you apply broader style changes, like
-        switching the page background.</p>
-      </section>
-      <section data-state="customevent">
-        <h2>State Events</h2>
-        <p>Additionally custom events can be triggered on a per slide basis by
-        binding to the <code>data-state</code> name.</p>
-        <pre>
-    <code class="javascript" contenteditable="" data-trim="" style=
-    "font-size: 18px;">
-    Reveal.addEventListener( 'customevent', function() {
-        console.log( '"customevent" has fired' );
-    } );
-                        </code>
-    </pre>
-      </section>
-      <section>
-        <h2>Take a Moment</h2>
-        <p>Press B or . on your keyboard to pause the presentation. This is helpful
-        when you're on stage and want to take distracting slides off the
-        screen.</p>
-      </section>
-      <section>
-        <h2>Much more</h2>
-        <ul>
-          <li>Right-to-left support</li>
-          <li>
-            <a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript
-            API</a>
-          </li>
-          <li>
-            <a href=
-            "https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a>
-          </li>
-          <li>
-            <a href=
-            "https://github.com/hakimel/reveal.js#parallax-background">Parallax
-            backgrounds</a>
-          </li>
-          <li>
-            <a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom
-            keyboard bindings</a>
-          </li>
-        </ul>
-      </section>
-      <section style="text-align: left;">
-        <h1>THE END</h1>
-        <p>- <a href="http://slides.com">Try the online editor</a><br>
-        - <a href="https://github.com/hakimel/reveal.js">Source code &amp;
-        documentation</a></p>
-      </section>
+
+<section>
+<h3>Handling HttpMessageNotReadableException</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  Have this method to catch HttpMessageNotReadableException
+     */
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h4>Handling HttpRequestMethodNotSupportedException</h4>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  This will be catching other exception that is not
+     *  covered in this class
+     *  
+     *  Have this method to catch HttpRequestMethodNotSupportedException
+     */
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
+                       HttpRequestMethodNotSupportedException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>Handling Exceptions not specified in the Exception controller</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  This will be catching other exception that is not
+     *  covered in this class
+     *  
+     *  Have this method to catch Exception
+     */
+    ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>Handling rest endpoint not found</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    /*
+     *  TODO Annotate the class with @RequestMapping
+     *  and set the path the same as the getErrorPath()
+     */
+    ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    }
+    @Override
+    public String getErrorPath() {
+        // TODO specify the error path url. 
+        throw new UnsupportedOperationException( "Not yet implemented" );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>What your exception response will look like...</h3>
+  <img src="assets/example-not-found-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+<h3>Your ExceptionController should look like this...</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.exception;
+
+import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@ControllerAdvice
+public class ExceptionController implements ErrorController {
+    
+    @ExceptionHandler( ApiException.class )
+    ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
+        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
+    }
+    
+    @ExceptionHandler( ResourceNotFoundException.class )
+    ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
+        return processApiException( new ApiException( 404, ex ) );
+    }
+    
+    @ExceptionHandler( HttpMessageNotReadableException.class )
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( 
+                               HttpMessageNotReadableException ex ) {
+        return processApiException( new ApiException( 400, ex ) );
+    }
+        
+    @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
+                            HttpRequestMethodNotSupportedException ex ) {
+        return processApiException( new ApiException( 405, ex ) );
+    }
+    
+    @ExceptionHandler( Exception.class )
+    ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
+        return processApiException( new ApiException( 500, ex ) );
+    }
+    
+    @RequestMapping( value = &quot;error&quot; )
+    ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
+        return handleAllException( ex );
+    }
+    
+    @Override
+    public String getErrorPath() {
+        return &quot;error&quot;;
+    }
+}
+
+    </code>
+  </pre> 
+</section>
+
+</section>
+<section>
+  <h2>Give your REST application a spin!</h2>
+<div class="postman-run-button"
+data-postman-action="collection/import"
+data-postman-var-1="0d73431306cd4515b941"></div>
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
+</section>
+<section>
+<h1>
+  The end...
+</h1>
+</section>
+
 
 
 
