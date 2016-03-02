@@ -10,11 +10,22 @@ HEI Workshop Slides
 
 ### Installing Dependencies
 
+Initialize the `reveal.js` repository:
+```
+$ git submodule init
+$ git submodule update
+```
+
 As long as you have node.js in your machine, you're set to go, just invoke
 `npm install` to install dependencies.
 
 If you don't have node.js installed, you may have to: `brew install node` once
 done, you may follow the instruction above.
+
+To accommodate larger audiences, we're going to run our slides app as a load-balanced process. To do this, install [`pm2`](https://github.com/Unitech/pm2):
+```
+npm install -g pm2
+```
 
 ### Running the Slide App
 
@@ -76,7 +87,17 @@ You must follow how the slides folder is structured, you may add a folder
 in the `public` directory, you may name the folder with your `topic-name` and
 copy `public/template/index.html` into it. You may add your presentation assets
 inside the folder you created, you may have to use absolute path to call it,
-like so: `/topic-name/some-file.jpg`
+like so: `/topic-name/some-file.jpg`.
+
+To quickly serve your presentation via HTTP, execute:
+```
+$ cd slides/public
+$ python -m SimpleHTTPServer 9000
+```
+
+Access your slides via: [http://127.0.0.1:9000/topic-name]()
+
+> Python is pre-installed on linux and osx machines, so no installations are needed.
 
 **Taking it to the next level**
 
