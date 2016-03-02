@@ -3,6 +3,7 @@ package io.toro.workshop.exception;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,11 @@ public class ExceptionController implements ErrorController {
     @ExceptionHandler( HttpMessageNotReadableException.class )
     ResponseEntity<ApiException> handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
         return processApiException( new ApiException( 400, ex ) );
+    }
+
+    @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
+    ResponseEntity<ApiException> requestMethodNotSupported( HttpRequestMethodNotSupportedException ex ) {
+        return processApiException( new ApiException( 405, ex ) );
     }
 
     // TODO Add exception response handler for AuthenticationException
