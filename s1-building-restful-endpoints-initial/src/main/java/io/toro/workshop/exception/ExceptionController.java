@@ -3,6 +3,7 @@ package io.toro.workshop.exception;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,23 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
+    /*
+     *  TODO Annotate the class with @ExceptionHandler 
+     *  and set what type of exception the method will catch
+     *  
+     *  This will be catching other exception that is not
+     *  covered in this class
+     *  
+     *  Have this method to catch HttpRequestMethodNotSupportedException
+     */
+    ResponseEntity<ApiException> requestMethodNotSupported( HttpRequestMethodNotSupportedException ex ) {
+        /*
+         *  TODO return a ResponseEntity. The body of the ResponseEntity
+         *  should contain an APIException.
+         *  Make sure the HTTP Status code is appropriate for the exception
+         */
+        throw new UnsupportedOperationException( "Not yet implemented" );
+    }
 
     /*
      *  TODO Annotate the class with @ExceptionHandler 
