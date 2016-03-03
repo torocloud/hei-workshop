@@ -51,7 +51,7 @@ set-executionpolicy unrestricted -s cu
 
 # After Scoop has installed, we'll also need the extras to access
 # components that aren't available in scoop's default bucket.
-scoop bucket add extras
+scoop bucket add extras https://github.com/lukesampson/scoop-extras.git
 ```
 
 **Installing Dev Pre-Requisites**
