@@ -2,5 +2,5 @@
 
 require('coffee-script/register')
 require('gulp')
-require('./build/develop')
-require('./build/deploy')
+require('./build-tools/develop')
+require('./build-tools/deploy')
