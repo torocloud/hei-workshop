@@ -10,6 +10,18 @@
 	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
   <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
   <link rel="stylesheet" href="/controldeck/app.css">
+	<style>
+		gCode {
+			color: #18CB18;
+			font-family: monospace;
+		}
+		h2 {
+			color: #4FCFFF !important;
+		}
+		h4 {
+			color: #4FCFFF !important;
+		}
+	</style>
 
 </head>
 <body id="body">
@@ -45,8 +57,8 @@
       <section>
 				<section>
 					<h2>What is a Single-Page App?</h2>
-					<p class="fragment">Loads a single HTML page</p>
-					<p class="fragment">Dynamically update that page as the user interacts</p>
+					<p class="fragment" style="color: #e7ad52;">Loads a single HTML page</p>
+					<p class="fragment" style="color: #e7ad52;">Dynamically update that page as the user interacts</p>
 				</section>
 				<section>
 					<h2>Traditional Lifecycle</h2>
@@ -62,9 +74,9 @@
 			<!-- Page 2 -->
 			<section>
 				<h2>Why use SPA?</h2>
-				<p class="fragment">Reduced server load</p>
-				<p class="fragment">Applications are more fluid and responsive</p>
-				<p class="fragment">Separation of presentation and application logic</p>
+				<p class="fragment" style="color: #e7ad52;">Reduced server load</p>
+				<p class="fragment" style="color: #e7ad52;">Applications are more fluid and responsive</p>
+				<p class="fragment" style="color: #e7ad52;">Separation of presentation and application logic</p>
 			</section>
 			<!-- end of page 2 -->
 
@@ -214,7 +226,7 @@ $stateProvider
 
 			<!-- Page 7 -->
 			<section>
-				<h4>directive: header.js</h4>
+				<h4>directive : header.js</h4>
 				<pre>
 					<code class="hljs" contenteditable="" data-trim="">
 angular
@@ -269,9 +281,9 @@ function AuthController ($scope, userContext) {
 					</pre>
 				</section>
 				<section>
-					<h4>service - user.js</h4>
+					<h4>service : user.js</h4>
 					<pre>
-						<code class="hljs" contenteditable="" data-trim="" style="max-height: 520px;">
+						<code class="hljs" contenteditable="" data-trim="" style="max-height: 530px;">
 angular
   .module('app')
   .service('context', Context)
@@ -362,7 +374,7 @@ function UserLoginController ($rootScope, $state, api, userContext) {
   let login = this
 
   this.userLogin = function() {
-    api.login(login.currentUser).then( function(data) {
+    api.login(login.user).then( function(data) {
       if ( data.hasOwnProperty('token') ) {
         userContext.setCurrentUser( Object.assign({
           username: login.currentUser.username
@@ -390,7 +402,7 @@ function UserLoginController ($rootScope, $state, api, userContext) {
 			<!-- Page 10 -->
 			<section>
 				<section>
-					<h4>factory - api.js</h4>
+					<h4>factory : api.js</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
 angular
@@ -409,7 +421,7 @@ ApiFactory.$inject = [
 				</section>
 
 				<section style="padding-top: 0;">
-					<h4 style="margin-bottom: 0;">factory - api.js</h4>
+					<h4 style="margin-bottom: 0;">factory : api.js</h4>
 					<pre style="margin-top: 0;">
 						<code class="hljs" contenteditable="" data-trim="" style="max-height: 646px;">
 function ApiFactory ($rootScope, $http, $q, $state, userContext) {
@@ -462,7 +474,7 @@ angular
   function appBlogs () {
     let directive = {
       scope:        true,
-      templateUrl:  '/app/views/login.html',
+      templateUrl:  '/app/views/blogs.html',
       controller:   BlogsCtrl,
       controllerAs: 'blogs'
     }
@@ -649,7 +661,7 @@ angular
   function appBlogs () {
     let directive = {
       scope:        true,
-      templateUrl:  '/app/views/login.html',
+      templateUrl:  '/app/views/blogs.html',
       controller:   BlogsCtrl,
       controllerAs: 'blogs'
     }
@@ -670,7 +682,7 @@ BlogsCtrl.$inject = [
 					<h4>controller : get-blog.js</h4>
 					<section>
 						<pre>
-							<code class="hljs" contenteditable="" data-trim="" style="max-height: 610px;">
+							<code class="hljs" contenteditable="" data-trim="" style="max-height: 625px;">
 function BlogsCtrl ($state, api) {
   let blog = this
   blog.blogId = $state.params.id
@@ -745,18 +757,51 @@ function BlogsCtrl ($state, api) {
 
 			<!-- Hands on -->
 			<section>
-				<h2>HANDS ON</h2>
-				<h4>Add a footer</h4>
-				<ul>
-					<li style="margin-top: 20px;">Add a footer state on router.js</li>
-					<li style="margin-top: 20px;">Create the footer directive on src/javascript/directives/footer.js file</li>
-					<li style="margin-top: 20px;">Create the template</li>
-					<li style="margin-top: 20px;">
-						Optional - Apply css<br>
-						Run `gulp develop --sass` on your terminal/console<br>
-						Add css rules on src/sass/_modifiers.scss
-					</li>
-				</ul>
+				<h2 style="color: #00AEEF;">HANDS ON</h2>
+				<h4 style="color: #F0CFBC;">Add a footer</h4>
+				<section>
+					<ul>
+						<li style="margin-top: 20px;">On your terminal/console, cd to our project's directory</li>
+						<li style="margin-top: 20px;">
+							Run the ff commands in order:
+							<ul>
+								<li style="margin-top: 20px;"><gCode>git fetch origin</gCode></li>
+								<li style="margin-top: 20px;"><gCode>git checkout angular-app</gCode></li>
+								<li style="margin-top: 20px;"><gCode>git pull</gCode></li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<ul>
+						<li style="margin-top: 20px;">
+							On your terminal/console, cd to <gCode>app/api/dist</gCode><br>
+							then run <gCode>java -jar blog-api-1.0.0-SNAPSHOT.jar</gCode>
+						</li>
+						<li style="margin-top: 20px;">
+							On a new window or tab, cd to <gCode>app/web</gCode>, run the ff in order:
+							<ul>
+								<li style="margin-top: 20px;"><gCode>npm start.js</gCode></li>
+								<li style="margin-top: 20px;"><gCode>gulp</gCode></li>
+								<li style="margin-top: 20px;"><gCode>gulp develop --app</gCode></li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<ul>
+						<li style="margin-top: 20px;">Add a footer state on router.js</li>
+						<li style="margin-top: 20px;">Create the footer directive on <gCode>src/javascript/directives/footer.js</gCode></li>
+						<li style="margin-top: 20px;">Create the footer template</li>
+						<li style="margin-top: 20px;">
+							Optional - Apply css<br>
+							Run <gCode>gulp develop --sass</gCode> on your terminal/console<br>
+							Add css rules on <gCode>src/sass/_modifiers.scss</gCode>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<!-- end of hands on -->
 
