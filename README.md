@@ -64,7 +64,7 @@ scoop install oraclejdk
 scoop install git
 
 # Install Node.js
-scoop install nodejs4
+scoop install nodejs
 
 # Install Maven
 scoop install maven
