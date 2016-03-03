@@ -137,6 +137,104 @@
       </section>
 
       <section>
+        <section id="tools-0">
+          <h2>Educate Ourselves</h2>
+          <small>Learn language fundamentals and tool capabilities.</small>
+
+          <div class="fragment">
+            <div class="tool-logo">
+              <img src="http://www.yellosoft.us/public/images/git.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="https://cdn2.iconfinder.com/data/icons/nodejs-1/128/nodejs-128.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="https://www.myget.org/Content/images/packageDefaultIcon_npm.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="http://pixxstudios.com/wp-content/uploads/2015/03/gulp-mygulpfile_s.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="https://hsto.org/getpro/toster/f7805253/cfe9/4677/f7805253-cfe9-4677-96e7-f44de29c405d/grunt.png" alt="">
+            </div>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <section id="tools-1">
+          <div  class="fragment">
+            <div style="width:48%;float:left;">
+              <img src="http://objectpartners.github.io/react-workshop/assets/img/gulp-logo.png" alt="">
+              <a href="http://gulpjs.com/" target="_blank">Gulp</a>
+            </div>
+            <div style="width:48%;float:right;">
+              <img src="https://i.cloudup.com/bDkmXyEmr5.png" alt="">
+              <a href="http://gruntjs.com/" target="_blank">Grunt</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="tools-2">
+          <h3>Grunt Syntax</h3>
+          <pre>
+            <code class="hljs">
+module.exports = () ->
+  # Configure Build Tasks
+  grunt.initConfig
+    jshint:``
+      files: [
+        'Gruntfile.js'
+        'src/**/*.js'
+      ]
+      options:
+        globals: jquery: true
+    watch:
+      files: ["#{jshint.files}"]
+      tasks: ['jshint']
+
+  # Load Tasks
+  grunt.loadNpmTasks 'grunt-contrib-jshint'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
+
+  # Listener that will execute the task(s)
+  grunt.registerTask 'default', ['jshint']
+            </code>
+          </pre>
+          <code>$ grunt default</code>
+        </section>
+
+
+        <section id="tools-3">
+          <h3>Gulp Syntax</h3>
+          <pre>
+            <code class="hljs">
+# Load Gulp and Gulp Plugins
+gulp   = require 'gulp'
+jshint = require 'gulp-jshint'
+
+# Listener that will execute the task
+gulp.task 'default', () ->
+
+  # Declare jshint options
+  options =
+    globals: jquery: true
+
+  # Execute Gulp instructions
+  return gulp.src ['Gulpfile.js', 'src/**/*.js']
+    .pipe jshint(options)
+    .pipe gulp.dest('./dist')
+            </code>
+          </pre>
+          <code>$ gulp default</code>
+        </section>
+
+      </section>
+
+      <section>
         <section id="hans-on-0">
           <h1>
             Let's write some <br>
