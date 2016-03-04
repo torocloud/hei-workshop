@@ -122,6 +122,33 @@ $ brew install node
 $ brew install maven
 ```
 
+Verify that prerequisites are installed:
+
+```
+$ mvn -v
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+Apache Maven 3.0.5
+Maven home: /usr/share/maven
+Java version: 1.8.0_74, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-8-oracle/jre
+Default locale: en_PH, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-37-generic", arch: "amd64", family: "unix"
+$ npm -v # versions may vary
+3.7.2
+```
+
+To reduce waiting time for the workshop, it is recommended that you initialize your *maven* repository. You can do this by downloading this [pom.xml](https://gist.githubusercontent.com/devcsrj/5b921a3b83b9975a3d14/raw/920badec76e5563a738c60de30ab8d832662d95f/pom.xml) to your file system. Then, on your terminal run:
+
+```
+$ mvn install
+```
+
+While not required, it is also recommended that you install:
+
+- [Postman](http://www.getpostman.com/) - tool to create and send HTTP requests
+- JSONView ([firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/) | [chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)) - pretty view for json content on your browser
+
+
 ## Getting Started
 
 To follow through the entire workshop or just run app to your local environment,
