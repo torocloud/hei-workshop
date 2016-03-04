@@ -41,13 +41,17 @@
   function BlogsCtrl ($scope, $state, $stateParams, $timeout, api) {
     let blog = this
 
-    blog.editMode    = false
-    blog.viewMode    = false
-    blog.getEntry    = getEntry
-    blog.getEntries  = getEntries
-    blog.editContent = editContent
-    blog.editEntry   = editEntry
-    blog.deleteEntry = deleteEntry
+    function setInitial() {
+      blog.editMode    = false
+      blog.viewMode    = false
+      blog.getEntry    = getEntry
+      blog.getEntries  = getEntries
+      blog.editContent = editContent
+      blog.editEntry   = editEntry
+      blog.deleteEntry = deleteEntry
+    }
+
+    setInitial()
 
     // Check whether the state is not an entry view
     // then fetch entries from server
