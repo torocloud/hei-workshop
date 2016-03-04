@@ -16,6 +16,7 @@
 		}
 		h1, h2, h4 {
 			color: #00aeef !important;
+			line-height: 1.2em !important;
 		}
 		gCode {
 			color: #18CB18;
@@ -45,7 +46,6 @@
       Heads Up: Use this comment as a reference when working on your slide.
     -->
     <div class="slides">
-
       <!-- Hello, Let's introduce yourself. -->
       <section data-state="blur-on">
         <h1>CSS Preprocessors</h1>
@@ -60,6 +60,7 @@
           <a href="#" target="_blank"><i class="ion-social-codepen"></i></a> &nbsp;
         </p>
       </section>
+
 
       <section>
 				<h2>What is a Preprocessor?</h2>
@@ -117,7 +118,7 @@
           <h2>Variables</h2>
 <pre>
 <code class="css">
-/* Sass */
+/* Sass (SCSS) */
 $font-size: 16px;
 
 div {
@@ -150,7 +151,7 @@ div {
 					<h2>Nesting</h2>
 <pre>
 <code class="css">
-/* Sass */
+/* Sass (SCSS) */
 $link-color: #999;
 $link-hover: #229ed3;
 
@@ -331,23 +332,556 @@ ul a:hover { color: #229ed3; }
 				</section>
 				<section>
 					<h2>HANDS ON</h2>
+				</section>
+				<section>
+					<ol>
+						<li>Create a folder name it "<gcode>sass</gcode>"
+							<ul>
+								<li>Create these files
+									<ul>
+										<li><gcode>_modifiers.scss</gcode></li>
+										<li><gcode>_variables.scss</gcode></li>
+										<li><gcode>workshop.scss</gcode></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>Create another folder name it "<gcode>public</gcode>"</li>
+						<li>Create another folder INSIDE "<gcode>public</gcode>" name it "<gcode>css</gcode>"</li>
+						<li>Create a file name it "<gcode>Gulpfile.js</gcode>"</li>
+					</ol>
+				</section>
+				<section>
+				<p>
+					Place this code in the Gulpfile.js
+				</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+'use strict';
+
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+
+gulp.task('sass', function () {
+  return gulp.src('./sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./public/css'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('./sass/**/*.scss', ['sass']);
+});
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>index.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+&lt;html ng-app="app" ng-controller="user"&gt;
+  &lt;head&gt;
+    <title>HEI Workshop 2016</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/public/css/workshop.css">
+  &lt;/head&gt;
+  &lt;body&gt;
+  <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == true">
+          <a class="nav-link" href="/post">POST</a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == false">
+          <a class="nav-link" href="/login">LOGIN</a>
+        </li>
+        <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
+          <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+    <div ng-view class="p-t-3"></div>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="/javascript/directives.js"></script>
+    <script src="/javascript/controllers.js"></script>
+    <script src="/javascript/factories.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+  &lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>login.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" alt="Card image cap">
+        <img class="img-circle card-profile-picture img-fluid center-block" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
+        <div class="card-block">
+          <h4 class="card-title text-xs-center">Login to Dashboard</h4>
+          <form class="m-y-1">
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-person" id="basic-addon1"></span>
+                <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username">
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-unlocked" id="basic-addon1"></span>
+                <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+              </div>
+            </fieldset>
+            <div class="form-group text-xs-center m-y-2">
+              <button ng-click="login()" class="btn btn-md btn-info-outline">
+                Sign in to Dashboard
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>home.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <article  ng-repeat="blog in blogs" class="card m-b-2 b-r-0">
+        <header class="p-a-1 b-r-0">
+          <img src="http://placehold.it/50/373A3C/ffffff" class="img-circle pull-xs-left m-r-1" alt="" />
+          <a href="/view/{{ blog.id }}">
+            <h3 class="truncate truncate-1 m-b-0">{{ blog.title }}</h3>
+          </a>
+          <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> February 10, 2016</small>
+        </header>
+        <hr class="m-b-0 m-t-0">
+        <div class="clearfix"></div>
+        <section class="truncate truncate-3 p-x-1 p-t-1 m-b-1" ng-bind-html="blog.content"></section>
+        <small class="pull-xs-left m-l-1 m-t-1 ">Share on: </small>
+        <a class="btn btn-info m-t-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
+        <a class="btn btn-info m-t-1 pull-xs-left social-media-icons social-media-icons-google"><i class="ion-social-googleplus"></i></a>
+        <a class="btn btn-info m-t-1 pull-xs-left social-media-icons social-media-icons-twitter"><i class="ion-social-twitter"></i></a>
+
+        <a class="btn btn-info-outline m-a-1 pull-xs-right" href="/view/{{ blog.id }}">
+         Continue Reading &nbsp;&rarr;
+        </a>
+        <div class="clearfix"></div>
+        <!-- <hr ng-if="!$last"> -->
+      </article>
+    </div> <!--end of col-md-9-->
+
+    <div class="col-xs-12 col-md-4 col-lg-3" ng-if="blogs.length > 0">
+      <div class="card m-b-2">
+        <div class="card-header text-xs-center">
+          About the Author
+        </div>
+        <div class="card-block p-b-1">
+          <div class="col-xs-offset-2 col-xs-8 col-lg-offset-0 col-lg-12">
+            <img src="http://www.toro.io/cmsstatic/toro-log.png" class="img-fluid center-block m-b-1" alt="" />
+          </div>
+          <div class="clearfix"></div>
+          <p>Enterprise class software that is dramatically easier to use, manage and deploy.</p>
+          <p>Website: <a href="http://www.toro.io/" target="_blank">http://www.toro.io/</a></p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="card b-r-0 m-b-2">
+        <div class="card-header text-xs-center">
+          Archive
+        </div>
+        <div class="card-block p-a-0">
+          <ul class="list-group list-group-fixed">
+            <a class="list-group-item b-r-0" ng-repeat="blog in blogs" href="/view/{{ blog.id }}">
+              <p class="m-b-0 truncate truncate-1" ><span>{{ blog.title }}</span></p>
+            </a>
+          </ul>
+        </div>
+      </div> <!-- end of card -->
+
+    </div> <!-- end of col-md-3-->
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>post.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-2 col-md-8">
+      <fieldset class="form-group">
+        <p>Title</p>
+        <input ng-model="blog.title" type="text" class="form-control" placeholder="Blog title">
+      </fieldset>
+      <fieldset class="form-group m-b-0">
+        <p>Content</p>
+        <textarea ng-model="blog.content" id="postBlogEditor" rows="10" class="form-control" placeholder="Blog content"></textarea><br>
+      </fieldset>
+      <fieldset class="form-group">
+        <button ng-click="post()" type="button" class="btn btn-sm btn-primary pull-xs-right">Post</button>
+      </fieldset>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>blog.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <article class="card m-b-2 b-r-0">
+
+        <header class="p-a-1 b-r-0">
+          <div>
+            <img src="http://placehold.it/50/373A3C/ffffff" ng-if="editMode != true" class="img-circle img-fluid pull-xs-left m-r-1" alt="" />
+            <h3 class="truncate" ng-if="editMode != true">{{ blog.title }}</h3>
+            <p ng-if="editMode == true">Blog title</p>
+            <input ng-model="blog.title"  ng-if="editMode == true" type="text" class="form-control">
+          </div>
+          <span class="pull-xs-right" ng-if="editMode != true">
+            <button ng-click="edit(true)" type="button" class="btn btn-sm btn-primary">Edit</button>
+            <button ng-click="delete()" type="button" class="btn btn-sm btn-danger">Delete</button>
+          </span>
+          <span ng-if="editMode != true">
+            <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> February 10, 2016</small>
+          </span>
+          <div class="clearfix"></div>
+        </header>
+
+        <hr class="m-b-0 m-t-0">
+        <div class="clearfix"></div>
+
+        <div class="card-block">
+          <p ng-if="editMode == true">Blog Content</p>
+          <section class="truncate m-b-1" ng-if="editMode != true" ng-bind-html="blog.content"></section>
+          <textarea ng-model="blog.content" id="editBlogEditor"  ng-if="editMode == true" class="form-control" rows="8"></textarea>
+          <small class="pull-xs-left m-t-1 ">Share on: </small>
+          <a class="btn btn-info m-y-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons social-media-icons-google"><i class="ion-social-googleplus"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons social-media-icons-twitter"><i class="ion-social-twitter"></i></a>
+
+          <span ng-if="editMode == true" class="pull-xs-right m-t-1">
+            <button ng-click="update()" type="button" class="btn btn-sm btn-primary">Save</button>
+            <button ng-click="edit(false)" type="button" class="btn btn-sm btn-warning">Cancel</button>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+        <!-- <hr ng-if="!$last"> -->
+      </article>
+    </div> <!--end of col-md-9-->
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+      <div class="card m-b-2">
+        <div class="card-header text-xs-center">
+          About the Author
+        </div>
+        <div class="card-block p-b-1">
+          <div class="col-xs-offset-2 col-xs-8 col-lg-offset-0 col-lg-12">
+            <img src="http://www.toro.io/cmsstatic/toro-log.png" class="img-fluid center-block m-b-1" alt="" />
+          </div>
+          <div class="clearfix"></div>
+          <p>Enterprise class software that is dramatically easier to use, manage and deploy.</p>
+          <p>Website: <a href="http://www.toro.io/" target="_blank">http://www.toro.io/</a></p>
+        </div>
+        <div class="clearfix"></div>
+      </div><!-- end of card -->
+
+    </div> <!-- end of col-md-3-->
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>directives.js</h4>
 					<p>
-						In relation to the previous topic (AngularJS)
+						Replace the code for the PostCtrl
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+function PostCtrl ($scope, $location, api) {
+  $scope.blog = {
+    title: '',
+    content: ''
+  }
+
+  // replace the textarea to make it a real editor
+  CKEDITOR.replace('postBlogEditor')
+
+  $scope.post = function () {
+    // get the data of the editor
+    $scope.blog.content = CKEDITOR.instances.postBlogEditor.getData()
+    api.post( $scope.blog )
+      .then( function(response) {
+        $location.path( '/' );
+      }, function (error) {
+        alert('Something went wrong');
+      });
+  }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>directives.js</h4>
+					<p>
+						Replace the code for the  BlogCtrl.$inject=[]
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+BlogCtrl.$inject = [
+  '$scope',
+  '$location',
+  '$routeParams',
+  '$timeout',
+  'api'
+]
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>directives.js</h4>
+					<p>
+						Replace the code for the  BlogCtrl.$inject=[]
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+BlogCtrl.$inject = [
+  '$scope',
+  '$location',
+  '$routeParams',
+  '$timeout',
+  'api'
+]
+
+
+/*
+* We added $timeout in the BlogCtrl.$inject=[]
+* Therfore we need to inject it also in function BlogCtrl(){}
+*/
+
+function BlogCtrl ($scope, $location, $routeParams, $timeout, api){}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>directives.js</h4>
+					<p>
+						Replace the code for $scope.edit
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+$scope.edit = function (option) {
+  $scope.editMode = option;
+  ( option == true ) ?
+    $scope.unsavedBlog = angular.copy( $scope.blog ) : $scope.blog = $scope.unsavedBlog
+
+  $timeout(function () {
+    CKEDITOR.replace('editBlogEditor')
+  })
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>directives.js</h4>
+					<p>
+						Replace the code for $scope.update
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+$scope.update = function (entry) {
+  $scope.blog.content = CKEDITOR.instances.editBlogEditor.getData()
+  api.post( $scope.blog )
+    .then( function(response) {
+      $scope.editMode = false;
+    }, function (error) {
+      alert('Something went wrong');
+    });
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Now that we have the mark up for the app, <br>let's apply some styles on it.</h2>
+				</section>
+				<section>
+					<p>
+						On your terminal/console run this command <br><gcode>gulp sass</gcode><br>
+						This command is to build the sass files to css files<br>
+						See <gcode>public/css</gcode>
 					</p>
 					<p>
-						We will beautify the app using Bootstrap as our HTML framework and SCSS as the preprocessor
+						On your terminal/console run this command <br><gcode>gulp sass:watch</gcode><br>
+						This command is to watch the your changes in your sass files and builds it as you save your changes.
 					</p>
-					<ul>
-						<li>Add selectors to the elements on your markup.</li>
-						<li>Run <gcode>gulp develop --app</gcode> on your terminal/console</li>
-						<li>Add css rules on <gcode>src/sass/_modifiers.scss</gcode></li>
-						<li>Run <gcode>gulp develop --sass</gcode> on your terminal/console</li>
-						<li>See compiled CSS in <gcode>public/css/</gcode></li>
-					</ul>
+				</section>
+				<section>
+					<h4>workshop.scss</h4>
+					<p>
+						The code below is to import the other files.
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+@import "variables";
+@import "modifiers";
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>_variables.scss</h4>
+					<p>
+						The variables that we will use for the app
+					</p>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+$padding-top: 100px;
+$padding-bottom: 100px;
+
+$header-bg-color: #F7F7F9;
+$header-font-color: #333;
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>_modifiers.scss</h4>
+					<p>
+						The styles for the app
+					</p>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  min-width: 320px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+// mixins
+@mixin ellipsis($lineClamp) {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineClamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+// utility clasess
+.truncate {
+  @include ellipsis(0);
+  &.truncate-1 { @include ellipsis(1); }
+  &.truncate-3 { @include ellipsis(3); }
+  &.truncate-5 { @include ellipsis(5); }
+}
+
+.bread-word {
+  word-wrap: break-word;
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>_modifiers.scss</h4>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+// for social media icons
+// usage
+// --> <a class="social-media-icons social-media-icons-xxx"><i class="fa fa-xx"></i></a>
+.social-media-icons {
+  margin-right: 10px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: table;
+  text-align: center;
+  border: none;
+  background-color: #ccc;
+  border-radius: 100%;
+  font-size: 15px;
+  i {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+  &.social-media-icons-facebook { background-color: #3B5998; }
+  &.social-media-icons-google {  background-color: #DD4B39; }
+  &.social-media-icons-twitter { background-color: #55ACEE; }
+  &.social-media-icons-instagram { background-color: #3F729B; }
+  &.social-media-icons-linkedin { background-color: #0082CA; }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>_modifiers.scss</h4>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+// styles for the content
+.main-view {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+}
+
+.card {
+  .card-header {
+    background-color: $header-bg-color;
+    color: $header-font-color;
+  }
+  .card-profile-picture {
+    margin-top: -50px;
+  }
+}
+
+section {
+  p {
+    margin-bottom: 0;
+  }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h1>That's all.</h1>
+					<h1>THANKS</h1>
 				</section>
       </section>
-
-
 
     </div><!-- end of .slides -->
   </div><!-- end of .reveal -->
