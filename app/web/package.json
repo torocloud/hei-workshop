@@ -10,8 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start index.js",
     "stop": "pm2 stop 0",
-    "preinstall": "bower install && gulp sass-install",
-    "postinstall": "gulp"
+    "preinstall": "bower install",
+    "postinstall": "gulp sass-install && gulp"
   },
   "repository": {
     "type": "git",
