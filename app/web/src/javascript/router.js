@@ -54,7 +54,11 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: `
+              <app-header current-user="auth.currentUser.username"/>
+            `
+          },
           'content@app': {templateUrl: `${views}index.html`}
         }
       })
@@ -98,7 +102,9 @@
         cache: false,
         data: {private: false},
         views: {
-          'header@app': {template: '<app-header current-user="auth.currentUser.username"/>'},
+          'header@app': {
+            template: '<app-header current-user="auth.currentUser.username"/>'
+          },
           'content@app': {template: '{{ auth.currentUser.username }}'}
         }
       })
