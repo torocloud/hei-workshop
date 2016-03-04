@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>CSS Preprocessors</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="/controldeck/app.css">
+	<style media="screen">
+		.reveal pre code {
+			max-height: none;
+		}
+	</style>
+</head>
+<body id="body">
+  <div class="toro-io">
+    <a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+        <path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)"/>
+        <path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z" transform="translate(0 -0.156)"/>
+        <path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z" transform="translate(0 -0.156)"/>
+        <path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z" transform="translate(0 -0.156)"/>
+        <circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25"/>
+        <rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750"/>
+        <path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z" transform="translate(0 -0.156)"/>
+        <path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"/>
+      </svg>
+    </a><!-- end of toro-io-heading -->
+  </div><!-- end of .toro-io watermark -->
+
+
+  <div class="reveal">
+    <!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+    <div class="slides">
+
+      <!-- Hello, Let's introduce yourself. -->
+      <section data-state="blur-on">
+        <h1>CSS Preprocessors</h1>
+        <h4>
+          HTML5 Presentation Framework powered by
+          <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+        </h4>
+        <p>
+          <small>Presented By Noelito Calma</small><br>
+          <a href="#" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+          <a href="#" target="_blank"><i class="ion-social-twitter"></i></a> &nbsp;
+          <a href="#" target="_blank"><i class="ion-social-codepen"></i></a> &nbsp;
+        </p>
+      </section>
+
+      <section>
+				<h2>What is a Preprocessor?</h2>
+				<p>
+					A preprocessor is a program that takes one type of data and converts it to another type of data.
+					<br><br><small>- http://learn.shayhowe.com/advanced-html-css/preprocessors/</small>
+				</p>
+      </section>
+
+			<section>
+				<section>
+					<h2>What is a CSS Preprocessor?</h2>
+					<p>
+						A scripting language that extends CSS and gets compiled into regular CSS syntax.
+						Adding features that allow variables, mixins, functions and many other techniques that allow you to make CSS that is more maintainable, themable and extendable.
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+					</p>
+				</section>
+				<section>
+					<h2>Why use one?</h2>
+					<ul>
+						<li>Cleaner code with reusable pieces</li>
+						<li>More flexibility to do things on the fly</li>
+						<li>Sharelable snippets and libraries</li>
+						<li>Easily produce CSS that works across browsers</li>
+					</ul>
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+				</section>
+				<section>
+					<h2>Which ones are popular?</h2>
+					<ul>
+						<li>Sass (http://sass-lang.com/guide)</li>
+						<li>LESS (http://lesscss.org/)</li>
+						<li>Stylus (http://stylus-lang.com/)</li>
+					</ul>
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+				</section>
+			</section>
+
+      <section>
+				<section>
+					<h2>Syntax</h2>
+				</section>
+        <section>
+          <h2>Variables</h2>
+<pre>
+<code class="css">
+/* Sass */
+$font-size: 16px;
+
+div {
+  font-size: $font-size;
+}
+
+/* LESS */
+@font-size: 16px;
+
+div {
+  font-size: @font-size;
+}
+
+/* Stylus */
+font-size = 16px
+
+div
+  font-size font-size
+
+/* Compiled CSS */
+div {
+  font-size: 16px;
+}
+</code>
+</pre>
+
+
+        </section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* Sass */
+$link-color: #999;
+$link-hover: #229ed3;
+
+ul {
+  margin: 0;
+
+  li {
+    float: left;
+  }
+
+  a {
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* LESS */
+@link-color: #999;
+@link-hover: #229ed3;
+
+ul {
+  margin: 0;
+
+  li {
+    float: left;
+  }
+
+  a {
+    color: @link-color;
+
+    &:hover {
+      color: @link-hover;
+    }
+  }
+}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="stylus">
+/* Stylus */
+link-color = #999
+link-hover = #229ed3
+
+ul
+  margin 0
+  li
+    float left
+  a
+    color link-color
+    &:hover
+      color link-hover
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* Compiled CSS */
+ul { margin: 0; }
+ul li { float: left; }
+ul a { color: #999; }
+ul a:hover { color: #229ed3; }
+
+</code>
+</pre>
+				</section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Three principle to simplify your life as a Developer</h2>
+          <ul>
+          	<li>DRY - Don't Repeat Yourself</li>
+						<li>KISS - Keep It Simple Stupid</li>
+						<li>YAGNI - You Aren’t Gonna Need It</li>
+          </ul>
+					<br><br>
+					<small>-http://www.itexico.com/blog/bid/99765/Software-Development-KISS-YAGNI-DRY-3-Principles-to-simplify-your-life</small>
+        </section>
+				<section>
+					<h4>Sample of repeating yourself in CSS</h4>
+<pre>
+<code class="css">
+.title-1 {
+  padding: 10px;
+  color: #333;
+  font-size: 48px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-2 {
+  padding: 10px;
+  color: #333;
+  font-size: 36px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-3 {
+  padding: 10px;
+  color: #333;
+  font-size: 28px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>To apply KISS and DRY</h4>
+					<small>
+						We will use a CSS Preprocessor (Sass)
+					</small>
+<pre>
+<code class="scss">
+/* using a mixin */
+@mixin title($font-size: 48px) {
+  padding: 10px;
+  color: #333;
+  font-size: $font-size;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-1 { @include title(); }
+.title-2 { @include title(36px); }
+.title-3 { @include title(28px); }
+
+<h1 class="title-1"></h1>
+
+
+</code>
+</pre>
+				</section>
+				<section>
+<pre>
+<code class="css">
+/* using a base class / extends */
+.title {
+  padding: 10px;
+  color: #333;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+
+  &.title-1 { font-size: 48px; }
+  &.title-2 { font-size: 36px; }
+  &.title-3 { font-size: 28px; }
+}
+
+<h1 class="title title-1"></h1>
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>HANDS ON</h2>
+					<p>
+						In relation to the previous topic (AngularJS), beautify your app by:
+					</p>
+					<ol>
+						<li>Add selectors to the elements in your markup.</li>
+						<li>Run `gulp develop --app` on your terminal/console</li>
+						<li>Add css rules on src/sass/_modifiers.scss</li>
+						<li>Run `gulp develop --sass` on your terminal/console</li>
+					</ol>
+				</section>
+      </section>
+
+
+
+    </div><!-- end of .slides -->
+  </div><!-- end of .reveal -->
+
+
+
+
+
+  <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+</html>

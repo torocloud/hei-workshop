@@ -25,6 +25,7 @@ options.angular = [
   './bower_components/angular-cookies/angular-cookies.js'
   './bower_components/angular-resource/angular-resource.js'
   './bower_components/angular-ui-router/release/angular-ui-router.js'
+  './bower_components/angular-sanitize/angular-sanitize.js'
 ]
 
 
@@ -32,7 +33,11 @@ options.app = [
   './src/javascript/app.js'
   './src/javascript/router.js'
   './src/javascript/controllers/auth.js'
+  './src/javascript/directives/blogs.js'
+  './src/javascript/directives/post-blog.js'
+  './src/javascript/directives/get-blog.js'
   './src/javascript/directives/header.js'
+  './src/javascript/directives/footer.js'
   './src/javascript/directives/login.js'
   './src/javascript/factories/api.js'
   './src/javascript/services/user.js'

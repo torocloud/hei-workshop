@@ -48,7 +48,7 @@
           <a href="https://ph.linkedin.com/in/jerrickpua" target="_blank"><i class="ion-social-linkedin"></i></a> &nbsp;
         </p>
       </section>
-      <section> 
+      <section>
 	      <section>
       			<h2>What exactly is Spring?</h2>
 		           <p class="fragment">-One of the most popular application development framework for enterprise application</p>
@@ -75,7 +75,7 @@
 public class BusinessLogicBean {
   public void doSomeBusinessLogicCode() {
   // Business logic code...
-  } 
+  }
 }
               </code>
             </pre>
@@ -100,10 +100,10 @@ public class BusinessLogicBean {
             <pre>
               <code class="hljs" contenteditable="" data-trim="">
 public class RescuingKnight {
-  private RescuePrincessQuest quest; 
+  private RescuePrincessQuest quest;
   public RescuingKnight() {
     this.quest = new RescuePrincessQuest(); //Knight create his own quest
-  } 
+  }
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -118,10 +118,10 @@ public class RescuingKnight {
             <pre>
               <code class="hljs" contenteditable="" data-trim="">
 public class BraveKnight {
-  private Quest quest; 
+  private Quest quest;
   public BraveKnight(Quest quest) {
     this.quest = quest;
-  } 
+  }
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -163,10 +163,10 @@ public class DragonSlayingQuest implements Quest{
             <pre class="fragment">
               <code class="hljs" contenteditable="" data-trim="">
 public class BraveKnight {
-  private Quest quest; 
+  private Quest quest;
   public BraveKnight(Quest quest) {
     this.quest = quest;
-  } 
+  }
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -384,7 +384,7 @@ public class Blog {
 
 }
     </code>
-  </pre>  
+  </pre>
 
 </section>
 <section>
@@ -392,11 +392,11 @@ public class Blog {
   <pre>
     <code class="hljs" contenteditable="" data-trim="" style="max-height: none;">
 /*
- *  TODO Annotate the class with RestController 
+ *  TODO Annotate the class with RestController
  *  to have Spring recognize the class as a Rest Service
  */
 /*
- *  TODO Annotate the class with RequestMapping 
+ *  TODO Annotate the class with RequestMapping
  *  and set the base url of your rest service as "api/blogs"
  */
 public class BlogApiController {
@@ -405,7 +405,7 @@ public class BlogApiController {
      * BlogService is the object that performs the business logic
      */
     private final BlogService blogService;
-    
+
     /*
      * Spring automatically use dependency injection to inject the
      * correct Concrete implementation of the BlogService
@@ -419,7 +419,7 @@ public class BlogApiController {
 }
 
     </code>
-  </pre>  
+  </pre>
 </section>
 
 <section>
@@ -427,7 +427,7 @@ public class BlogApiController {
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate this method with RequestMapping 
+     *  TODO Annotate this method with RequestMapping
      *  and set the suitable HTTP Method for the service
      */
     ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
@@ -464,10 +464,10 @@ public class BlogApiController {
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     * TODO Annotate this method with @RequestMapping with a value of {id} 
+     * TODO Annotate this method with @RequestMapping with a value of {id}
      * and set the suitable HTTP Method
      */
-    ResponseEntity&lt;Blog&gt; getBlog( /* TODO annotate your parameter 
+    ResponseEntity&lt;Blog&gt; getBlog( /* TODO annotate your parameter
                                     with @PathVariable annotation. */ Long id ) {
         // TODO Use blogService to get blog entry via id
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
@@ -495,10 +495,10 @@ public class BlogApiController {
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     * TODO Annotate this method with @RequestMapping 
+     * TODO Annotate this method with @RequestMapping
      * and set the suitable HTTP Method for the service
      */
-    ResponseEntity&lt;Blog&gt; saveBlog( /* TODO annotate your parameter 
+    ResponseEntity&lt;Blog&gt; saveBlog( /* TODO annotate your parameter
                                     with @RequestBody annotation */ Blog blog,
             UriComponentsBuilder ucb ) {
         // TODO Use blogService to save the incoming blog from client
@@ -527,10 +527,10 @@ public class BlogApiController {
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     * TODO Annotate this method with @RequestMapping with a value of {id} 
+     * TODO Annotate this method with @RequestMapping with a value of {id}
      * and set the suitable HTTP Method
      */
-    ResponseEntity&lt;Void&gt; deleteblog( /* TODO annotate your parameter 
+    ResponseEntity&lt;Void&gt; deleteblog( /* TODO annotate your parameter
                                         with @PathVariable annotation. */ Long id ) {
         // TODO Use blogService to delete the blog entry via id
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
@@ -567,41 +567,41 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping( value = &quot;api/blogs&quot; )
 public class BlogApiController {
-    
+
     private final BlogService blogService;
-    
+
     @Autowired
     BlogApiController( BlogService blogService ) {
         this.blogService = blogService;
     }
-    
+
     @RequestMapping( method = RequestMethod.GET )
     ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
         List&lt;Blog&gt; blogs = blogService.findBlogs();
-        
+
         return ResponseEntity.ok( blogs );
     }
-    
+
     @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
     ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
         Blog blog = blogService.findBlog( id );
-        
+
         return ResponseEntity.ok( blog );
     }
-    
+
     @RequestMapping( method = RequestMethod.POST )
-    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, 
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog,
                                     UriComponentsBuilder ucb ) {
         blog = blogService.saveBlog( blog );
         URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
                             .path( String.valueOf( blog.getId() ) ).build().toUri();
         return ResponseEntity.created( locationURI ).body( blog );
     }
-    
+
     @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
     ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
         blogService.deleteBlogById( id );
-        
+
         return ResponseEntity.noContent().build();
     }
 }
@@ -626,12 +626,12 @@ public class BlogApiController {
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
 /*
- *  TODO Annotate the class with @RestController 
+ *  TODO Annotate the class with @RestController
  *  to have Spring recognize the class as a Rest Service
  */
 
 /*
- *  TODO Annotate the class with @ControllerAdvice. 
+ *  TODO Annotate the class with @ControllerAdvice.
  *  This will make the class applied globally across all @RequestMapping on all
  *  Controller in an application
  */
@@ -639,7 +639,7 @@ public class ExceptionController implements ErrorController {
     /* EXCEPTION HANDLING CODE HERE... */
 }
     </code>
-  </pre> 
+  </pre>
 
 </section>
 
@@ -649,9 +649,9 @@ public class ExceptionController implements ErrorController {
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate the class with @ExceptionHandler 
+     *  TODO Annotate the class with @ExceptionHandler
      *  and set what type of exception the method will catch
-     *  
+     *
      *  Have this method to catch ApiException
      */
     ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
@@ -663,16 +663,16 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 <section>
 <h3>Handling ResourceNotFoundException</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate the class with @ExceptionHandler 
+     *  TODO Annotate the class with @ExceptionHandler
      *  and set what type of exception the method will catch
-     *  
+     *
      *  Have this method to catch ResourceNotFoundException
      */
     ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
@@ -684,7 +684,7 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 
 
@@ -693,9 +693,9 @@ public class ExceptionController implements ErrorController {
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate the class with @ExceptionHandler 
+     *  TODO Annotate the class with @ExceptionHandler
      *  and set what type of exception the method will catch
-     *  
+     *
      *  Have this method to catch HttpMessageNotReadableException
      */
     ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
@@ -707,7 +707,7 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 
 <section>
@@ -715,15 +715,15 @@ public class ExceptionController implements ErrorController {
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate the class with @ExceptionHandler 
+     *  TODO Annotate the class with @ExceptionHandler
      *  and set what type of exception the method will catch
-     *  
+     *
      *  This will be catching other exception that is not
      *  covered in this class
-     *  
+     *
      *  Have this method to catch HttpRequestMethodNotSupportedException
      */
-    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported(
                        HttpRequestMethodNotSupportedException ex ) {
         /*
          *  TODO return a ResponseEntity. The body of the ResponseEntity
@@ -733,7 +733,7 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 
 <section>
@@ -741,12 +741,12 @@ public class ExceptionController implements ErrorController {
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
     /*
-     *  TODO Annotate the class with @ExceptionHandler 
+     *  TODO Annotate the class with @ExceptionHandler
      *  and set what type of exception the method will catch
-     *  
+     *
      *  This will be catching other exception that is not
      *  covered in this class
-     *  
+     *
      *  Have this method to catch Exception
      */
     ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
@@ -758,7 +758,7 @@ public class ExceptionController implements ErrorController {
         throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 
 <section>
@@ -779,11 +779,11 @@ public class ExceptionController implements ErrorController {
     }
     @Override
     public String getErrorPath() {
-        // TODO specify the error path url. 
+        // TODO specify the error path url.
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
     </code>
-  </pre> 
+  </pre>
 </section>
 
 <section>
@@ -809,39 +809,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class ExceptionController implements ErrorController {
-    
+
     @ExceptionHandler( ApiException.class )
     ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
         return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
     }
-    
+
     @ExceptionHandler( ResourceNotFoundException.class )
     ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
         return processApiException( new ApiException( 404, ex ) );
     }
-    
+
     @ExceptionHandler( HttpMessageNotReadableException.class )
-    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( 
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody(
                                HttpMessageNotReadableException ex ) {
         return processApiException( new ApiException( 400, ex ) );
     }
-        
+
     @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
-    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported(
                             HttpRequestMethodNotSupportedException ex ) {
         return processApiException( new ApiException( 405, ex ) );
     }
-    
+
     @ExceptionHandler( Exception.class )
     ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
         return processApiException( new ApiException( 500, ex ) );
     }
-    
+
     @RequestMapping( value = &quot;error&quot; )
     ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
         return handleAllException( ex );
     }
-    
+
     @Override
     public String getErrorPath() {
         return &quot;error&quot;;
@@ -849,7 +849,7 @@ public class ExceptionController implements ErrorController {
 }
 
     </code>
-  </pre> 
+  </pre>
 </section>
 
 </section>
