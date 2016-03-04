@@ -14,6 +14,13 @@
 		.reveal pre code {
 			max-height: none;
 		}
+		h1, h2, h4 {
+			color: #00aeef !important;
+		}
+		gCode {
+			color: #18CB18;
+			font-family: monospace;
+		}
 	</style>
 </head>
 <body id="body">
@@ -83,12 +90,22 @@
 				</section>
 				<section>
 					<h2>Which ones are popular?</h2>
+					<img src="assets/css-preprocessors.png" alt="" />
+				</section>
+				<section>
+					<h2>Which ones are popular?</h2>
 					<ul>
 						<li>Sass (http://sass-lang.com/guide)</li>
 						<li>LESS (http://lesscss.org/)</li>
 						<li>Stylus (http://stylus-lang.com/)</li>
 					</ul>
 						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+				</section>
+				<section>
+					<h4>In this demo we will use SCSS.</h4>
+					<p>
+						Sass 3 introduces a new syntax known as <b style="color:#CC6798">SCSS</b> which is fully compatible with the syntax of CSS, while still supporting the full power of Sass.
+					</p>
 				</section>
 			</section>
 
@@ -315,14 +332,18 @@ ul a:hover { color: #229ed3; }
 				<section>
 					<h2>HANDS ON</h2>
 					<p>
-						In relation to the previous topic (AngularJS), beautify your app by:
+						In relation to the previous topic (AngularJS)
 					</p>
-					<ol>
-						<li>Add selectors to the elements in your markup.</li>
-						<li>Run `gulp develop --app` on your terminal/console</li>
-						<li>Add css rules on src/sass/_modifiers.scss</li>
-						<li>Run `gulp develop --sass` on your terminal/console</li>
-					</ol>
+					<p>
+						We will beautify the app using Bootstrap as our HTML framework and SCSS as the preprocessor
+					</p>
+					<ul>
+						<li>Add selectors to the elements on your markup.</li>
+						<li>Run <gcode>gulp develop --app</gcode> on your terminal/console</li>
+						<li>Add css rules on <gcode>src/sass/_modifiers.scss</gcode></li>
+						<li>Run <gcode>gulp develop --sass</gcode> on your terminal/console</li>
+						<li>See compiled CSS in <gcode>public/css/</gcode></li>
+					</ul>
 				</section>
       </section>
 
