@@ -37,7 +37,7 @@
 
       <!-- Hello, Let's introduce yourself. -->
       <section data-state="blur-on">
-        <h2>Building RESTFul Webservice with through Spring</h2>
+        <h2>Building RESTFul Webservice with Spring</h2>
         <h4>
           HTML5 Presentation Framework powered by
           <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
@@ -48,7 +48,7 @@
           <a href="https://ph.linkedin.com/in/jerrickpua" target="_blank"><i class="ion-social-linkedin"></i></a> &nbsp;
         </p>
       </section>
-      <section>
+      <section> 
 	      <section>
       			<h2>What exactly is Spring?</h2>
 		           <p class="fragment">-One of the most popular application development framework for enterprise application</p>
@@ -57,7 +57,7 @@
 	      </section>
 
       </section>
-  	      <section>
+  	<!--      <section>
       		<section>
       			<h2>Spring aims to simplify Java Development</h2>
             <p class="fragment">-Minimal Invasive development</p>
@@ -75,7 +75,7 @@
 public class BusinessLogicBean {
   public void doSomeBusinessLogicCode() {
   // Business logic code...
-  }
+  } 
 }
               </code>
             </pre>
@@ -100,10 +100,10 @@ public class BusinessLogicBean {
             <pre>
               <code class="hljs" contenteditable="" data-trim="">
 public class RescuingKnight {
-  private RescuePrincessQuest quest;
+  private RescuePrincessQuest quest; 
   public RescuingKnight() {
     this.quest = new RescuePrincessQuest(); //Knight create his own quest
-  }
+  } 
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -118,10 +118,10 @@ public class RescuingKnight {
             <pre>
               <code class="hljs" contenteditable="" data-trim="">
 public class BraveKnight {
-  private Quest quest;
+  private Quest quest; 
   public BraveKnight(Quest quest) {
     this.quest = quest;
-  }
+  } 
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -163,10 +163,10 @@ public class DragonSlayingQuest implements Quest{
             <pre class="fragment">
               <code class="hljs" contenteditable="" data-trim="">
 public class BraveKnight {
-  private Quest quest;
+  private Quest quest; 
   public BraveKnight(Quest quest) {
     this.quest = quest;
-  }
+  } 
   public void embarkOnQuest(){
     quest.embark();
   }
@@ -175,7 +175,7 @@ public class BraveKnight {
             </pre>
   </section>
 
-</section>
+</section>-->
 <section>
   <section>
     <h1>RESTFul webservice</h1>
@@ -206,6 +206,10 @@ public class BraveKnight {
     <h2><b style="color: red;">T</b>ransfer</h2>
     <p class="fragment">REST involves transferring resource data, in some representational form from one application to another</p>
   </section>
+<section>
+  <img src="assets/rest-diagram.png" alt="rest-diagram" style="background-color: white;">
+
+</section>
   <section>
     <h1>REST Best Practice</h1>
   </section>
@@ -384,28 +388,23 @@ public class Blog {
 
 }
     </code>
-  </pre>
+  </pre>  
 
 </section>
 <section>
 <h3>Class level</h3>
   <pre>
     <code class="hljs" contenteditable="" data-trim="" style="max-height: none;">
-/*
- *  TODO Annotate the class with RestController
- *  to have Spring recognize the class as a Rest Service
- */
-/*
- *  TODO Annotate the class with RequestMapping
- *  and set the base url of your rest service as "api/blogs"
- */
+
+@RestController
+@RequestMapping( value = &quot;api/blogs&quot; )
 public class BlogApiController {
 
     /*
      * BlogService is the object that performs the business logic
      */
     private final BlogService blogService;
-
+    
     /*
      * Spring automatically use dependency injection to inject the
      * correct Concrete implementation of the BlogService
@@ -419,130 +418,64 @@ public class BlogApiController {
 }
 
     </code>
-  </pre>
+  </pre>  
 </section>
 
 <section>
 <h3>Fetch a list of blogs</h3>
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate this method with RequestMapping
-     *  and set the suitable HTTP Method for the service
-     */
+    @RequestMapping( method = RequestMethod.GET )
     ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
-        // TODO Use blogService to get all blogs entries
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
-        // TODO Return the blog entries with the suitable HTTPStatus
+        List&lt;Blog&gt; blogs = blogService.findBlogs();
+        
+        return ResponseEntity.ok( blogs );
     }
     </code>
   </pre>
-  <div class="fragment">
-    <h5>Example with response</h5>
-        <small>GET: http://localhost:8080/api/blogs</small><br/>
-    <pre>
-      <code class="hljs" contenteditable="" data-trim="">
-[
-    {
-        "id": 1,
-        "title": "Hello",
-        "content": "World"
-    },
-    {
-        "id": 2,
-        "title": "Dog",
-        "content": "The Pug"
-    }
-]
-      </code>
-    </pre>
-  </div>
 </section>
 
 <section>
 <h3>Fetch a blog through its id</h3>
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     * TODO Annotate this method with @RequestMapping with a value of {id}
-     * and set the suitable HTTP Method
-     */
-    ResponseEntity&lt;Blog&gt; getBlog( /* TODO annotate your parameter
-                                    with @PathVariable annotation. */ Long id ) {
-        // TODO Use blogService to get blog entry via id
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
-        // TODO Return the blog entries with the suitable HTTPStatus
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
+    ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
+        Blog blog = blogService.findBlog( id );
+        
+        return ResponseEntity.ok( blog );
     }
     </code>
   </pre>
-  <div class="fragment">
-    <h5>Example with response</h5>
-        <small>GET: http://localhost:8080/api/blogs/4</small><br/>
-    <pre>
-      <code class="hljs" contenteditable="" data-trim="">
-{
-    "id": 4,
-    "title": "Hello",
-    "content": "World"
-}
-      </code>
-    </pre>
-  </div>
 </section>
 
 <section>
 <h3>Save a blog</h3>
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     * TODO Annotate this method with @RequestMapping
-     * and set the suitable HTTP Method for the service
-     */
-    ResponseEntity&lt;Blog&gt; saveBlog( /* TODO annotate your parameter
-                                    with @RequestBody annotation */ Blog blog,
-            UriComponentsBuilder ucb ) {
-        // TODO Use blogService to save the incoming blog from client
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
-        // TODO Return the blog entries with the suitable HTTPStatus
+       @RequestMapping( method = RequestMethod.POST )
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, UriComponentsBuilder ucb ) {
+        blog = blogService.saveBlog( blog );
+        URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
+                        .path( String.valueOf( blog.getId() ) ).build().toUri();
+        return ResponseEntity.created( locationURI ).body( blog );
     }
     </code>
   </pre>
-  <div class="fragment">
-    <h5>Example with response</h5>
-        <small>POST: http://localhost:8080/api/blogs</small><br/>
-    <pre>
-      <code class="hljs" contenteditable="" data-trim="">
-{
-    "id": 4,
-    "title": "Hello",
-    "content": "World"
-}
-      </code>
-    </pre>
-  </div>
 </section>
 
 <section>
 <h3>Delete a blog through its id</h3>
   <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     * TODO Annotate this method with @RequestMapping with a value of {id}
-     * and set the suitable HTTP Method
-     */
-    ResponseEntity&lt;Void&gt; deleteblog( /* TODO annotate your parameter
-                                        with @PathVariable annotation. */ Long id ) {
-        // TODO Use blogService to delete the blog entry via id
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
-        // TODO Return a empty response with the suitable HTTPStatus
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
+    ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
+        blogService.deleteBlogById( id );
+        
+        return ResponseEntity.noContent().build();
     }
     </code>
   </pre>
-  <div class="fragment">
-    <h5>Example</h5>
-        <small>DELETE: http://localhost:8080/api/blogs/4</small><br/>
-        <small>NO RESPONSE CONTENT</small>
-  </div>
 </section>
 
 
@@ -567,41 +500,41 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping( value = &quot;api/blogs&quot; )
 public class BlogApiController {
-
+    
     private final BlogService blogService;
-
+    
     @Autowired
     BlogApiController( BlogService blogService ) {
         this.blogService = blogService;
     }
-
+    
     @RequestMapping( method = RequestMethod.GET )
     ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
         List&lt;Blog&gt; blogs = blogService.findBlogs();
-
+        
         return ResponseEntity.ok( blogs );
     }
-
+    
     @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
     ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
         Blog blog = blogService.findBlog( id );
-
+        
         return ResponseEntity.ok( blog );
     }
-
+    
     @RequestMapping( method = RequestMethod.POST )
-    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog,
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, 
                                     UriComponentsBuilder ucb ) {
         blog = blogService.saveBlog( blog );
         URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
                             .path( String.valueOf( blog.getId() ) ).build().toUri();
         return ResponseEntity.created( locationURI ).body( blog );
     }
-
+    
     @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
     ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
         blogService.deleteBlogById( id );
-
+        
         return ResponseEntity.noContent().build();
     }
 }
@@ -625,21 +558,13 @@ public class BlogApiController {
 <h3>Class level</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-/*
- *  TODO Annotate the class with @RestController
- *  to have Spring recognize the class as a Rest Service
- */
-
-/*
- *  TODO Annotate the class with @ControllerAdvice.
- *  This will make the class applied globally across all @RequestMapping on all
- *  Controller in an application
- */
+@RestController
+@ControllerAdvice
 public class ExceptionController implements ErrorController {
     /* EXCEPTION HANDLING CODE HERE... */
 }
     </code>
-  </pre>
+  </pre> 
 
 </section>
 
@@ -648,43 +573,23 @@ public class ExceptionController implements ErrorController {
 <p> Main exception handling method. Later on you will reuse this method to handle other types of exceptions.</p>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @ExceptionHandler
-     *  and set what type of exception the method will catch
-     *
-     *  Have this method to catch ApiException
-     */
+    @ExceptionHandler( ApiException.class )
     ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 <section>
 <h3>Handling ResourceNotFoundException</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @ExceptionHandler
-     *  and set what type of exception the method will catch
-     *
-     *  Have this method to catch ResourceNotFoundException
-     */
+    @ExceptionHandler( ResourceNotFoundException.class )
     ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        return processApiException( new ApiException( 404, ex ) );
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 
 
@@ -692,98 +597,53 @@ public class ExceptionController implements ErrorController {
 <h3>Handling HttpMessageNotReadableException</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @ExceptionHandler
-     *  and set what type of exception the method will catch
-     *
-     *  Have this method to catch HttpMessageNotReadableException
-     */
+    @ExceptionHandler( HttpMessageNotReadableException.class )
     ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        return processApiException( new ApiException( 400, ex ) );
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 
 <section>
 <h4>Handling HttpRequestMethodNotSupportedException</h4>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @ExceptionHandler
-     *  and set what type of exception the method will catch
-     *
-     *  This will be catching other exception that is not
-     *  covered in this class
-     *
-     *  Have this method to catch HttpRequestMethodNotSupportedException
-     */
-    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported(
-                       HttpRequestMethodNotSupportedException ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+    @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( HttpRequestMethodNotSupportedException ex ) {
+        return processApiException( new ApiException( 405, ex ) );
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 
 <section>
 <h3>Handling Exceptions not specified in the Exception controller</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @ExceptionHandler
-     *  and set what type of exception the method will catch
-     *
-     *  This will be catching other exception that is not
-     *  covered in this class
-     *
-     *  Have this method to catch Exception
-     */
+    @ExceptionHandler( Exception.class )
     ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        return processApiException( new ApiException( 500, ex ) );
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 
 <section>
 <h3>Handling rest endpoint not found</h3>
    <pre>
     <code class="hljs" contenteditable="" data-trim="">
-    /*
-     *  TODO Annotate the class with @RequestMapping
-     *  and set the path the same as the getErrorPath()
-     */
+    @RequestMapping( value = &quot;error&quot; )
     ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
-        /*
-         *  TODO return a ResponseEntity. The body of the ResponseEntity
-         *  should contain an APIException.
-         *  Make sure the HTTP Status code is appropriate for the exception
-         */
-        throw new UnsupportedOperationException( &quot;Not yet implemented&quot; );
+        return handleAllException( ex );
     }
+    
     @Override
     public String getErrorPath() {
-        // TODO specify the error path url.
-        throw new UnsupportedOperationException( "Not yet implemented" );
+        return &quot;error&quot;;
     }
     </code>
-  </pre>
+  </pre> 
 </section>
 
 <section>
@@ -809,39 +669,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class ExceptionController implements ErrorController {
-
+    
     @ExceptionHandler( ApiException.class )
     ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
         return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
     }
-
+    
     @ExceptionHandler( ResourceNotFoundException.class )
     ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
         return processApiException( new ApiException( 404, ex ) );
     }
-
+    
     @ExceptionHandler( HttpMessageNotReadableException.class )
-    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody(
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( 
                                HttpMessageNotReadableException ex ) {
         return processApiException( new ApiException( 400, ex ) );
     }
-
+        
     @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
-    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported(
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
                             HttpRequestMethodNotSupportedException ex ) {
         return processApiException( new ApiException( 405, ex ) );
     }
-
+    
     @ExceptionHandler( Exception.class )
     ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
         return processApiException( new ApiException( 500, ex ) );
     }
-
+    
     @RequestMapping( value = &quot;error&quot; )
     ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
         return handleAllException( ex );
     }
-
+    
     @Override
     public String getErrorPath() {
         return &quot;error&quot;;
@@ -849,7 +709,7 @@ public class ExceptionController implements ErrorController {
 }
 
     </code>
-  </pre>
+  </pre> 
 </section>
 
 </section>
