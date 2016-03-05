@@ -1,0 +1,19 @@
+<span ng-if="editMode != true">
+  <h1>{{ blog.title }}</h1>
+  <pre>
+{{ blog.content }}
+  </pre>
+
+  <button ng-click="edit(true)" type="button">Edit</button>
+  <button ng-click="delete()" type="button">Delete</button>
+</span>
+
+<span ng-if="editMode == true">
+  <h5>Title</h5>
+  <input ng-model="blog.title" type="text">
+  <h5>Content</h5>
+  <textarea ng-model="blog.content" rows="8"></textarea><br>
+
+  <button ng-click="update()" type="button">Save</button>
+  <button ng-click="edit(false)" type="button">Cancel</button>
+</span>

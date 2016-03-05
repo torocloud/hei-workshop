@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="user">
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <a ng-if="loggedIn == false" href="/login">Login</a>
+    <span ng-if="loggedIn == true">
+      <a href="/post">Post</a>
+      <a ng-click="logout()" href="/">Logout</a>
+    </span>
+    <hr>
+    <div ng-view></div>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/app.js"></script>
+    <script src="/javascript/directives.js"></script>
+    <script src="/javascript/controllers.js"></script>
+    <script src="/javascript/factories.js"></script>
+  </body>
+</html>

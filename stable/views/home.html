@@ -1,0 +1,8 @@
+<div ng-repeat="blog in blogs">
+  <h1>{{ blog.title }}</h1>
+  <pre>
+{{ blog.content }}
+  </pre>
+  <a href="/view/{{ blog.id }}">View blog</a>
+  <hr>
+</div>
