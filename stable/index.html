@@ -1,8 +1,4 @@
-<!DOCTYPE html>
 <html ng-app="app" ng-controller="user">
-  <head>
-    <title></title>
-  </head>
   <body>
     <a href="/">Home</a>
     <a ng-if="loggedIn == false" href="/login">Login</a>
@@ -11,6 +7,7 @@
       <a ng-click="logout()" href="/">Logout</a>
     </span>
     <hr>
+
     <div ng-view></div>
 
     <script src="/bower_components/angular/angular.js"></script>

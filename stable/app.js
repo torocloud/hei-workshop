@@ -1,12 +1,8 @@
-
 angular
   .module('app', [
     'ngRoute',
     'ngStorage'
-  ]);
-
-angular
-  .module('app')
+  ])
   .config(AppConfig)
 
 AppConfig.$inject = [

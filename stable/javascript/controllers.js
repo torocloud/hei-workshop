@@ -4,15 +4,15 @@ angular
 
   userController.$inject = [
     '$scope',
-    '$localStorage'
+    '$localStorage',
+    'api'
   ]
 
-  function userController ($scope, $localStorage) {
+  function userController ($scope, $localStorage, api) {
     $scope.loggedIn = $localStorage.token != undefined;
 
     $scope.logout = function() {
-      delete $localStorage.token;
-      $scope.loggedIn = false;
+      api.setToken();
     }
 
     $scope.$on('token::set', function() {

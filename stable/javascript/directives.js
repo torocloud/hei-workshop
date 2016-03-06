@@ -7,7 +7,8 @@ angular
 
 // home directive
   function home () {
-    let directive = {
+    var directive = {
+      restrict: 'E',
       templateUrl: '../views/home.html',
       controller: BlogsCtrl
     }
@@ -25,14 +26,15 @@ angular
       .then( function(response) {
         $scope.blogs = response;
       }, function (error) {
-        alert(error);
+        alert('Something went wrong');
       });
   }
 // end of home directive
 
 // login directive
   function login () {
-    let directive = {
+    var directive = {
+      restrict: 'E',
       templateUrl: '../views/login.html',
       controller: LoginCtrl
     }
@@ -58,7 +60,7 @@ angular
           api.setToken( response.token );
           $location.path( '/' );
         }, function (error) {
-          alert(error);
+          alert('Something went wrong');
         });
     }
   }
@@ -66,7 +68,8 @@ angular
 
 // post directive
   function post () {
-    let directive = {
+    var directive = {
+      restrict: 'E',
       templateUrl: '../views/post.html',
       controller: PostCtrl
     }
@@ -91,7 +94,7 @@ angular
         .then( function(response) {
           $location.path( '/' );
         }, function (error) {
-          alert(error);
+          alert('Something went wrong');
         });
     }
   }
@@ -99,7 +102,8 @@ angular
 
 // home directive
   function blog () {
-    let directive = {
+    var directive = {
+      restrict: 'E',
       templateUrl: '../views/blog.html',
       controller: BlogCtrl
     }
@@ -121,7 +125,7 @@ angular
       .then( function(response) {
         $scope.blog = response;
       }, function (error) {
-        alert(error);
+        alert('Something went wrong');
         $location.path( '/' );
       });
 
@@ -136,7 +140,7 @@ angular
         .then( function(response) {
           $scope.editMode = false;
         }, function (error) {
-          alert(error);
+          alert('Something went wrong');
         });
     }
 
@@ -145,7 +149,7 @@ angular
         .then( function(response) {
           $location.path( '/' );
         }, function (error) {
-          alert(error);
+          alert('Something went wrong');
         });
     }
   }
