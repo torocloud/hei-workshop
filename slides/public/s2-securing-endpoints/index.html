@@ -127,6 +127,9 @@
 			<!-- Implement UserDetailsService -->
 			<section>
 				<section>
+					<h4>The application needs to have a collection of users.</h4>
+				</section>
+				<section>
 					<h3>the UserDetailsService</h3>
 					<p>an <a href="http://docs.spring.io/autorepo/docs/spring-security/4.0.3.RELEASE/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html">interface</a> used by Spring Security to fetch a user.</p>
 					<pre><code class="hljs" contenteditable="" data-trim="">
@@ -288,6 +291,10 @@ ResponseEntity&lt;Map&gt; login( @Valid @RequestBody LoginRequest request ) {
 			<!-- Implement authorization -->
 			<section>
 				<section>
+					<h4>We have exposed a way for API consumers to login, but haven't really secured the APIs yet.</h4>
+					<h4 class="fragment">So..</h4>
+				</section>
+				<section>
 					<h3>Enable Security</h3>
 					<p>Extend <code>WebSecurityConfigurerAdapter</code>, a <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html">class</a> provided by
 						Spring Security for configuring security models.</p>
@@ -333,6 +340,15 @@ protected void configure( HttpSecurity http ) throws Exception {
 				<section>
 					<h3>Server response to Authorization headers (5)</h3>
 					<img src="assets/jwtdiagram.png" alt="Jwt diagram" style="background-color: white;">
+				</section>
+				<section>
+					<h4>We need to tell the application that API consumers will pass an authorization header, on each request.</h4>
+				</section>
+				<section>
+					<h3>Chain of Responsibility</h3>
+					<p>a design pattern used to achieve <b>loose-coupling</b> where a request from client is passed to a chain of objects to process them.</p>
+					<img src="assets/filter-diagram.gif" alt="Filter diagram" />
+					<p>Spring evaluates authentication and authorization through it's <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#filter-ordering">filter chain</a>.</p>
 				</section>
 				<section>
 					<p>We need to determine whether a request is <i>authorizeable</i>, using a
@@ -419,7 +435,7 @@ private UserDetailsService userDetailsService;
 protected void configure( HttpSecurity http ) throws Exception {
    ...
    // ...disable()
-   .addFilterBefore( new JwtHeaderFilter( userDetailsService ) ),
+   .addFilterBefore( new JwtHeaderFilter( userDetailsService ),
          BasicAuthenticationFilter.class );
 }
 
@@ -438,12 +454,21 @@ public UserDetailsService userDetailsServiceBean() throws Exception {
 			</section>
 			<section>
 				<section>
-					<h3>Cross-Origin Requests (CORS)</h3>
-					<p>A mechanism that allows restricted resources on a web page to be requested from <u>outside</u> the domain from which the resource originated.</p>
-					<img src="assets/cors-fail.png" alt="CORS failing">
+					<h4>We're almost done, but what about <a href="https://en.wikipedia.org/wiki/Same-origin_policy">Same-Origin Policy</a>?</h4>
+					<!-- <pre>
+var client = new XMLHttpRequest();
+client.onreadystatechange = function(){
+   if (client.readyState == XMLHttpRequest.DONE)
+      console.log( client.responseText );
+}
+client.open( "GET", "http://google.com" );
+client.send();
+					</pre> -->
+					<img class="fragment" src="assets/cors-fail.png" alt="CORS failing">
 				</section>
 				<section>
-					<p>For our blog app, we'll allow CORS so that our client webapp can access it's resources.</p>
+					<h3>Cross-Origin Requests (CORS)</h3>
+					<p>A mechanism that allows restricted resources on a web page to be requested from <u>outside</u> the domain from which the resource originated.</p>
 					<img src="assets/cors-diagram.png" alt="CORS diagram">
 					<!-- <small>Image taken from <a href="https://dzone.com/articles/cross-site-requests-gwt">dzone</a>.</small> -->
 				</section>
