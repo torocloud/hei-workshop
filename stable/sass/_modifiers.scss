@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  min-width: 320px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+// mixins
+@mixin ellipsis($lineClamp) {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineClamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+// utility clasess
+.truncate {
+  @include ellipsis(0);
+  &.truncate-1 { @include ellipsis(1); }
+  &.truncate-3 { @include ellipsis(3); }
+  &.truncate-5 { @include ellipsis(5); }
+}
+
+.bread-word {
+  word-wrap: break-word;
+}
+
+ng-view {
+  padding: 3rem;
+}
+.card {
+  .card-profile-picture {
+    margin-top: -50px;
+  }
+}
+
+.social-media-icons {
+  margin-right: 10px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: table;
+  text-align: center;
+  border: none;
+  background-color: #ccc;
+  border-radius: 100%;
+  font-size: 15px;
+  i {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+  &.social-media-icons-facebook { background-color: #3B5998; }
+  &.social-media-icons-google {  background-color: #DD4B39; }
+  &.social-media-icons-twitter { background-color: #55ACEE; }
+  &.social-media-icons-instagram { background-color: #3F729B; }
+  &.social-media-icons-linkedin { background-color: #0082CA; }
+}

@@ -1,7 +1,8 @@
 angular
   .module('app', [
     'ngRoute',
-    'ngStorage'
+    'ngStorage',
+    'ngSanitize'
   ])
   .config(AppConfig)
 

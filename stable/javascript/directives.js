@@ -89,7 +89,11 @@ angular
       content: ''
     }
 
+    CKEDITOR.replace('postBlogEditor')
+
     $scope.post = function () {
+      $scope.blog.content = CKEDITOR.instances.postBlogEditor.getData()
+      console.log($scope.blog.content);
       api.post( $scope.blog )
         .then( function(response) {
           $location.path( '/' );
@@ -115,10 +119,11 @@ angular
     '$scope',
     '$location',
     '$routeParams',
+    '$timeout',
     'api'
   ]
 
-  function BlogCtrl ($scope, $location, $routeParams, api) {
+  function BlogCtrl ($scope, $location, $routeParams, $timeout, api) {
     $scope.editMode = false;
 
     api.getBlog( $routeParams.id )
@@ -133,9 +138,14 @@ angular
       $scope.editMode = option;
       ( option == true ) ?
         $scope.unsavedBlog = angular.copy( $scope.blog ) : $scope.blog = $scope.unsavedBlog
+
+      $timeout(function () {
+        CKEDITOR.replace('editBlogEditor')
+      })
     }
 
-    $scope.update = function () {
+    $scope.update = function (entry) {
+      $scope.blog.content = CKEDITOR.instances.editBlogEditor.getData()
       api.post( $scope.blog )
         .then( function(response) {
           $scope.editMode = false;

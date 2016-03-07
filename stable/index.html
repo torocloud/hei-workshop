@@ -1,21 +1,42 @@
 <html ng-app="app" ng-controller="user">
+  <head>
+    <title>HEI Workshop 2016</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/public/css/workshop.css">
+  </head>
   <body>
-    <a href="/">Home</a>
-    <a ng-if="loggedIn == false" href="/login">Login</a>
-    <span ng-if="loggedIn == true">
-      <a href="/post">Post</a>
-      <a ng-click="logout()" href="/">Logout</a>
-    </span>
-    <hr>
+  <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == true">
+          <a class="nav-link" href="/post">POST</a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == false">
+          <a class="nav-link" href="/login">LOGIN</a>
+        </li>
+        <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
+          <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <div ng-view></div>
+    <div ng-view class="p-t-3"></div>
 
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="/app.js"></script>
     <script src="/javascript/directives.js"></script>
     <script src="/javascript/controllers.js"></script>
     <script src="/javascript/factories.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
   </body>
 </html>
