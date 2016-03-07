@@ -16,6 +16,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.Jwts;
+import io.toro.workshop.exception.ApiException;
+
 public class JwtHeaderFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
