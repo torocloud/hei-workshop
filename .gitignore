@@ -31,3 +31,4 @@ Thumbs.db
 dist/assets
 dist/download
 dist/*.html
+node_modules
