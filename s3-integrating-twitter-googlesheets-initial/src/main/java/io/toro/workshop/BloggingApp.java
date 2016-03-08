@@ -20,6 +20,8 @@ public class BloggingApp {
         SpringApplication.run( BloggingApp.class, args );
     }
     
-    //TODO add Beans here
+    /*
+     * TODO Inject Beans Here
+     */
 
 }
