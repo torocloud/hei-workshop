@@ -1,17 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-offset-2 col-md-8">
-      <fieldset class="form-group">
-        <p>Title</p>
-        <input ng-model="blog.title" type="text" class="form-control" placeholder="Blog title">
-      </fieldset>
-      <fieldset class="form-group m-b-0">
-        <p>Content</p>
-        <textarea ng-model="blog.content" id="postBlogEditor" rows="10" class="form-control" placeholder="Blog content"></textarea><br>
-      </fieldset>
-      <fieldset class="form-group">
-        <button ng-click="post()" type="button" class="btn btn-sm btn-primary pull-xs-right">Post</button>
-      </fieldset>
+      <div class="card card-block">
+        <fieldset class="form-group">
+          <p>Title</p>
+          <input ng-model="blog.title" type="text" class="form-control" placeholder="Blog title">
+        </fieldset>
+        <fieldset class="form-group m-b-0">
+          <p>Content</p>
+          <textarea ng-model="blog.content" id="postBlogEditor" rows="10" class="form-control" placeholder="Blog content"></textarea><br>
+        </fieldset>
+        <fieldset class="form-group">
+          <button ng-click="post()" type="button" class="btn btn-sm btn-primary pull-xs-right">Post</button>
+        </fieldset>
+      </div>
     </div>
   </div>
 </div>

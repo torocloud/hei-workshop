@@ -30,15 +30,9 @@ h1, h2, h3, h4, h5, h6 {
   word-wrap: break-word;
 }
 
-ng-view {
-  padding: 3rem;
-}
-.card {
-  .card-profile-picture {
-    margin-top: -50px;
-  }
-}
-
+// for social media icons
+// usage
+// --> <a class="social-media-icons social-media-icons-xxx"><i class="fa fa-xx"></i></a>
 .social-media-icons {
   margin-right: 10px;
   padding: 0;
@@ -60,4 +54,26 @@ ng-view {
   &.social-media-icons-twitter { background-color: #55ACEE; }
   &.social-media-icons-instagram { background-color: #3F729B; }
   &.social-media-icons-linkedin { background-color: #0082CA; }
+}
+
+// styles for the content
+.main-view {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+}
+
+.card {
+  .card-header {
+    background-color: $header-bg-color;
+    color: $header-font-color;
+  }
+  .card-profile-picture {
+    margin-top: -50px;
+  }
+}
+
+section {
+  p {
+    margin-bottom: 0;
+  }
 }
