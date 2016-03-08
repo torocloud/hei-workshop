@@ -33,7 +33,7 @@
 
       <!-- Hello, Let's introduce yourself. -->
       <section data-state="blur-on">
-        <h2>Frontend Dev: Automating Build Process</h2>
+        <h2>Frontend Dev: <br>Automating Build Process</h2>
         <h6>
           Preparing your Front-end Project for <br> Distribution &amp; Deployment
         </h6>
@@ -182,26 +182,26 @@
           <h3>Grunt Syntax</h3>
           <pre>
             <code class="hljs">
-module.exports = () ->
-  # Configure Build Tasks
-  grunt.initConfig
-    jshint:``
-      files: [
-        'Gruntfile.js'
-        'src/**/*.js'
-      ]
-      options:
-        globals: jquery: true
-    watch:
-      files: ["#{jshint.files}"]
-      tasks: ['jshint']
+  module.exports = () ->
+    # Configure Build Tasks
+    grunt.initConfig
+      jshint:
+        files: [
+          'Gruntfile.js'
+          'src/**/*.js'
+        ]
+        options:
+          globals: jquery: true
+      watch:
+        files: ["#{jshint.files}"]
+        tasks: ['jshint']
 
-  # Load Tasks
-  grunt.loadNpmTasks 'grunt-contrib-jshint'
-  grunt.loadNpmTasks 'grunt-contrib-watch'
+    # Load Tasks
+    grunt.loadNpmTasks 'grunt-contrib-jshint'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  # Listener that will execute the task(s)
-  grunt.registerTask 'default', ['jshint']
+    # Listener that will execute the task(s)
+    grunt.registerTask 'default', ['jshint']
             </code>
           </pre>
           <code>$ grunt default</code>
@@ -212,26 +212,25 @@ module.exports = () ->
           <h3>Gulp Syntax</h3>
           <pre>
             <code class="hljs">
-# Load Gulp and Gulp Plugins
-gulp   = require 'gulp'
-jshint = require 'gulp-jshint'
+  # Load Gulp and Gulp Plugins
+  gulp   = require 'gulp'
+  jshint = require 'gulp-jshint'
 
-# Listener that will execute the task
-gulp.task 'default', () ->
+  # Listener that will execute the task
+  gulp.task 'default', () ->
 
-  # Declare jshint options
-  options =
-    globals: jquery: true
+    # Declare jshint options
+    options =
+      globals: jquery: true
 
-  # Execute Gulp instructions
-  return gulp.src ['Gulpfile.js', 'src/**/*.js']
-    .pipe jshint(options)
-    .pipe gulp.dest('./dist')
+    # Execute Gulp instructions
+    return gulp.src ['Gulpfile.js', 'src/**/*.js']
+      .pipe jshint(options)
+      .pipe gulp.dest('./dist')
             </code>
           </pre>
           <code>$ gulp default</code>
         </section>
-
       </section>
 
       <section>
@@ -240,9 +239,144 @@ gulp.task 'default', () ->
             Let's write some <br>
             <code style="color:#e7ad52;">&lt;code/&gt;</code>
           </h1>
+          <small class="fragment" style="line-height:2rem;color:orange;">
+            The main purpose of this excercise is for you to try out a Build
+            System (Gulp in particular), <br> you might not find an actual
+            useful puprpose for these excercises but it should help spark<br>
+            ideas on how it can be incorporated in your current projects.
+          </small>
         </section>
 
         <section id="hans-on-1">
+          <h2>
+            <a href="https://github.com/toro-io/hei-workshop/archive/frontend-build-automation-demo.zip" target="_blank">Build Automation Demo</a>
+            <small>Click me and I'm yours forever</small>
+          </h2>
+          <p>
+            Extract the files to your desktop and in your<br>
+            Terminal or PowerShell <code>cd</code> in to that directory.
+          </p>
+          <br>
+          <p><code>npm install -g gulp &amp;&amp; npm install</code></p>
+        </section>
+
+        <section id="hans-on-2">
+          <h3>Setting Up Build Goals</h3>
+          <br><br>
+          <div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>HTML</h4>
+              <ul>
+                <li><small>inject external css and js resources</small></li>
+                <li><small>validate html files</small></li>
+                <li><small>minify html files for optimum awesome</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>SCSS</h4>
+              <ul>
+                <li><small>lint scss code</small></li>
+                <li><small>compile scss to css</small></li>
+                <li><small>build an expanded, minified and sourcemap</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>Coffee Script</h4>
+              <ul>
+                <li><small>lint coffee-script code</small></li>
+                <li><small>compile coffee to js</small></li>
+                <li><small>build an expanded, minified and sourcemap</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>Deploy</h4>
+              <ul>
+                <li><small>create a build artifact</small></li>
+                <li><small>tag it with a version</small></li>
+                <li><small>deploy to server</small></li>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </section>
+
+        <section id="hans-on-3">
+          <h4>Build HTML and Inject Resources</h4>
+          <pre>
+            <code class="hljs">
+  gulp.task 'html:resource', () ->
+    min  = if util.env.minify then '.min' else ''
+    proc = {}
+
+    proc.css =
+      src: "/assets/css/#{opts.pkg.name}#{min}.css"
+      tpl: '<link rel="stylesheet" href="%s">'
+
+    proc.js =
+      src: "/assets/js/#{opts.pkg.name}#{min}.js"
+      tpl: '<script src="%s"></script>'
+
+    proc.button =
+      src: "#{opts.pkg.name}.zip"
+      tpl: '
+        <a download class="btn btn-lg btn-success" href="/download/%s">
+          Download
+        </a>'
+
+    return gulp.src "#{opts.src}html/**/*.html"
+      .pipe replace(proc)
+      .pipe gulp.dest(opts.dist)
+            </code>
+          </pre>
+        </section>
+
+        <section id="hands-on-4">
+          <h4>Compile SCSS to CSS + Minify + Sourcemap</h4>
+          <pre>
+            <code class="hljs">
+  gulp.task 'scss:compile', () ->
+    return gulp.src "#{opts.src}scss/**/*.scss"
+      .pipe scss()
+      .pipe rename(
+        basename: "#{opts.pkg.name}"
+        extname: '.css'
+      )
+      .pipe gulp.dest("#{opts.dist}assets/css")
+
+
+  gulp.task 'scss:minify', () ->
+    return gulp.src "#{opts.src}scss/*.scss"
+      .pipe sourcemap.init()
+      .pipe cssmin()
+      .pipe rename(
+        basename: "#{opts.pkg.name}"
+        extname: '.min.css'
+      )
+      .pipe sourcemap.write('.')
+      .pipe gulp.dest("#{opts.dist}assets/css")
+            </code>
+          </pre>
+        </section>
+
+        <section id="hands-on-5">
+          <h3>Compile Coffee to JS + Minify + Sourcemap</h3>
+          <pre>
+            <code class="hljs">
+  gulp.task 'coffee:compile', () ->
+    return gulp.src "#{opts.src}coffee/**/*.coffee"
+      .pipe sourcemap.init()
+      .pipe coffee(bare: true)
+      .pipe concat("#{opts.pkg.name}.js")
+      .pipe gulp.dest("#{opts.dist}assets/js")
+      .pipe uglify()
+      .pipe rename(extname: '.min.js')
+      .pipe sourcemap.write('.')
+      .pipe gulp.dest("#{opts.dist}assets/js")
+            </code>
+          </pre>
+        </section>
+
+        <section id="hands-on-6">
         </section>
       </section>
 
