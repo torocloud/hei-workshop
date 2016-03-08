@@ -1,5 +1,6 @@
 Blog API
 ===
+[![Build Status]( 	https://img.shields.io/travis/TORO-IO/hei-workshop.svg)]()
 
 ## Running
 Assuming you have atleast java 7:

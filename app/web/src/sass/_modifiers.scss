@@ -1,19 +1,6 @@
 // Bourbon Mixins
 @import "bourbon/bourbon";
 
-
-// Pre-Processor Variables
-// examples
-
-
-// Pre-Processor Mixins
-// examples
-
-
-// Pre-Processor Nesting
-// examples
-
-
 // ==# Tips on Writing Modular and Maintainable CSS styles
 //
 // 1. Maintainable: Readable Code
@@ -21,10 +8,203 @@
 // 3. Modular: Element Box Model
 // 4. Modular: Element Modifier
 
-.selector {
-  // box model
+$header-responsive-width: 330px;
+$header-responsive-height: 360px;
+$list-group-fixed-height: 350px;
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  min-width: 320px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
 }
 
-.selector-modifier {
-  // styles
+@mixin ellipsis($lineClamp) {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineClamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+@mixin box-shadow($style: 0 0 5px $gray-dark) {
+  -webkit-box-shadow: $style;
+  -moz-box-shadow: $style;
+  -ms-box-shadow: $style;
+  box-shadow: $style;
+}
+
+// utility clasess
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &.truncate-1 { @include ellipsis(1); }
+  &.truncate-3 { @include ellipsis(3); }
+  &.truncate-5 { @include ellipsis(5); }
+}
+
+.bs {
+  &.bs-1 { @include box-shadow(0 0 3px $gray-dark); }
+  &.bs-2 { @include box-shadow(); }
+}
+
+.b-r-0 {
+  border-radius: 0 !important;
+}
+
+// Header Section
+ui-view > header {
+  @include transition(width .4s ease, height .4s ease);
+  color: #fff;
+  background-color: $gray-dark;
+
+
+  @include media-breakpoint-down(xs) {
+    position: relative;
+    width: 100%;
+    // height: 70%;
+    min-height: 568px; // $header-responsive-height;
+  }
+
+  @include media-breakpoint-up(xs) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $header-responsive-width;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  // Container
+  > .container-fluid {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  // User Profile
+  .card {
+    &.card-profile {
+      margin-left: ($grid-gutter-width / -2);
+      margin-right: ($grid-gutter-width / -2);
+      border-radius: 0;
+      border: 0 none;
+      background-color: transparent;
+    }
+
+    .card-block { position: relative; }
+
+    .card-profile-picture {
+      @extend .center-block;
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      margin-left: -50px;
+    }
+  }
+
+  .header-title {
+    padding-left: $grid-gutter-width;   // ($grid-gutter-width / 2);
+    padding-right: $grid-gutter-width;  // ($grid-gutter-width / 2);
+
+    @include media-breakpoint-up(xs) {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+  }
+}
+
+
+// Footer Section
+ui-view > footer {
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 0;
+  }
+
+  @include media-breakpoint-up(xs) {
+    padding-left: ($header-responsive-width + 15px);
+  }
+}
+
+
+// Main Content Section
+ui-view > [role="main"] {
+  height: 94%;
+  min-height: 94%;
+  min-width: 320px;
+
+  @include media-breakpoint-down(xs) {
+    padding-top: $header-responsive-height / 12;
+    padding-left: 0;
+  }
+
+  @include media-breakpoint-up(xs) {
+    padding-top: 0;
+    padding-left: ($header-responsive-width + 15px);
+  }
+
+  header,
+  .card-header {
+    background-color: #fff;
+    word-wrap: break-word;
+    color: $gray-dark;
+    a {
+      color: $gray-dark;
+    }
+  }
+
+  section p {
+    margin-bottom: 0;
+    word-wrap: break-word;
+  }
+
+  .block-wrapper {
+    &.block-wrapper-sm {
+      @include media-breakpoint-up(md) {
+        width: 400px;
+      }
+      @include media-breakpoint-down(sm) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+    .card-profile-picture {
+      margin-top: -70px;
+    }
+  }
+
+  .list-group {
+    &.list-group-fixed {
+      max-height: $list-group-fixed-height;
+      overflow: auto;
+    }
+  }
+
+  .social-media-icons {
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 100%;
+    font-size: 20px;
+    // &:hover {
+    //   @include box-shadow();
+    // }
+    &.social-media-icons-facebook { background-color: #3B5998; }
+    &.social-media-icons-google {  background-color: #DD4B39; }
+    &.social-media-icons-twitter { background-color: #55ACEE; }
+    &.social-media-icons-instagram { background-color: #3F729B; }
+    &.social-media-icons-linkedin { background-color: #0082CA; }
+  }
 }

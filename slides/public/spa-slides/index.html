@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
   <link rel="stylesheet" href="/controldeck/app.css">
 	<style>
+		pre {
+			margin: 0 auto !important;
+			box-shadow: none !important;
+		}
+		code {
+			max-height: 620px !important;
+		}
 		gCode {
 			color: #18CB18;
 			font-family: monospace;
@@ -54,6 +61,24 @@
 			<!-- end of page 0 -->
 
 			<!-- Page 1 -->
+			<section>
+				<section>
+					<h2>Download the Project</h2>
+					<a href="https://github.com/TORO-IO/hei-workshop/archive/spa.zip" download>spa.zip (less than 1mb)</a>
+				</section>
+				<section>
+					<u style="text-decoration: none; text-align: left;">
+						<li style="margin-top: 20px;">Extract the downloaded zip file</li>
+						<li style="margin-top: 20px;">Open your terminal/console</li>
+						<li style="margin-top: 20px;">cd to the downloaded project's directory</li>
+						<li style="margin-top: 20px;">run <gCode>atom .</gCode> or <gCode>subl .</gCode></li>
+						<li style="margin-top: 20px;">run <gCode>node server.js</gCode></li>
+					</u>
+				</section>
+			</section>
+			<!-- end of page 1 -->
+
+			<!-- Page 2 -->
       <section>
 				<section>
 					<h2>What is a Single-Page App?</h2>
@@ -69,21 +94,14 @@
 					<img src="assets/spa-lifecycle.png"/>
 				</section>
       </section>
-			<!-- end of page 1 -->
+			<!-- end of page 2 -->
 
-			<!-- Page 2 -->
+			<!-- Page 3 -->
 			<section>
 				<h2>Why use SPA?</h2>
 				<p class="fragment" style="color: #e7ad52;">Reduced server load</p>
 				<p class="fragment" style="color: #e7ad52;">Applications are more fluid and responsive</p>
 				<p class="fragment" style="color: #e7ad52;">Separation of presentation and application logic</p>
-			</section>
-			<!-- end of page 2 -->
-
-			<!-- Page 3 -->
-			<section>
-				<h2>Development Directory Structure</h2>
-				<img src="assets/directory-structure.png" width="300"/>
 			</section>
 			<!-- end of page 3 -->
 
@@ -92,22 +110,22 @@
 				<h4>app.js</h2>
 				<pre>
 					<code class="hljs" contenteditable="" data-trim="">
-(function () {
-  'use strict'
-
-  angular
-    .module('app', [
-      'ui.router',
-      'ngCookies'
-    ])
-
-})()
+angular
+  .module('app', [])
 					</code>
 				</pre>
 				<h4>index.html</h2>
 				<pre>
 					<code class="hljs" contenteditable="" data-trim="">
-&lt;html ng-app="app" ng-controller="AuthCtr as auth"&gt;
+&lt;html ng-app="app"&gt;
+  &lt;body&gt;
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+
+    <script src="stable/bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+  &lt;/body&gt;
+&lt;/html&gt;
 					</code>
 				</pre>
 			</section>
@@ -116,55 +134,69 @@
 			<!-- Page 5 -->
 			<section>
 				<section>
-					<h4>router.js : $stateProvider</h4>
+					<h4>views/login.html</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
-$stateProvider
-  .state('app', {
-    url: '/',
-    abstract: true,
-    views: {
-      '': {
-        template: ''
-      }
-    }
-  })
-						</code>
-					</pre>
-					<h4>index.html</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-<ui-view></ui-view>
+<h5>Login</h5>
+<input ng-model="credentials.username" type="text">
+<input ng-model="credentials.password" type="text">
+<button ng-click="login()" type="button">Login</button>
 						</code>
 					</pre>
 				</section>
 
 				<section>
-					<h4>router.js : app state</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-$stateProvider
-  .state('app', {
-    url: '/',
-    abstract: true,
-    views: {
-      '': {
-        template: `
-          <header ui-view="header"></header>
-          <div ui-view="content"></div>
-        `
-      }
-    }
-  })
-						</code>
-					</pre>
 					<h4>index.html</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
-<ui-view>
-  <header ui-view="header"></header>
-  <div ui-view="content"></div>
-</ui-view>
+&lt;html ng-app="app"&gt;
+  &lt;body&gt;
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+
+    <div ng-view></div>
+
+    <script src="stable/bower_components/angular/angular.js"></script>
+    <script src="stable/bower_components/angular-route/angular-route.js"></script>
+    <script src="stable/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="app.js"></script>
+  &lt;/body&gt;
+&lt;/html&gt;
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>app.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app', [
+    'ngRoute',
+    'ngStorage'
+  ])
+  .config( AppConfig )
+
+AppConfig.$inject = [
+  '$routeProvider',
+  '$locationProvider'
+]
+
+function AppConfig ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
+
+  $routeProvider
+    .when('/', {
+      template: '<home></home>'
+    })
+
+    .when('/login', {
+      template: '<login></login>'
+    })
+}
 						</code>
 					</pre>
 				</section>
@@ -175,234 +207,52 @@ $stateProvider
 			<!-- Page 6 -->
 			<section>
 				<section>
-					<h4>router.js : default state</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-.state('app.default', {
-  url: '',
-  views: {
-    'header@app': {
-      template: '<app-header></app-header>'
-    },
-    'content@app': {
-      template: '<app-blogs></app-blogs>',
-    }
-  }
-})
-						</code>
-					</pre>
+					<h3>What are Directives?</h3>
+					<p class="fragment" style="color: #e7ad52;">Directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tells AngularJS's HTML compiler to attach a specified behavior to that DOM element or even to transform the DOM element and its children.</p>
+					<p class="fragment" style="color: #e7ad52;">Angular comes with a set of these directives built-in, like ngBind, ngModel, and ngClass</p>
+					<p class="fragment" style="color: #e7ad52;">You can create your own directives for Angular to use</p>
 				</section>
 
 				<section>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app')
+  .directive('login', login)
+
+function login () {
+  var directive = {
+    restrict: 'E',
+    templateUrl: '/views/login.html'
+  }
+
+  return directive
+}
+						</code>
+					</pre>
 					<h4>index.html</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
-<ui-view>
-  <header ui-view="header"></header>
-  <div ui-view="content"></div>
-</ui-view>
-						</code>
-					</pre>
-
-					<h4>index.html if url is "/"</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-<ui-view>
-
-  <header ui-view="header">
-    <app-header></app-header>
-  </header>
-
-  <div ui-view="content">
-    <app-blogs></app-blogs>
-  </div>
-
-</ui-view>
+<script src="javascript/directives.js"></script>
 						</code>
 					</pre>
 				</section>
+
 			</section>
 			<!-- end of page 6 -->
 
 			<!-- Page 7 -->
 			<section>
-				<h4>directive : header.js</h4>
-				<pre>
-					<code class="hljs" contenteditable="" data-trim="">
-angular
-  .module('app')
-  .directive('appHeader', HeaderDirective)
-
-  function HeaderDirective () {
-    let directive = {
-      scope:       true,
-      templateUrl: '/app/views/header.html'
-    }
-
-    return directive
-  }
-					</code>
-				</pre>
-				<h4>header.html</h4>
-				<pre>
-					<code class="hljs" contenteditable="" data-trim="">
-<ul ng-if="!auth.currentUser">
-  <!-- items to show if `currentUser` is not available -->
-</ul>
-
-<ul ng-if="auth.currentUser">
-  <!-- items to show if `currentUser` is available -->
-</ul>
-					</code>
-				</pre>
-			</section>
-			<!-- end of page 7 -->
-
-			<!-- Page 8 -->
-			<section>
 				<section>
-					<h4>controller : auth.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-angular
-  .module('app')
-  .controller('AuthCtrl', AuthController)
-
-AuthController.$inject = [
-  '$scope',
-  'context'
-]
-
-function AuthController ($scope, userContext) {
-  let auth = this
-  auth.currentUser = userContext.getCurrentUser()
-}
-						</code>
-					</pre>
-				</section>
-				<section>
-					<h4>service : user.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="" style="max-height: 530px;">
-angular
-  .module('app')
-  .service('context', Context)
-
-Context.$inject = ['$cookies']
-
-function Context ($cookies) {
-  return {
-    currentSession: null,
-    setCookies (context) {
-      for (var obj in context) {
-        $cookies.put(obj, context[obj], {path: '/'})
-      }
-    },
-    setCurrentUser (data) {
-      return (data && Object.keys(data).length > 0) ?
-        this.setCookies(data) : null
-    },
-    getCurrentUser () {
-      return (Object.keys($cookies.getAll()).length > 0) ?
-        Object.assign({}, {
-          username: $cookies.get('username'),
-          token: $cookies.get('token'),
-        }) : null
-    }
-  }
-}
-						</code>
-					</pre>
-				</section>
-			</section>
-			<!-- end of page 8 -->
-
-			<!-- Page 9 -->
-			<section>
-				<section>
-					<h4>router.js : login state</h4>
-					<pre>
-					<code class="hljs" contenteditable="" data-trim="">
-.state('app.login', {
-  url: 'admin/login',
-  views: {
-    'content@app': {
-      template: '<user-login></user-login>'
-    }
-  }
-})
-						</code>
-					</pre>
+					<h3>Providers</h3>
+					<p class="fragment" style="color: #e7ad52;">Each web application you build is composed of objects that collaborate to get stuff done</p>
+					<p class="fragment" style="color: #e7ad52;">These objects need to be instantiated and wired together for the app to work</p>
+					<p class="fragment" style="color: #e7ad52;">In Angular apps most of these objects are instantiated and wired together automatically by the injector service</p>
 				</section>
 
 				<section>
-					<h4>directive : login.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-angular
-  .module('app')
-  .directive('userLogin', UserLogin)
-
-  function UserLogin () {
-    let directive = {
-      scope:        true,
-      templateUrl:  '/app/views/login.html',
-      controller:   UserLoginController,
-      controllerAs: 'login',
-      bindToController: true
-    }
-
-    return directive
-  }
-						</code>
-						<code class="hljs" contenteditable="" data-trim="">
-UserLoginController.$inject = [
-  '$rootScope',
-  '$state',
-  'api',
-  'context'
-]
-						</code>
-					</pre>
-				</section>
-
-				<section>
-					<h4>controller : login.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="" style="max-height: 475px;">
-function UserLoginController ($rootScope, $state, api, userContext) {
-  let login = this
-
-  this.userLogin = function() {
-    api.login(login.user).then( function(data) {
-      if ( data.hasOwnProperty('token') ) {
-        userContext.setCurrentUser( Object.assign({
-          username: login.currentUser.username
-        }, data ))
-
-        return $state.go('app.default')
-      }
-    }, function(error) {
-      this.userInvalid()
-    })
-    return true
-  }
-
-  this.userInvalid = function() {
-    login.alert = true
-    return false
-  }
-}
-						</code>
-					</pre>
-				</section>
-			</section>
-			<!-- end of page 9 -->
-
-			<!-- Page 10 -->
-			<section>
-				<section>
-					<h4>factory : api.js</h4>
+					<h4>javascript/factories.js</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
 angular
@@ -413,48 +263,364 @@ ApiFactory.$inject = [
   '$rootScope',
   '$http',
   '$q',
-  '$state',
-  'context'
+  '$location',
+  '$localStorage'
 ]
-						</code>
-					</pre>
-				</section>
 
-				<section style="padding-top: 0;">
-					<h4 style="margin-bottom: 0;">factory : api.js</h4>
-					<pre style="margin-top: 0;">
-						<code class="hljs" contenteditable="" data-trim="" style="max-height: 646px;">
-function ApiFactory ($rootScope, $http, $q, $state, userContext) {
-  let baseurl = 'http://127.0.0.1:8080/api/'
-  let user = userContext.getCurrentUser()
-  let headers = {
+function ApiFactory ( $rootScope, $http, $q, $location, $localStorage ) {
+  var api = this;
+  var baseurl = 'https://hei-workshop.herokuapp.com/api/';
+  var headers = {
     'Content-Type': 'application/json',
-    'Authorization': ( user && user.token) ? 'Bearer ' + user.token : undefined
+    'Authorization': ( $localStorage.token ) ?
+      'Bearer ' + $localStorage.token : undefined
   }
 
-  this.login = function(credentials) {
-    return execute( $http.post( baseurl + 'login', credentials, headers) )
+  api.setToken = function( token ) {
+    ( token ) ?
+      $localStorage.token = token : delete $localStorage.token
+    headers.Authorization = ( token ) ?
+      'Bearer ' + token : undefined
+    $rootScope.$broadcast('token::set');
   }
 
-  function execute(request) {
-    return ( request.then(handleSuccess, handleError) )
+  api.login = function( credentials ) {
+    return $http.post( baseurl + 'login', credentials, {headers} )
+      .then( handleSuccess, handleError );
+  }
+
+  api.post = function( blog ) {
+    return $http.post( baseurl + 'blogs', blog, {headers} )
+      .then( handleSuccess, handleError );
+  }
+
+  api.getBlogs = function() {
+    return $http.get( baseurl + 'blogs', {headers} )
+      .then( handleSuccess, handleError );
+  }
+
+  api.getBlog = function( id ) {
+    return $http.get( baseurl + 'blogs/' + id, {headers} )
+      .then( handleSuccess, handleError );
+  }
+
+  api.deleteBlog = function( id ) {
+    return $http.delete( baseurl + 'blogs/' + id, {headers} )
+      .then( handleSuccess, handleError );
   }
 
   function handleSuccess(response) {
-    return response.data
+    return response.data;
   }
 
   function handleError(error) {
-    if ( error.status === 401 ) {
-      $state.go('app.login')
-      return $q.reject(error)
-    } else {
-      return $q.reject(error)
+    switch( error.status ) {
+      case 401:
+      case -1:
+        api.setToken();
+        $location.path( '/login' )
+        return $q.reject( error.status );
+        break;
+      default:
+        return $q.reject( error.status );
     }
   }
 
   return this
 }
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>index.html</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+<script src="javascript/factories.js"></script>
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h3>Controllers</h3>
+					<p class="fragment" style="color: #e7ad52;">
+						AngularJS applications are controlled by <span class="fragment"><strong>controllers</strong></span>
+					</p>
+					<p class="fragment" style="color: #e7ad52;">A Controller is defined by a JavaScript constructor function that is used to augment the Angular Scope</p>
+				</section>
+
+				<section>
+					<h3>What are Scopes?</h3>
+					<p class="fragment" style="color: #e7ad52;">Scope is an object that refers to the application model</p>
+				</section>
+
+				<section>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app')
+  .directive('login', login)
+
+function login () {
+  var directive = {
+    restrict: 'E',
+    templateUrl: '/views/login.html',
+    controller: LoginCtrl
+  }
+
+  return directive
+}
+
+LoginCtrl.$inject = [
+  '$scope',
+  '$location',
+  'api'
+]
+
+function LoginCtrl ($scope, $location, api) {
+  $scope.credentials = {
+    username: '',
+    password: ''
+  }
+
+  $scope.login = function () {
+    api.login( $scope.credentials )
+      .then( function(response) {
+        api.setToken( response.token );
+        $location.path( '/' );
+      }, function (error) {
+        alert('Something went wrong');
+      });
+  }
+}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h3>ngModel directive</h3>
+					<p class="fragment" style="color: #e7ad52;">The ngModel directive binds an input,select, textarea (or custom form control) to a property on the <strong>scope</strong></p>
+					<h4 class="fragment">views/login.html</h4>
+					<pre class="fragment">
+						<code class="hljs" contenteditable="" data-trim="">
+<h5>Login</h5>
+<input ng-model="credentials.username" type="text">
+<input ng-model="credentials.password" type="text">
+<button ng-click="login()" type="button">Login</button>
+						</code>
+					</pre>
+				</section>
+			</section>
+			<!-- end of page 7 -->
+
+			<!-- Page 8 -->
+			<section>
+				<section>
+					<h4>index.html</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+&lt;html ng-app="app" ng-controller="user"&gt;
+...
+<script src="javascript/controllers.js"></script>
+						</code>
+					</pre>
+					<h4>javascript/controllers.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app')
+  .controller('user', userController)
+
+userController.$inject = [
+  '$scope',
+  '$localStorage',
+  'api'
+]
+
+function userController ($scope, $localStorage, api) {
+  $scope.loggedIn = $localStorage.token != undefined;
+
+  $scope.logout = function() {
+    api.setToken();
+  }
+
+  $scope.$on('token::set', function() {
+    $scope.loggedIn = $localStorage.token != undefined;
+  })
+}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>ngIf directive</h4>
+					<p class="fragment" style="color: #e7ad52;">The ngIf directive removes or recreates a portion of the DOM tree based on an {expression}</p>
+					<p class="fragment" style="color: #e7ad52;">If the expression assigned to ngIf evaluates to a false value then the element is removed from the DOM, otherwise a clone of the element is reinserted into the DOM</p>
+					<h4>index.html</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="" style="max-height: 530px;">
+<a href="/">Home</a>
+<a ng-if="loggedIn == false" href="/login">Login</a>
+<span ng-if="loggedIn == true">
+  <a href="/post">Post</a>
+  <a ng-click="logout()" href="/">Logout</a>
+</span>
+<hr>
+						</code>
+					</pre>
+				</section>
+			</section>
+			<!-- end of page 8 -->
+
+			<!-- Page 9 -->
+			<section>
+				<section>
+					<h4>app.js</h4>
+					<pre>
+					<code class="hljs" contenteditable="" data-trim="">
+$routeProvider
+  .when('/', {
+    template: '<home></home>'
+  })
+
+  .when('/login', {
+    template: '<login></login>'
+  })
+
+  .when('/post', {
+    template: '<post></post>'
+  })
+						</code>
+					</pre>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app')
+  .directive('login', login)
+  .directive('post', post)
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+function post () {
+  var directive = {
+    restrict: 'E',
+    templateUrl: '/views/post.html',
+    controller: PostCtrl
+  }
+
+  return directive
+}
+
+PostCtrl.$inject = [
+  '$scope',
+  '$location',
+  'api'
+]
+
+function PostCtrl ($scope, $location, api) {
+  $scope.blog = {
+    title: '',
+    content: ''
+  }
+
+  $scope.post = function () {
+    api.post( $scope.blog )
+      .then( function(response) {
+        $location.path( '/' );
+      }, function (error) {
+        alert('Something went wrong');
+      });
+    }
+}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>views/post.html</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+<h5>Title</h5>
+<input ng-model="blog.title" type="text">
+<h5>Content</h5>
+<textarea ng-model="blog.content" rows="8"></textarea><br>
+<button ng-click="post()" type="button">Post</button>
+						</code>
+					</pre>
+				</section>
+
+			</section>
+			<!-- end of page 9 -->
+
+			<!-- Page 10 -->
+			<section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+angular
+  .module('app')
+  .directive('home', home)
+  .directive('login', login)
+  .directive('post', post)
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h4>javascript/directives.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+function home () {
+  var directive = {
+    restrict: 'E',
+    templateUrl: '/views/home.html',
+    controller: BlogsCtrl
+  }
+
+  return directive
+}
+
+BlogsCtrl.$inject = [
+  '$scope',
+  'api'
+]
+
+function BlogsCtrl ($scope, api) {
+  api.getBlogs()
+    .then( function(response) {
+      $scope.blogs = response;
+    }, function (error) {
+      alert('Something went wrong');
+    });
+}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h3>ngRepeat directive</h3>
+					<p class="fragment" style="color: #e7ad52;">The ng-repeat directive repeats an HTML element</p>
+					<h3 class="fragment">Data Binding</h3>
+					<p class="fragment" style="color: #e7ad52;">The {{ blog }} expression, in the example below, is an AngularJS data binding expression</p>
+					<h4>views/home.html</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+<div ng-repeat="blog in blogs">
+  <h1>{{ blog.title }}</h1>
+  &lt;pre&gt;
+{{ blog.content }}
+  &lt;/pre&gt;
+  <a href="/view/{{ blog.id }}">View blog</a>
+  <hr>
+</div>
 						</code>
 					</pre>
 				</section>
@@ -464,354 +630,131 @@ function ApiFactory ($rootScope, $http, $q, $state, userContext) {
 			<!-- Page 11 -->
 			<section>
 				<section>
-					<h4>directive : blogs.js</h4>
+					<h4>app.js</h4>
+					<pre>
+						<code class="hljs" contenteditable="" data-trim="">
+$routeProvider
+  .when('/', {
+    template: '<home></home>'
+  })
+
+  .when('/login', {
+    template: '<login></login>'
+  })
+
+  .when('/post', {
+    template: '<post></post>'
+  })
+
+  .when('/view/:id', {
+    template: '<blog></blog>'
+  })
+						</code>
+					</pre>
+					<h4>javascript/directives.js</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
 angular
   .module('app')
-  .directive('appBlogs', appBlogs)
-
-  function appBlogs () {
-    let directive = {
-      scope:        true,
-      templateUrl:  '/app/views/blogs.html',
-      controller:   BlogsCtrl,
-      controllerAs: 'blogs'
-    }
-
-    return directive
-  }
-						</code>
-						<code class="hljs" contenteditable="" data-trim="">
-BlogsCtrl.$inject = [
-  'api'
-]
+  .directive('home', home)
+  .directive('login', login)
+  .directive('post', post)
+  .directive('blog', blog)
 						</code>
 					</pre>
 				</section>
+
 				<section>
-					<h4>controller : blogs.js</h4>
+					<h4>javascript/directives.js</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
-function BlogsCtrl ($scope, api) {
-  let blog = this
+function blog () {
+  var directive = {
+    restrict: 'E',
+    templateUrl: '/views/blog.html',
+    controller: BlogCtrl
+  }
 
-  api.getBlogs().then( function(data) {
-    blog.alert = false
-    blog.data = data
-  }, function(error) {
-    blog.alert = true
-  })
+  return directive
+}
+
+BlogCtrl.$inject = [
+  '$scope',
+  '$location',
+  '$routeParams',
+  'api'
+]
+
+function BlogCtrl ($scope, $location, $routeParams, api) {
+  $scope.editMode = false;
+
+  api.getBlog( $routeParams.id )
+    .then( function(response) {
+      $scope.blog = response;
+    }, function (error) {
+      alert('Something went wrong');
+    $location.path( '/' );
+  });
+
+  $scope.edit = function (option) {
+    $scope.editMode = option;
+    ( option == true ) ?
+      $scope.unsavedBlog = angular.copy( $scope.blog ) : $scope.blog = $scope.unsavedBlog
+  }
+
+  $scope.update = function () {
+    api.post( $scope.blog )
+      .then( function(response) {
+        $scope.editMode = false;
+      }, function (error) {
+        alert('Something went wrong');
+      });
+  }
+
+  $scope.delete = function () {
+    api.deleteBlog( $scope.blog.id )
+      .then( function(response) {
+        $location.path( '/' );
+      }, function (error) {
+        alert('Something went wrong');
+    });
+  }
 }
 						</code>
 					</pre>
 				</section>
 
 				<section>
-					<h4>Sample response data</h4>
+					<h4>views/blog.html</h4>
 					<pre>
 						<code class="hljs" contenteditable="" data-trim="">
-[
-  {
-    "id":1,
-    "title":"Blog Post 1",
-    "content":"sample content"
-  },
-  {
-    "id":2,
-    "title":"Blog Post 2",
-    "content":"sample content"
-  }
-]
-						</code>
-					</pre>
-					<h4>blogs.html</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-<div ng-repeat="blog in blogs.data">
-  <h3 class="blog-title">{{ blog.title }}</h3>
-  <p class="blog-content">{{ blog.content }}</p>
-  <a href="/view/{{ blog.id }}" >View blog post</a>
-</div>
-						</code>
-					</pre>
-				</section>
-				<section>
-					<h4>blogs.html</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-<h3 class="blog-title">Blog Post 1</h3>
-<p class="blog-content">sample content</p>
-<a href="/view/1" >View blog post</a>
+<span ng-if="editMode != true">
+  <h1>{{ blog.title }}</h1>
+  &lt;pre&gt;
+{{ blog.content }}
+  &lt;/pre&gt;
 
-<h3 class="blog-title">Blog Post 2</h3>
-<p class="blog-content">sample content</p>
-<a href="/view/2" >View blog post</a>
+  <button ng-click="edit(true)" type="button">Edit</button>
+  <button ng-click="delete()" type="button">Delete</button>
+</span>
+
+<span ng-if="editMode == true">
+  <h5>Title</h5>
+  <input ng-model="blog.title" type="text">
+  <h5>Content</h5>
+  <textarea ng-model="blog.content" rows="8"></textarea><br>
+
+  <button ng-click="update()" type="button">Save</button>
+  <button ng-click="edit(false)" type="button">Cancel</button>
+</span>
 						</code>
 					</pre>
 				</section>
 			</section>
 			<!-- end of page 11 -->
 
-			<!-- Page 12 -->
-			<section>
-				<section>
-					<h4>router.js : post state</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-.state('app.post', {
-  url: 'post',
-  views: {
-    'header@app': {
-      template: '<app-header/></app-header>'
-    },
-    'content@app': {
-      template: '<app-post-blog></app-post-blog>'
-    }
-  }
-})
-						</code>
-					</pre>
-				</section>
-
-				<section>
-					<h4>directive : post-blog.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-angular
-  .module('app')
-  .directive('appPostBlog', appPostBlog)
-
-  function appPostBlog () {
-    let directive = {
-      templateUrl:  '/app/views/post-blog.html',
-      controller:   PostBlogCtrl,
-      controllerAs: 'post'
-    }
-
-    return directive
-  }
-						</code>
-						<code>
-PostBlogCtrl.$inject = [
-  '$state',
-  'api'
-]
-						</code>
-					</pre>
-				</section>
-
-				<section>
-					<h4>controller : post-blog.js</h4>
-					<section>
-						<pre>
-							<code class="hljs" contenteditable="" data-trim="">
-function PostBlogCtrl ($state, api) {
-  let post = this
-
-  post.newBlog = {
-    title: '',
-    content: ''
-  }
-
-  post.postBlog = function() {
-    api.postBlog(post.newBlog).then( function(data) {
-      return $state.go('app.default')
-    }, function(error) {
-      post.alert = true
-    })
-  }
-}
-							</code>
-						</pre>
-					</section>
-				</section>
-			</section>
-			<!-- end of page 12 -->
-
-			<!-- Page 13 -->
-			<section>
-				<section>
-					<h4>router.js : view state</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-.state('app.view', {
-  url: 'view/:id',
-  views: {
-    'header@app': {
-      template: '<app-header></app-header>'
-    },
-    'content@app': {
-      template: '<app-blogs></app-blogs>'
-    }
-  }
-})
-						</code>
-					</pre>
-				</section>
-
-				<section>
-					<h4>directive : get-blog.js</h4>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="">
-angular
-  .module('app')
-  .directive('appBlogs', appBlogs)
-
-  function appBlogs () {
-    let directive = {
-      scope:        true,
-      templateUrl:  '/app/views/blogs.html',
-      controller:   BlogsCtrl,
-      controllerAs: 'blogs'
-    }
-
-    return directive
-  }
-						</code>
-						<code>
-BlogsCtrl.$inject = [
-  '$state',
-  'api'
-]
-						</code>
-					</pre>
-				</section>
-
-				<section>
-					<h4>controller : get-blog.js</h4>
-					<section>
-						<pre>
-							<code class="hljs" contenteditable="" data-trim="" style="max-height: 625px;">
-function BlogsCtrl ($state, api) {
-  let blog = this
-  blog.blogId = $state.params.id
-
-  api.getBlog(blog.blogId).then( function(data) {
-    blog.blog = data
-  }, function(error) {
-    return $state.go('app.default')
-  })
-
-  blog.editEntry (content) {
-    api.postBlog(content).then( function(data) {
-      blog.alert = {
-        success: true,
-        message: 'Successfully saved'
-      }
-    }, function(error) {
-      blog.alert = {
-        success: false,
-        message: 'Something Went Wrong...' + error
-      }
-    })
-  }
-
-  blog.deleteBlog = function() {
-    api.deleteBlog(blog.blogId).then( function(data) {
-      return $state.go('app.default')
-    }, function(error) {
-      blog.alert = true
-    })
-  }
-}
-							</code>
-						</pre>
-					</section>
-				</section>
-			</section>
-			<!-- end of page 13 -->
-
-			<!-- Page 14 -->
-			<section>
-				<h4>router.js : logout state</h4>
-				<section>
-					<pre>
-						<code class="hljs" contenteditable="" data-trim="" style="max-height: 420px;">
-.state('app.logout', {
-  url: 'logout',
-  views: {
-    'content@app': {
-      template: '',
-      controller: [
-        '$rootScope',
-        '$cookies',
-        '$state',
-        '$timeout',
-        'context',
-        function($rootScope, $cookies, $state, $timeout, userContext) {
-          $cookies.remove('username', {path: '/'})
-          $cookies.remove('token', {path: '/'})
-          userContext.setCurrentUser(null)
-          $rootScope.$emit('auth::setUser')
-          $state.go('app.login', {reload: true})
-        }]
-    }
-  }
-})
-						</code>
-					</pre>
-				</section>
-			</section>
-			<!-- end of page 14 -->
-
-			<!-- Hands on -->
-			<section>
-				<h2 style="color: #00AEEF;">HANDS ON</h2>
-				<h4 style="color: #F0CFBC;">Add a footer</h4>
-				<section>
-					<ul>
-						<li style="margin-top: 20px;">On your terminal/console, cd to our project's directory</li>
-						<li style="margin-top: 20px;">
-							Run the ff commands in order:
-							<ul>
-								<li style="margin-top: 20px;"><gCode>git fetch origin</gCode></li>
-								<li style="margin-top: 20px;"><gCode>git checkout angular-app</gCode></li>
-								<li style="margin-top: 20px;"><gCode>git pull</gCode></li>
-							</ul>
-						</li>
-					</ul>
-				</section>
-
-				<section>
-					<ul>
-						<li style="margin-top: 20px;">
-							On your terminal/console, cd to <gCode>app/api/dist</gCode><br>
-							then run <gCode>java -jar blog-api-1.0.0-SNAPSHOT.jar</gCode>
-						</li>
-						<li style="margin-top: 20px;">
-							On a new window or tab, cd to <gCode>app/web</gCode>, run the ff in order:
-							<ul>
-								<li style="margin-top: 20px;"><gCode>npm start.js</gCode></li>
-								<li style="margin-top: 20px;"><gCode>gulp</gCode></li>
-								<li style="margin-top: 20px;"><gCode>gulp develop --app</gCode></li>
-							</ul>
-						</li>
-					</ul>
-				</section>
-
-				<section>
-					<ul>
-						<li style="margin-top: 20px;">Add a footer state on router.js</li>
-						<li style="margin-top: 20px;">Create the footer directive on <gCode>src/javascript/directives/footer.js</gCode></li>
-						<li style="margin-top: 20px;">Create the footer template</li>
-						<li style="margin-top: 20px;">
-							Optional - Apply css<br>
-							Run <gCode>gulp develop --sass</gCode> on your terminal/console<br>
-							Add css rules on <gCode>src/sass/_modifiers.scss</gCode>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<!-- end of hands on -->
-
-
     </div><!-- end of .slides -->
   </div><!-- end of .reveal -->
-
-
-
-
 
   <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
 	<script src="/controldeck/reveal.js/js/reveal.js"></script>
