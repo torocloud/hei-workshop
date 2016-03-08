@@ -1,13 +1,13 @@
 connector:
     twitter:
-        consumer-key        : Your Consumer Key Here
-        consumer-secret     : Your Consumer Secret Here
-        access-token        : Your Access Token Here
-        access-token-secret : Your Access Token Secret Here
+        consumer-key        : Consumer Key
+        consumer-secret     : Consumer Secret
+        access-token        : Access Token
+        access-token-secret : Access Token Secret
     google-sheets:
-        application-name    : Your App Name Here
-        client-id           : Your Client Id Here
-        client-secret       : Your Client Secret Here
-        access-token        : Your Access Token Here
-        refresh-token       : Your Refresh Token Here
+        application-name    : Application Name
+        client-id           : Client ID
+        client-secret       : Client Secret
+        access-token        : Access Token
+        refresh-token       : Refresh Token
         

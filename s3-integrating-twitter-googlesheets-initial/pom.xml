@@ -36,7 +36,7 @@
             <version>${jjwt.version}</version>
         </dependency>
         
-	<!-- TODO add dependencies for Twitter and GoogleSheet -->
+		<!-- TODO Add Dependencies for Twitter and GoogleSheets -->
         
     </dependencies>
 
