@@ -40,6 +40,11 @@ public class BlogApiController {
      */
     ResponseEntity<List<Blog>> getBlogs() {
         // TODO Use blogService to get all blogs entries
+        
+        /*
+        * TODO remove the throw exception line once you have 
+        * implemented the required implementation of the method
+        */ 
         throw new UnsupportedOperationException( "Not yet implemented" );
         // TODO Return the blog entries with the suitable HTTPStatus
     }
@@ -49,7 +54,13 @@ public class BlogApiController {
      */
     ResponseEntity<Blog> getBlog( /* TODO annotate your parameter with @PathVariable annotation. */ Long id ) {
         // TODO Use blogService to get blog entry via id
+        
+        /*
+        * TODO remove the throw exception line once you have 
+        * implemented the required implementation of the method
+        */ 
         throw new UnsupportedOperationException( "Not yet implemented" );
+        
         // TODO Return the blog entries with the suitable HTTPStatus
     }
     
@@ -59,8 +70,16 @@ public class BlogApiController {
     ResponseEntity<Blog> saveBlog( /* TODO annotate your parameter with @RequestBody annotation */ Blog blog,
             UriComponentsBuilder ucb ) {
         // TODO Use blogService to save the incoming blog from client
+        
+        // TODO use URIComponentsBuilder (ucb) to create your location URL. 
+        
+        /*
+        * TODO remove the throw exception line once you have 
+        * implemented the required implementation of the method
+        */ 
         throw new UnsupportedOperationException( "Not yet implemented" );
-        // TODO Return the blog entries with the suitable HTTPStatus
+        
+        // TODO Return the blog entries with the suitable HTTPStatus with Location header
     }
     
     /*
@@ -68,6 +87,11 @@ public class BlogApiController {
      */
     ResponseEntity<Void> deleteblog( /* TODO annotate your parameter with @PathVariable annotation. */ Long id ) {
         // TODO Use blogService to delete the blog entry via id
+        
+        /*
+        * TODO remove the throw exception line once you have 
+        * implemented the required implementation of the method
+        */ 
         throw new UnsupportedOperationException( "Not yet implemented" );
         // TODO Return a empty response with the suitable HTTPStatus
     }

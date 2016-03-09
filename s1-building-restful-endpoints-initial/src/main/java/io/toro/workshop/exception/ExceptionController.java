@@ -35,6 +35,8 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
     
@@ -50,6 +52,8 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
@@ -65,6 +69,8 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
@@ -83,6 +89,8 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
@@ -101,6 +109,8 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
@@ -114,12 +124,16 @@ public class ExceptionController implements ErrorController {
          *  should contain an APIException.
          *  Make sure the HTTP Status code is appropriate for the exception
          */
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 
     @Override
     public String getErrorPath() {
-        // TODO specify the error path url. 
+        // TODO return a String with the error path url. 
+        
+        // TODO remove the throw exception line once you have implemented the required implementation of the method
         throw new UnsupportedOperationException( "Not yet implemented" );
     }
 }

@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @ControllerAdvice
 public class ExceptionController implements ErrorController {
     
+    @ExceptionHandler( ApiException.class )
+    ResponseEntity<ApiException> processApiException( ApiException ex ) {
+        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
+    }
+    
     @ExceptionHandler( ResourceNotFoundException.class )
     ResponseEntity<ApiException> handleNotFound( ResourceNotFoundException ex ) {
         return processApiException( new ApiException( 404, ex ) );
@@ -21,11 +26,6 @@ public class ExceptionController implements ErrorController {
     @ExceptionHandler( HttpMessageNotReadableException.class )
     ResponseEntity<ApiException> handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
         return processApiException( new ApiException( 400, ex ) );
-    }
-    
-    @ExceptionHandler( ApiException.class )
-    ResponseEntity<ApiException> processApiException( ApiException ex ) {
-        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
     }
     
     @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
