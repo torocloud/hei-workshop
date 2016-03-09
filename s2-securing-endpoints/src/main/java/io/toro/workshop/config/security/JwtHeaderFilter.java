@@ -21,6 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.toro.workshop.exception.ApiException;
 
+/**
+ * Filter that authenticates requests that contain an <b>Authorization</b> header, with a valid "Bearer "-prefixed JWT token.
+ */
 public class JwtHeaderFilter extends OncePerRequestFilter {
 
     private final JwtSigningKeyProvider signingKeyProvider;

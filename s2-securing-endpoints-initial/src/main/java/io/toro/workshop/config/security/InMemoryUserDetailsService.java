@@ -11,6 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * Loads user-specific data from an internal Map.
+ * 
+ * Other implementations include fetching users from an external database, a social login (facebook, twitter, etc),
+ * and virtually anything, as long as it satisfies the method contract of UserDetailsService interface.
+ */
 public class InMemoryUserDetailsService implements UserDetailsService {
 
     private final Map<String, User> userStore;
@@ -18,7 +24,7 @@ public class InMemoryUserDetailsService implements UserDetailsService {
     public InMemoryUserDetailsService() {
         userStore = new LinkedHashMap<>();
 
-        // TODO Initialize userStore with an user called admin/admin
+        // TODO Initialize userStore map with an user called admin/admin
     }
 
     @Override

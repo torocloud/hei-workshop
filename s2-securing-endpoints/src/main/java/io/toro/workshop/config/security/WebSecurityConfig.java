@@ -13,6 +13,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Main file for configuring our application's security.
+ */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

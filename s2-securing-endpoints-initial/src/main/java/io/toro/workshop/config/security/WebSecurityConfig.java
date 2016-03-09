@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+/**
+ * Main file for configuring our application's security.
+ */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -23,8 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/login" ).permitAll()
                 // TODO Add request matchers and associate applicable roles
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy( SessionCreationPolicy.STATELESS )
+		// TODO Disable session management
                 .and()
                 .csrf()
                 .disable();

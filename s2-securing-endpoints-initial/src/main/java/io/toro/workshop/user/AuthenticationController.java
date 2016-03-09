@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.toro.workshop.config.security.JwtSigningKeyProvider;
 
+/**
+ * Exposes a login endpoint that accepts JSON-formatted username-password body.
+ */
 @RestController
 public class AuthenticationController {
 

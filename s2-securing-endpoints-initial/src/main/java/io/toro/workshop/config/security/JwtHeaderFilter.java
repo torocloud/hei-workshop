@@ -19,6 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Jwts;
 import io.toro.workshop.exception.ApiException;
 
+/**
+ * Filter that authenticates requests that contain an <b>Authorization</b> header, with a valid "Bearer "-prefixed JWT token.
+ */
 public class JwtHeaderFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
