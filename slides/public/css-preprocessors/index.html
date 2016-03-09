@@ -65,8 +65,11 @@
 				<h3>In this presentation we will be using the files you've downloaded in the previous topic</h3>
 				<p>On your terminal/console</p>
 				<ul>
-					<li>If you're not yet on the directory, type this command <br> <gcode>cd path/to/directory/<b>stable</b></gcode></li>
-					<li>Then run <gcode>npm install</gcode></li>
+					<li>If you're not yet on the directory, run this command on your terminal/console <gcode>cd path/to/directory/</gcode>
+						<ul>
+							<li>Then run <gcode>npm install</gcode></li>
+						</ul>
+					</li>
 				</ul>
       </section>
 
@@ -342,52 +345,19 @@ ul a:hover { color: #229ed3; }
 					<h2>HANDS ON</h2>
 				</section>
 				<section>
-					<ol>
-						<li>Open the files in your editor</li>
-						<li>Create a folder name it "<gcode>sass</gcode>"
-							<ul>
-								<li>Create these files
-									<ul>
-										<li><gcode>_modifiers.scss</gcode></li>
-										<li><gcode>_variables.scss</gcode></li>
-										<li><gcode>workshop.scss</gcode></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li>Create another folder name it "<gcode>public</gcode>"</li>
-						<li>Create another folder INSIDE "<gcode>public</gcode>" name it "<gcode>css</gcode>"</li>
-						<li>Create a file name it "<gcode>Gulpfile.js</gcode>"</li>
-						<li>If app is not running, type "<gcode>node server.js</gcode>"</li>
-					</ol>
-				</section>
-				<section>
-				<p>
-					Place this code in the Gulpfile.js
-				</p>
-<pre>
-<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
-'use strict';
-
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-
-gulp.task('sass', function () {
-  return gulp.src('./sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./public/css'));
-});
-
-gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.scss', ['sass']);
-});
-</code>
-</pre>
+					<p> Open the files on your preferred editor </p>
+					<p>If the app is not running, type this command on your terminal/console</p>
+					<ul>
+						<li><gcode>cd stable</gcode> press enter then <gcode>node server.js</gcode></li>
+					</ul>
+					<br><br>
+					<h3>NOTE: All files that we are going to change are on <gcode>stable</gcode> folder</h3>
 				</section>
 				<section>
 					<h4>index.html</h4>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+&lt;!DOCTYPE html&gt;
 &lt;html ng-app="app" ng-controller="user"&gt;
   &lt;head&gt;
     <title>HEI Workshop 2016</title>
@@ -396,26 +366,26 @@ gulp.task('sass:watch', function () {
     <link rel="stylesheet" href="/public/css/workshop.css">
   &lt;/head&gt;
   &lt;body&gt;
-  <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
-    <div class="container">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item" ng-if="loggedIn == true">
-          <a class="nav-link" href="/post">POST</a>
-        </li>
-        <li class="nav-item" ng-if="loggedIn == false">
-          <a class="nav-link" href="/login">LOGIN</a>
-        </li>
-        <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
-          <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" ng-if="loggedIn == true">
+            <a class="nav-link" href="/post">POST</a>
+          </li>
+          <li class="nav-item" ng-if="loggedIn == false">
+            <a class="nav-link" href="/login">LOGIN</a>
+          </li>
+          <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
+            <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-    <div ng-view class="p-t-3"></div>
+    <div ng-view class="main-view"></div>
 
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
@@ -434,7 +404,7 @@ gulp.task('sass:watch', function () {
 </pre>
 				</section>
 				<section>
-					<h4>login.html</h4>
+					<h4>views/login.html</h4>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
 <div class="container">
@@ -475,7 +445,7 @@ gulp.task('sass:watch', function () {
 </pre>
 				</section>
 				<section>
-					<h4>home.html</h4>
+					<h4>views/home.html</h4>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
 <div class="container">
@@ -487,7 +457,7 @@ gulp.task('sass:watch', function () {
           <a href="/view/{{ blog.id }}">
             <h3 class="truncate truncate-1 m-b-0">{{ blog.title }}</h3>
           </a>
-          <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> February 10, 2016</small>
+          <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> March 11, 2016</small>
         </header>
         <hr class="m-b-0 m-t-0">
         <div class="clearfix"></div>
@@ -526,7 +496,7 @@ gulp.task('sass:watch', function () {
           Archive
         </div>
         <div class="card-block p-a-0">
-          <ul class="list-group list-group-fixed">
+          <ul class="list-group list-group-flush list-group-fixed">
             <a class="list-group-item b-r-0" ng-repeat="blog in blogs" href="/view/{{ blog.id }}">
               <p class="m-b-0 truncate truncate-1" ><span>{{ blog.title }}</span></p>
             </a>
@@ -541,7 +511,7 @@ gulp.task('sass:watch', function () {
 </pre>
 				</section>
 				<section>
-					<h4>post.html</h4>
+					<h4>views/post.html</h4>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
 <div class="container">
@@ -565,7 +535,7 @@ gulp.task('sass:watch', function () {
 </pre>
 				</section>
 				<section>
-					<h4>blog.html</h4>
+					<h4>views/blog.html</h4>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
 <div class="container">
@@ -585,7 +555,7 @@ gulp.task('sass:watch', function () {
             <button ng-click="delete()" type="button" class="btn btn-sm btn-danger">Delete</button>
           </span>
           <span ng-if="editMode != true">
-            <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> February 10, 2016</small>
+            <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> March 11, 2016</small>
           </span>
           <div class="clearfix"></div>
         </header>
@@ -635,9 +605,25 @@ gulp.task('sass:watch', function () {
 </pre>
 				</section>
 				<section>
-					<h4>directives.js</h4>
+					<h4>app.js</h4>
 					<p>
-						Replace the code for the PostCtrl
+						Replace the code for the angular.module('app', []) : line 1-6
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+angular
+  .module('app', [
+    'ngRoute',
+    'ngStorage',
+    'ngSanitize'
+  ])
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for the PostCtrl : line 86-100
 					</p>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
@@ -647,7 +633,7 @@ function PostCtrl ($scope, $location, api) {
     content: ''
   }
 
-  // replace the textarea to make it a real editor
+  // replace the textarea to make it a rich editor
   CKEDITOR.replace('postBlogEditor')
 
   $scope.post = function () {
@@ -665,9 +651,9 @@ function PostCtrl ($scope, $location, api) {
 </pre>
 				</section>
 				<section>
-					<h4>directives.js</h4>
+					<h4>javascript/directives.js</h4>
 					<p>
-						Replace the code for the  BlogCtrl.$inject=[]
+						Replace the code for the  BlogCtrl.$inject=[] : line 118-124
 					</p>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
@@ -682,21 +668,12 @@ BlogCtrl.$inject = [
 </pre>
 				</section>
 				<section>
-					<h4>directives.js</h4>
+					<h4>javascript/directives.js</h4>
 					<p>
-						Replace the code for the  BlogCtrl.$inject=[]
+						Replace the code for the  BlogCtrl.$inject=[] : line 127
 					</p>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
-BlogCtrl.$inject = [
-  '$scope',
-  '$location',
-  '$routeParams',
-  '$timeout',
-  'api'
-]
-
-
 /*
 * We added $timeout in the BlogCtrl.$inject=[]
 * Therfore we need to inject it also in function BlogCtrl(){}
@@ -708,9 +685,9 @@ function BlogCtrl ($scope, $location, $routeParams, $timeout, api){}
 </pre>
 				</section>
 				<section>
-					<h4>directives.js</h4>
+					<h4>javascript/directives.js</h4>
 					<p>
-						Replace the code for $scope.edit
+						Replace the code for $scope.edit : line 138-142
 					</p>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
@@ -727,9 +704,9 @@ $scope.edit = function (option) {
 </pre>
 				</section>
 				<section>
-					<h4>directives.js</h4>
+					<h4>javascript/directives.js</h4>
 					<p>
-						Replace the code for $scope.update
+						Replace the code for $scope.update : line 148-155
 					</p>
 <pre>
 <code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
@@ -748,19 +725,35 @@ $scope.update = function (entry) {
 				<section>
 					<h2>Now that we have the mark up for the app, <br>let's apply some styles on it.</h2>
 				</section>
-				<section>
+				<section style="text-align: left;">
 					<p>
-						On your terminal/console run this command <br><gcode>gulp sass</gcode><br>
-						This command is to build the sass files to css files<br>
-						See <gcode>public/css</gcode>
+						Open another tab or window for your terminal/console
 					</p>
-					<p>
-						On your terminal/console run this command <br><gcode>gulp sass:watch</gcode><br>
-						This command is to watch the your changes in your sass files and builds it as you save your changes.
-					</p>
+					<ul>
+						<li>Go back to the root folder</li>
+						<li>If you're on <gcode>stable</gcode> type <gcode>cd ..</gcode> else</li>
+						<li>This one <gcode>cd /path/to/directory</gocde></li>
+					</ul>
+					<p>Run this command to build our SASS files into CSS files</p>
+					<ul>
+						<li>Syntax: <gcode>node-sass [options] &lt;input&gt; [output]</gcode></li>
+						<li>To build SASS files:
+							<ul>
+								<li><gcode>node-sass stable/sass/workshop.scss stable/public/css/workshop.css</gcode></li>
+							</ul>
+						</li>
+						<li>To watch the changes in the SASS files:
+							<ul>
+								<li><gcode>node-sass --watch stable/sass/workshop.scss stable/public/css/workshop.css</gcode></li>
+							</ul>
+						</li>
+						<li>
+							<a href="https://github.com/sass/node-sass#command-line-interface">See docs here</a>
+						</li>
+					</ul>
 				</section>
 				<section>
-					<h4>workshop.scss</h4>
+					<h4>sass/workshop.scss</h4>
 					<p>
 						The code below is to import the other files.
 					</p>
@@ -772,7 +765,7 @@ $scope.update = function (entry) {
 </pre>
 				</section>
 				<section>
-					<h4>_variables.scss</h4>
+					<h4>sass/_variables.scss</h4>
 					<p>
 						The variables that we will use for the app
 					</p>
@@ -787,7 +780,7 @@ $header-font-color: #333;
 </pre>
 				</section>
 				<section>
-					<h4>_modifiers.scss</h4>
+					<h4>sass/_modifiers.scss</h4>
 					<p>
 						The styles for the app
 					</p>
@@ -828,7 +821,7 @@ h1, h2, h3, h4, h5, h6 {
 </pre>
 				</section>
 				<section>
-					<h4>_modifiers.scss</h4>
+					<h4>sass/_modifiers.scss</h4>
 <pre>
 <code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
 // for social media icons
@@ -860,13 +853,24 @@ h1, h2, h3, h4, h5, h6 {
 </pre>
 				</section>
 				<section>
-					<h4>_modifiers.scss</h4>
+					<h4>sass/_modifiers.scss</h4>
 <pre>
 <code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
 // styles for the content
 .main-view {
   padding-top: $padding-top;
   padding-bottom: $padding-bottom;
+}
+
+ul {
+  li {
+    a {
+      color: $header-font-color !important;
+      &:hover {
+        color: lighten($header-font-color, 50%) !important;
+      }
+    }
+  }
 }
 
 .card {
