@@ -102,7 +102,11 @@
 								<ul>
 									<li>your authenticated GoogleSheets App on <a href="https://console.developers.google.com/">Google Console</a></li>
 									<li>take note of the keys</li>
+									<li>GoogleSheet Spreadsheet with a <code>Blogs</code> worksheet</li>
 								</ul>
+						</div>
+						<div class="fragment" style=" margin-top:2% " >
+							<li><strong>Your Starter pack: <a href="https://github.com/TORO-IO/hei-workshop/tree/backend-starter">s3-integrating-twitter-googlesheets</a></strong></li>
 						</div>
 						</ul>
 						<div align="right" style=" margin-top:5% " class="fragment" >
@@ -188,9 +192,9 @@
 		                	</p>
 		                	
 		                	<div>
-		                	 	<code class="hljs" >
-		                			<pre>https://accounts.google.com/o/oauth2/auth?scope=https://spreadsheets.google.com/feeds/&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={<strong>ClientID</strong>}</pre>
-		               			</code>
+			                	 	<code class="hljs" contenteditable=true >
+			                			<pre>https://accounts.google.com/o/oauth2/auth?scope=https://spreadsheets.google.com/feeds/&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id={<strong>ClientID</strong>}</pre>
+			               			</code>		
 		                	</div>
 		                	
 		                </div>
@@ -245,6 +249,15 @@
 		                </div>
 		                	
 		            </div>
+				</section>
+
+				<!-- slide #2.8 -->
+				<section>
+
+					<h4>create a worksheet titled <code>Blogs</code> and columns <code>ID, Title, </code>and <code>Content</code></h4>
+					<div>
+		        		<img src="assets/blogsSheet.png" alt="Blogs Worksheet">
+		        	</div>
 				</section>
 
 			</section>
@@ -332,15 +345,16 @@
 			<section>
 			<h4>dependency for <a href="http://twitter4j.org/en/index.html#maven">Twitter4j</a></h4>
 				<pre><code height="25px" class="hljs" contenteditable="false" data-trim="">
-<dependencies>
+&lt;dependencies&gt;
 ...
-	<dependency>
-		<groupId>org.twitter4j</groupId>
-		<artifactId>twitter4j-core</artifactId>
-		<version>[4.0,)</version>
-	</dependency>
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.twitter4j&lt;/groupId&gt;
+		&lt;artifactId&gt;twitter4j-core&lt;/artifactId&gt;
+		&lt;version&gt;[4.0,)&lt;/version&gt;
+	&lt;/dependency&gt;
+
 ...
-</dependencies></code></pre>
+&lt;/dependencies&gt;</code></pre>
 				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/org.twitter4j/twitter4j-core">Twitter4j Core</a></small>
 			</section>
 			
@@ -348,21 +362,27 @@
 			<section>
 				<h4>dependencies for <a href="https://developers.google.com/google-apps/spreadsheets/">GoogleSheets</a></h4>
 				<pre><code height="25px" class="hljs" contenteditable="false" data-trim="">
-<dependencies>
+&lt;dependencies&gt;
 ...
-	<dependency>
-		<groupId>com.google.gdata</groupId>
-		<artifactId>core</artifactId>
-		<version>1.47.1</version>
-	</dependency>
+	&lt;dependency&gt;
+            &lt;groupId&gt;com.google.api-client&lt;/groupId&gt;
+            &lt;artifactId&gt;google-api-client&lt;/artifactId&gt;
+            &lt;version&gt;1.20.0&lt;/version&gt;
+        &lt;/dependency&gt;
 
-	<dependency>
-		<groupId>com.google.api-client</groupId>
-		<artifactId>google-api-client</artifactId>
-		<version>1.20.0</version>
-	</dependency>
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.google.gdata&lt;/groupId&gt;
+            &lt;artifactId&gt;core&lt;/artifactId&gt;
+            &lt;version&gt;1.47.1&lt;/version&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
 ...
-</dependencies></code></pre>
+&lt;/dependencies&gt;</code></pre>
 				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/com.google.gdata/core">GData</a></small><br/>
 				<small>Maven Repository of <a href="http://mvnrepository.com/artifact/com.google.api-client/google-api-client">Google API's Client Library</a></small>
 			</section>
@@ -472,8 +492,9 @@ connector:
 			
 			<!-- slide #7.6 -->
 			<section>
-				<h3>Oauth</h3>
-				
+				<h3><a href="http://oauth.net/">Oauth</a> </h3>
+				<h4>open protocol to allow secure authorization</h4>
+				<br/>
 				<div>
 					<ul>
 						<li>Consumer Tokens, Access Tokens and Refresh Tokens</li>
@@ -496,10 +517,39 @@ connector:
 @ConfigurationProperties( prefix = "connector" )
 public class ConnectorProperties {
 	
-	 // TODO Constructors for Twitter and GoogleSheets properties
-	 
-	 // TODO Getters and Setters for the tokens
+	private Twitter twitter;
+	private GoogleSheets googleSheets;
+		
+	/*
+	* TODO getter and setters for connector classes
+	*/
+
+	public static class Twitter {
+
+		private String consumerKey;
+		private String consumerSecret;
+		private String accessToken;
+		private String accessTokenSecret;
+		        
+		/*
+		* TODO getters and setter for properties
+		*/
+	}
 	
+	public static class GoogleSheets {
+	
+		private String applicationName;
+		private String clientId;
+		private String clientSecret;
+		private String accessToken;
+		private String refreshToken;
+		
+		/*
+		* TODO getters and setter for properties
+		*/
+	
+	}
+
 }
 						</code>
 					</pre>
@@ -558,12 +608,12 @@ public class ConnectorProperties {
 				<div>
 					<pre>
 						<code class="hljs" contenteditable=true data-trim="true" >public class GoogleSheetsConnector implements InitializingBean {
-	ConnectorProperties.GoogleSheets foo;
-	SpreadsheetService foo;
+	ConnectorProperties.GoogleSheets gsheetsProperties;
+	SpreadsheetService service;
 					
 	@Autowired
 	public void setGoogleSheetsProperties( ConnectorProperties properties ) {
-		this.foo = properties.getGoogleSheets();
+		this.gsheetsProperties = properties.getGoogleSheets();
 	}
 	...
 }
@@ -692,11 +742,13 @@ public void afterPropertiesSet() throws Exception {
 				
 					<code class="hljs" contenteditable=true >
 	...
+	//fetch data on worksheet
 	public List&lt;ListEntry&gt; getRowEntries() throws ServiceException, IOException {
 		ListFeed feed = service.getFeed( currentWorksheet.getListFeedUrl(), ListFeed.class );
 		return feed.getEntries();
 	}
 	
+	//adds a row entry to the worksheet
 	public ListEntry addRowEntry( ListEntry entry ) throws ServiceException, IOException {
 		ListEntry savedEntry = service.insert( currentWorksheet.getListFeedUrl(), entry );
 		return savedEntry;
@@ -771,12 +823,12 @@ public void afterPropertiesSet() throws Exception {
 						<code class="hljs" contenteditable=true data-trim="true" >
 							public class TwitterConnector implements InitializingBean {
 
-	ConnectorProperties.Twitter foo;
-	TwitterFactory foo;
+	ConnectorProperties.Twitter twitterProperties;
+	TwitterFactory twitterFactory;
 	
 	@Autowired
 	public void setTwitterProperties( ConnectorProperties properties ) {
-		this.foo = properties.getTwitter();
+		this.twitterProperties = properties.getTwitter();
 	}
 	...
 
@@ -836,7 +888,7 @@ public class TwitterConnector implements InitializingBean {
 }
 						</code>
 					</pre>
-			<small class= "fragment" >see other Twitter4j Example <a href="http://twitter4j.org/en/code-examples.html#updatingStatus">here</a></small>
+			<small >see other Twitter4j Example <a href="http://twitter4j.org/en/code-examples.html#updatingStatus">here</a></small>
 			</section>
 			
 			<section>
@@ -1005,15 +1057,11 @@ public class GoogleSheetsBlogService implements BlogService {
  	public Blog saveBlog( Blog blog ) {
  		
  		if( id == null ) {
- 			
- 			//TODO some logic for creating a new Blog entry
- 			
+ 			//some logic for creating a new Blog entry
  		}
  		
  		else {
- 			
- 			//TODO some logic for updating a Blog
- 			
+ 			//some logic for updating a Blog
  		}
  		
  	}
@@ -1032,7 +1080,7 @@ public class GoogleSheetsBlogService implements BlogService {
 	...
 	if( id == null ){
 
-		//TODO indexing logic
+		//indexing logic
 		
 		blog.setId( index );
 		ListEntry entry 
@@ -1053,7 +1101,7 @@ public class GoogleSheetsBlogService implements BlogService {
 	...
 	else {
 		
-		//TODO Logic for fetching the Blog to be Updated
+		//logic for fetching the Blog to be Updated
 		
 		if ( found == null )
 			throw new ResourceNotFoundException( "No blog found with id " + providedId );
@@ -1078,7 +1126,7 @@ public class GoogleSheetsBlogService implements BlogService {
     @Override
     public void deleteBlogById( Long id ) {
     	
-    	//TODO logic for fetching the Blog
+    	//logic for fetching the Blog
     	
     	 if ( found != null )
             found.delete();
@@ -1168,7 +1216,7 @@ public class BlogUpdatedEvent extends ApplicationEvent {
 				<pre>
 					<code class="hljs" contenteditable=true >
 @EventListener
-public void postToTwitterOnBlogUpdate( final BlogUpdatedEvent foo ) {
+public void postToTwitterOnBlogUpdate( final BlogUpdatedEvent blogUpdatedEvent ) {
 	
 	...
 	
@@ -1204,7 +1252,43 @@ public void postToTwitterOnBlogUpdate() {
 					</code>
 				</pre>
 				
-			</section>	
+			</section>
+			
+			<!-- slide #13.7 -->
+			<section>
+			
+			<h3>Bonus Points!</h3>
+			<h4>you could try using <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> to handle asynchronous call</h4>
+			
+			<div class="fragment">
+			<small>hint call on an Executor Service method then override <code><i>run()</i></code> method</small>
+			</div>
+			</section>
+			
+			<!-- slide #13.8 -->
+			<section>
+			
+			
+			
+			<pre>
+				<code class="hljs" contenteditable=true >
+	...
+	executorService.submit( new Runnable() {
+		@Override
+		public void run() {
+			Blog blog = blogUpdatedEvent.getSource();
+			try {
+					twitterConnector.tweet( defaultMessagePrefix + blog.getTitle() );
+			} catch ( TwitterException ex ) {
+					System.err.println( "Unable to post tweet. Reason: " + ex );
+			}
+		} } );
+	}
+	...
+				</code>
+			</pre>
+			
+			</section>
 		
 		</section>
 		
