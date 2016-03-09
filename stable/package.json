@@ -16,7 +16,8 @@
   "bugs": {
     "url": "https://github.com/toro-io/hei-workshop/issues"
   },
-  "dependencies": {
-    "express": "^4.13.4"
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.2.0"
   }
 }
