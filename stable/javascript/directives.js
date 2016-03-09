@@ -93,7 +93,6 @@ angular
 
     $scope.post = function () {
       $scope.blog.content = CKEDITOR.instances.postBlogEditor.getData()
-      console.log($scope.blog.content);
       api.post( $scope.blog )
         .then( function(response) {
           $location.path( '/' );
