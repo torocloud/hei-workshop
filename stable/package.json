@@ -17,7 +17,6 @@
     "url": "https://github.com/toro-io/hei-workshop/issues"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sass": "^2.2.0"
+    "node-sass": "^3.4.2"
   }
 }
