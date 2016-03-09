@@ -9,7 +9,7 @@ angular
   function home () {
     var directive = {
       restrict: 'E',
-      templateUrl: '../views/home.html',
+      templateUrl: '/views/home.html',
       controller: BlogsCtrl
     }
 
@@ -35,7 +35,7 @@ angular
   function login () {
     var directive = {
       restrict: 'E',
-      templateUrl: '../views/login.html',
+      templateUrl: '/views/login.html',
       controller: LoginCtrl
     }
 
@@ -70,7 +70,7 @@ angular
   function post () {
     var directive = {
       restrict: 'E',
-      templateUrl: '../views/post.html',
+      templateUrl: '/views/post.html',
       controller: PostCtrl
     }
 
@@ -104,7 +104,7 @@ angular
   function blog () {
     var directive = {
       restrict: 'E',
-      templateUrl: '../views/blog.html',
+      templateUrl: '/views/blog.html',
       controller: BlogCtrl
     }
 
