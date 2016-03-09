@@ -697,6 +697,12 @@ public class ConnectorProperties {
 					<div>
 						<pre>
 						<code class="hljs" contenteditable=true data-trim="true">public class GoogleSheetsConnector implements InitializingBean {
+	
+	private static final String SPREADSHEET_FEED_URL = "https://spreadsheets.google.com/feeds/spreadsheets/private/full";
+	
+	private String spreadsheetTitle = "Blogs";
+	private WorksheetEntry currentWorksheet;
+	
 	ConnectorProperties.GoogleSheets gsheetsProperties;
 	SpreadsheetService service;
 					
