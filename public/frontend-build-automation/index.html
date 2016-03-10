@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Front-end Dev: Build Process</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="/controldeck/app.css">
+  <style type="text/css">
+    .tool-logo { display: block; float:left; padding: 2rem!important; }
+  </style>
+
+</head>
+<body id="body">
+  <div class="toro-io">
+    <a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+        <path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)"/>
+        <path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z" transform="translate(0 -0.156)"/>
+        <path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z" transform="translate(0 -0.156)"/>
+        <path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z" transform="translate(0 -0.156)"/>
+        <circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25"/>
+        <rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750"/>
+        <path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z" transform="translate(0 -0.156)"/>
+        <path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"/>
+      </svg>
+    </a><!-- end of toro-io-heading -->
+  </div><!-- end of .toro-io watermark -->
+
+
+  <div class="reveal">
+    <!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+    <div class="slides">
+
+      <!-- Hello, Let's introduce yourself. -->
+      <section data-state="blur-on">
+        <h2>Frontend Dev: <br>Automating Build Process</h2>
+        <h6>
+          Preparing your Front-end Project for <br> Distribution &amp; Deployment
+        </h6>
+        <p>
+          <small>Presented By Pongstr</small><br>
+          <a href="https://github.com/pongstr" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+          <a href="https://twitter.com/pongstr" target="_blank"><i class="ion-social-twitter"></i></a> &nbsp;
+          <a href="http://codepen.io/pongstr" target="_blank"><i class="ion-social-codepen"></i></a> &nbsp;
+        </p>
+      </section>
+
+      <section>
+				<h1>Hello.</h1>
+				<h3>I'm <a href="https://github.com/pongstr" target="_blank">Pongstr</a></h3>
+        <p>Front-end Developer @ TORO.io</p>
+        <aside class="notes">
+  <p>
+  Hello, my name is Philip, friends call me Pong and I go by the name Pongstr
+  everywhere on the internet. Web Development started out as a hobby, during
+  college days I was able earn money from it, I wanted to be a professional
+  musician so I took music in college, I tried to major in percussion but I
+  always felt home building websites and print designs so in 2006, I
+  accepted the fact that I'm not going to be a musician.
+  </p>
+
+  <p>
+  After that I didn't switch to a computer course though so I went straight to
+  work where I met friends that were in the same type-of-thing like i'am and
+  they have strongly influenced me and mentored me.
+  </p>
+
+  <p>
+  So now I'm here talking to you and pretending that I know what I'm doing. :D
+  But seriously though, this is my first time to speak in a room of more than
+  10 people. If you find some of my terms unacceptable, I'm apologizing in
+  advance, I never had computer classes or anything like that but I'll try to be
+  as accurate as possible.
+  </p>
+        </aside>
+      </section>
+
+      <section>
+        <section id="intro">
+		      <h2>Automating Build Process</h2>
+          <h4 class="fragment">what is a build process?</h4>
+          <h4 class="fragment">why do we need it?</h4>
+          <h4 class="fragment">what are the benefits?</h4>
+        </section>
+
+        <section id="build-process-what-is-0">
+          <h3>What is a Build Process?</h3>
+          <blockquote>
+            <p>
+              In the field of software development, the term build is similar to
+              that of any other field. That is, the construction of something
+              that has an observable and tangible result.
+            </p>
+            <cite>
+              <small>
+                -- source: https://en.wikipedia.org/wiki/Software_build
+              </small>
+            </cite>
+          </blockquote>
+        </section>
+
+        <section id="build-process-what-is-1">
+          <img width="80%" data-src="http://blog.euresis.com/uploads/images/tesla-motors.jpg" alt="">
+          <br>
+          <h3>
+            <span class="fragment">Architecture</span>
+            <span class="fragment">+</span>
+            <span class="fragment">Engineering</span>
+          </h3>
+        </section>
+
+        <section id="build-process-what-is-2">
+          <h2>Developers</h2>
+          <img width="80%" data-src="http://cdn.ecomento.com/wp-content/uploads/2014/07/tesla-motors-factory-740x425.jpg" alt="">
+        </section>
+
+        <section id="build-process-what-is-3">
+          <h3>...aaand we're done right?</h3>
+          <img data-src="https://www.teslamotors.com/tesla_theme/assets/img/modelx/section-exterior-profile.jpg" alt="">
+          <h2 class="fragment">Nope, not quite yet.</h2>
+        </section>
+
+        <section id="build-process-what-is-4">
+          <h2>The Assembly Line</h2>
+          <img data-src="https://upload.wikimedia.org/wikipedia/commons/2/29/Ford_assembly_line_-_1913.jpg" alt="" style="width:40%;height:auto;">
+          <small>
+            In the 20th century, Henry Ford used <strong>Mass Production Techniques</strong><br>
+            that allowed Ford Motor Company to produce one Model T every 24 seconds.
+          </small>
+        </section>
+
+        <section id="build-process-what-is-5">
+          <img data-src="http://ci.memecdn.com/763/2774763.jpg" alt="">
+          <h2>Assembly Line Huh?</h2>
+          <h3 class="fragment" style="color:#ffa500;">
+            errr... Dude, there's only me
+          </h3>
+        </section>
+
+        <section id="build-process-what-is-6">
+          <img class="fragment" width="80%" data-src="http://www.trbimg.com/img-54de8c0a/turbine/la-fi-hy-tesla-factory-20150215" alt="">
+          <h3 class="fragment">Tesla's Advanced Factory Robots</h3>
+        </section>
+
+        <section id="build-process-what-is-7">
+          <div  class="fragment">
+            <h2 style="color:#e7ad52">So why do we need it?</h2>
+            <p>
+              To reduce human errors and create a consistent build every time
+              we need to roll out bug fixes or upgrades to our application.
+            </p>
+          </div>
+          <div  class="fragment">
+            <h2 style="color:#e7ad52">What are the benefits?</h2>
+            <p class="fragment">
+              Efficiency to our workflow, These automation lets us focus on
+              important areas in our project.
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <section>
+        <section id="build-systems-0">
+          <h2>Educate Ourselves</h2>
+          <small>Learn language fundamentals and tool capabilities.</small>
+
+          <div class="fragment">
+            <div class="tool-logo">
+              <img data-src="http://www.yellosoft.us/public/images/git.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img data-src="https://cdn2.iconfinder.com/data/icons/nodejs-1/128/nodejs-128.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img data-src="https://www.myget.org/Content/images/packageDefaultIcon_npm.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="http://pixxstudios.com/wp-content/uploads/2015/03/gulp-mygulpfile_s.png" alt="">
+            </div>
+
+            <div class="tool-logo">
+              <img src="https://hsto.org/getpro/toster/f7805253/cfe9/4677/f7805253-cfe9-4677-96e7-f44de29c405d/grunt.png" alt="">
+            </div>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <section id="build-systems-1">
+          <div  class="fragment">
+            <div style="width:48%;float:left;">
+              <img src="http://objectpartners.github.io/react-workshop/assets/img/gulp-logo.png" alt="">
+              <a href="http://gulpjs.com/" target="_blank">Gulp</a>
+            </div>
+            <div style="width:48%;float:right;">
+              <img src="https://i.cloudup.com/bDkmXyEmr5.png" alt="">
+              <a href="http://gruntjs.com/" target="_blank">Grunt</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="build-systems-2">
+          <h3>Grunt Syntax</h3>
+          <pre>
+            <code class="hljs">
+  module.exports = () ->
+    # Configure Build Tasks
+    grunt.initConfig
+      jshint:
+        files: [
+          'Gruntfile.js'
+          'src/**/*.js'
+        ]
+        options:
+          globals: jquery: true
+      watch:
+        files: ["#{jshint.files}"]
+        tasks: ['jshint']
+
+    # Load Tasks
+    grunt.loadNpmTasks 'grunt-contrib-jshint'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
+
+    # Listener that will execute the task(s)
+    grunt.registerTask 'default', ['jshint']
+            </code>
+          </pre>
+          <code>$ grunt default</code>
+        </section>
+
+
+        <section id="build-systems-3">
+          <h3>Gulp Syntax</h3>
+          <pre>
+            <code class="hljs">
+  # Load Gulp and Gulp Plugins
+  gulp   = require 'gulp'
+  jshint = require 'gulp-jshint'
+
+  # Listener that will execute the task
+  gulp.task 'default', () ->
+
+    # Declare jshint options
+    options =
+      globals: jquery: true
+
+    # Execute Gulp instructions
+    return gulp.src ['Gulpfile.js', 'src/**/*.js']
+      .pipe jshint(options)
+      .pipe gulp.dest('./dist')
+            </code>
+          </pre>
+          <code>$ gulp default</code>
+        </section>
+      </section>
+
+      <section>
+        <section id="exercise-0">
+          <h1>
+            Let's write some <br>
+            <code style="color:#e7ad52;">&lt;code/&gt;</code>
+          </h1>
+        </section>
+
+        <section id="exercise-1">
+          <h2>
+            <a href="https://github.com/toro-io/hei-workshop/archive/frontend-build-automation-demo.zip" target="_blank">Build Automation Demo</a>
+            <small>Click me and I'm yours forever</small>
+          </h2>
+          <p>
+            Extract the files to your desktop and in your<br>
+            Terminal or PowerShell <code>cd</code> in to that directory.
+          </p>
+          <br>
+          <p><code>npm install -g gulp &amp;&amp; npm install</code></p>
+        </section>
+
+        <section id="exercise-2">
+          <h3>Setting Up Build Goals</h3>
+          <br><br>
+          <div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>HTML</h4>
+              <ul>
+                <li><small>inject external css and js resources</small></li>
+                <li><small>minify html files for optimum awesome</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>SCSS</h4>
+              <ul>
+                <li><small>lint scss code</small></li>
+                <li><small>compile scss to css</small></li>
+                <li><small>build an expanded, minified and sourcemap</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>Coffee Script</h4>
+              <ul>
+                <li><small>lint coffee-script code</small></li>
+                <li><small>compile coffee to js</small></li>
+                <li><small>build an expanded, minified and sourcemap</small></li>
+              </ul>
+            </div>
+            <div class="fragment" style="width:25%;float:left;">
+              <h4>Deploy</h4>
+              <ul>
+                <li><small>create a build artifact</small></li>
+                <li><small>tag it with a version</small></li>
+                <li><small>deploy to server</small></li>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </section>
+
+        <section id="exercise-3">
+          <div class="fragment">
+            <h4>Compile Scss to CSS</h4>
+            <pre>
+              <code class="hljs">$ node-sass src/scss/style.scss dist/assets/css/hei-workshop.css</code>
+            </pre>
+          </div>
+
+          <div class="fragment">
+            <h4>Compile Coffee to JS</h4>
+            <pre class="fragment">
+              <code class="hljs">$ coffee -o dist/assets/js/ -c src/coffee/index.coffee</code>
+            </pre>
+          </div>
+        </section>
+
+        <section id="excercise-4">
+          <h2>Plugins</h2>
+          <div style="margin-left:auto;margin-right:auto;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="271" viewBox="0 0 500 271">
+              <image id="Build_System_plugins" data-name="Build System plugins" x="43" y="25" width="417" height="225" xlink:href="data:img/png;base64,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"/>
+            </svg>
+          </div>
+        </section>
+
+        <section id="exercise-5">
+          <h4>Build HTML and Inject Resources</h4>
+          <code>open file: src/build.coffee</code>
+          <pre>
+            <code class="hljs">
+  gulp.task 'html:resource', () ->
+    min  = if util.env.minify then '.min' else ''
+    proc = {}
+
+    proc.css =
+      src: "/assets/css/#{opts.pkg.name}#{min}.css"
+      tpl: '&lt;link rel="stylesheet" href="%s"&gt;'
+
+    proc.js =
+      src: "/assets/js/#{opts.pkg.name}#{min}.js"
+      tpl: '&lt;script src="%s"&gt;&lt;/script&gt;'
+
+    proc.button =
+      src: "#{opts.pkg.name}.zip"
+      tpl: '
+        &lt;a download class="btn btn-lg btn-success" href="/download/%s"&gt;
+          Download
+        &lt;/a&gt;'
+
+    return gulp.src "#{opts.src}html/**/*.html"
+      .pipe replace(proc)
+      .pipe gulp.dest(opts.dist)
+            </code>
+          </pre>
+        </section>
+
+        <section id="exercise-6">
+          <h4>Compile SCSS to CSS + Minify + Sourcemap</h4>
+          <code>open file: src/build.coffee</code>
+          <pre>
+            <code class="hljs">
+  gulp.task 'scss:compile', () ->
+    return gulp.src "#{opts.src}scss/**/*.scss"
+      .pipe scss()
+      .pipe rename(
+        basename: "#{opts.pkg.name}"
+        extname: '.css'
+      )
+      .pipe gulp.dest("#{opts.dist}assets/css")
+
+
+  gulp.task 'scss:minify', () ->
+    return gulp.src "#{opts.src}scss/*.scss"
+      .pipe sourcemap.init()
+      .pipe cssmin()
+      .pipe rename(
+        basename: "#{opts.pkg.name}"
+        extname: '.min.css'
+      )
+      .pipe sourcemap.write('.')
+      .pipe gulp.dest("#{opts.dist}assets/css")
+            </code>
+          </pre>
+        </section>
+
+        <section id="exercise-7">
+          <h4>Compile Coffee to JS + Minify + Sourcemap</h4>
+          <code>open file: src/build.coffee</code>
+          <pre>
+            <code class="hljs">
+  gulp.task 'coffee:compile', () ->
+    return gulp.src "#{opts.src}coffee/**/*.coffee"
+      .pipe sourcemap.init()
+      .pipe coffee(bare: true)
+      .pipe concat("#{opts.pkg.name}.js")
+      .pipe gulp.dest("#{opts.dist}assets/js")
+      .pipe uglify()
+      .pipe rename(extname: '.min.js')
+      .pipe sourcemap.write('.')
+      .pipe gulp.dest("#{opts.dist}assets/js")
+            </code>
+          </pre>
+        </section>
+
+        <section id="exercise-8">
+          <h4>Create Distributable Binary:</h4>
+          <code>dist/download/hei-build-demo.zip</code>
+          <pre>
+            <code class="hljs">
+  gulp.task 'compress', () ->
+    return gulp.src [
+      "#{opts.dist}/*"
+      "#{opts.dist}/**"
+    ]
+    .pipe tar("#{opts.pkg.name}")
+    .pipe gzip(extension: 'zip')
+    .pipe gulp.dest("#{opts.dist}download")
+            </code>
+          </pre>
+        </section>
+
+        <section id="exercise-9">
+          <img src="http://ci.memecdn.com/763/2774763.jpg" alt="">
+          <br>
+          <p>...mmkay, I still have to type these commands each time?</p>
+          <h3 class="fragment">Nope, not really.</h3>
+        </section>
+
+        <section id="excercise-10">
+          <h3>Injecting Tasks withing Tasks</h3>
+          <img width="70%" class="fragment" src="http://i2.kym-cdn.com/photos/images/original/000/384/176/d2f.jpg" alt="">
+        </section>
+
+        <section id="exercise-11">
+          <code>$ gulp default || gulp</code>
+          <pre class="fragment">
+            <code class="hljs">
+  gulp.task 'default', [
+    'html:resource'
+    'html:minify'
+    'scss:compile'
+    'scss:minify',
+    'coffee:compile'
+    'compress'
+  ], () ->
+    console.log "
+      Performed Tasks:\n
+      ================\n\n
+      - html:resource \n
+      - html:minify   \n
+      - scss:compile  \n
+      - scss:minify   \n
+      - coffee:compile\n
+      - compress      \n
+    "
+            </code>
+          </pre>
+        </section>
+      </section>
+
+      <section id="build-for-development">
+        <section id="build-for-development-1">
+          <h3>Build System for Development</h3>
+          <code>$ gulp develop --[app|scss]</code>
+          <pre>
+            <code class="hljs" contenteditable="true">
+gulp.task 'develop', () ->
+  if util.env.app
+    console.info "
+    Watching coffee script changes..."
+    return gulp.watch [
+      "#{opts.src}**/*.{html,coffee}"
+    ], [
+      'html:resource'
+      'coffee:compile'
+    ]
+
+  if util.env.scss
+    console.info "
+    Watching scss changes..."
+    return scss()
+
+  if !util.env.app and !util.env.scss
+    console.error "\n
+    \tPlease pass --app or --scss parameters to watch changes.\n"
+            </code>
+          </pre>
+        </section>
+      </section>
+    </div><!-- end of .slides -->
+  </div><!-- end of .reveal -->
+
+
+
+
+
+  <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+</html>
