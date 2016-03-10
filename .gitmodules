@@ -1,3 +1,3 @@
 [submodule "public/controldeck/reveal.js"]
-	path = controldeck/reveal.js
+	path = public/controldeck/reveal.js
 	url = https://github.com/hakimel/reveal.js.git
