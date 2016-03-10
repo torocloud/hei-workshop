@@ -1,0 +1,118 @@
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  z-index: 1;
+}
+
+body:before,
+body:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: " ";
+}
+
+body:before {
+  background-image: url("http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/architecture.jpg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  filter: blur(0);
+  -o-filter: blur(0);
+  -ms-filter: blur(0);
+  -moz-filter: blur(0);
+  -webkit-filter: blur(0);
+
+
+  transition: filter .5s ease;
+  -o-transition: -o-filter .5s ease;
+  -moz-transition: -moz-filter .5s ease;
+  -webkit-transition: -webkit-filter .5s ease;
+}
+
+
+
+body:after {
+  background-color: #000;
+  opacity: .55;
+
+  transition: opacity .5s ease;
+  -o-transition: opacity .5s ease;
+  -ms-transition: opacity .5s ease;
+  -moz-transition: opacity .5s ease;
+  -webkit-transition: opacity .5s ease;
+}
+
+
+body.blur:before {
+  filter: blur(8px);
+  -o-filter: blur(8px);
+  -ms-filter: blur(8px);
+  -moz-filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  transition: filter .5s ease;
+  -o-transition: -o-filter .5s ease;
+  -ms-transition: -ms-filter .5s ease;
+  -moz-transition: -moz-filter .5s ease;
+  -webkit-transition: -webkit-filter .5s ease;
+}
+
+body.blur:after {
+  opacity: 0;
+  transition: opacity .5s ease;
+  -o-transition: opacity .5s ease;
+  -ms-transition: opacity .5s ease;
+  -moz-transition: opacity .5s ease;
+  -webkit-transition: opacity .5s ease;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: "Montserrat", Impact, sans-serif;
+  font-weight: 700;
+  line-height: 0.9em;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.toro-io {
+  position: fixed;
+  bottom: -10px;
+  left: 10px;
+  z-index: 1000;
+  width: 200px;
+  height: auto;
+}
+
+.toro-io-heading {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.toro-io-heading svg {
+  fill: #00aeef;
+}
+
+.reveal.overview {
+  z-index: 10000;
+}
+
+.reveal.overview section {
+  background-color: #000;
+}

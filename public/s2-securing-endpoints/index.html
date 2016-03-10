@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Securing HTTP Endpoints with Spring Security</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+	<link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+	<link rel="stylesheet" href="/controldeck/app.css">
+
+</head>
+
+<body id="body">
+	<div class="toro-io">
+		<a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+				<path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)" />
+				<path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z"
+						transform="translate(0 -0.156)" />
+				<path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z"
+						transform="translate(0 -0.156)" />
+				<path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z"
+						transform="translate(0 -0.156)" />
+				<circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25" />
+				<rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750" />
+				<path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z"
+						transform="translate(0 -0.156)" />
+				<path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"
+				/>
+			</svg>
+		</a>
+		<!-- end of toro-io-heading -->
+	</div>
+	<!-- end of .toro-io watermark -->
+
+
+	<div class="reveal">
+		<!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+		<div class="slides">
+
+			<!-- Hello, Let's introduce yourself. -->
+			<section data-state="blur-on">
+				<h2>Securing HTTP Endpoints with Spring Security</h2>
+				<p>
+					<small>Presented By Reijhanniel</small>
+					<br>
+					<a href="https://github.com/devcsrj" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+					<a href="https://twitter.com/devcsrj" target="_blank"><i class="ion-social-twitter"></i></a> &nbsp;
+				</p>
+			</section>
+
+			<section>
+				<section>
+					<p>Heard you wrote <a href="https://github.com/TORO-IO/hei-workshop/tree/backend-starter/s1-building-restful-endpoints">RESTful APIs</a> for your Blog.</p>
+					<div class="fragment">
+						<p>Let's ship it!</p>
+						<pre><code class="hljs" style="font-size: 28px;">
+  $ sh -c "$(curl -fsSL https://goo.gl/h4ssiv)"
+					</code></pre>
+					</div>
+				</section>
+				<section>
+					<h3>Surprise, not so-surprised</h3>
+					<img src="assets/unsecureendpoint.png" alt="That's what you get">
+					<div class="fragment">
+						<p><a href="https://goo.gl/h4ssiv">That script</a> <code>POST</code>ed blogs using your API.</p>
+					</div>
+				</section>
+				<section>
+					<p>Just like any other application, <span class="fragment highlight-red">it needs security</span>.</p>
+					<img src="assets/applayers-2.png" alt="Security layer">
+				</section>
+				<section>
+					<h3>Token-based Authentication Model</h3>
+					<img src="assets/jwtdiagram.png" alt="Jwt diagram" style="background-color: white;">
+					<small>Taken from <a href="http://jwt.io/introduction/">jwt.io</a></small>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h3>Technical Requirements</h3>
+					<ol>
+						<li>expose a login endpoint</li>
+						<li>secure <u>save</u> and <u>delete</u> blog operations</li>
+						<li>allow cross-origin requests <small>(more on this later)</small></li>
+					</ol>
+					<p>Download the initial project from <a href="https://github.com/TORO-IO/hei-workshop/archive/backend-starter.zip">Github</a>.</p>
+				</section>
+				<section>
+					<h3>Tools</h3>
+					<ul>
+						<li><a href="http://projects.spring.io/spring-security/">Spring Security</a></li>
+						<li><a href="https://github.com/jwtk/jjwt">jjwt (JWT java library)</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3>Add the dependencies</h3>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+&lt;properties&gt;
+      ...
+    &lt;jjwt.version&gt;0.6.0&lt;/jjwt.version&gt;
+&lt;/properties&gt;
+&lt;dependencies&gt;
+      ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+        &lt;artifactId&gt;jjwt&lt;/artifactId&gt;
+        &lt;version&gt;${jjwt.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+		</code></pre>
+					<small>See <a href="http://mvnrepository.com/artifact/io.jsonwebtoken/jjwt">mvnrepository.com</a> for jjwt</small>
+				</section>
+			</section>
+
+			<!-- Implement UserDetailsService -->
+			<section>
+				<section>
+					<h4>The application needs to have a collection of users.</h4>
+				</section>
+				<section>
+					<h3>the UserDetailsService</h3>
+					<p>an <a href="http://docs.spring.io/autorepo/docs/spring-security/4.0.3.RELEASE/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html">interface</a> used by Spring Security to fetch a user.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+public class InMemoryUserDetailsService implements UserDetailsService {
+
+  @Override
+  public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
+    // TODO
+  }
+}
+				</pre></code>
+				</section>
+				<section>
+					<p>Add a <code>String-User</code> field, and add a user called <code>admin</code></p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+private final Map&lt;String, User&gt; userStore;
+
+public InMemoryUserDetailsService() {
+    userStore = new LinkedHashMap<>();
+
+    Collection&lt;GrantedAuthority&gt; adminAuthorities = new HashSet<>();
+    adminAuthorities.add( new SimpleGrantedAuthority( "ROLE_ADMIN" ) );
+    User adminUser = new User( "admin", "admin", adminAuthorities );
+
+    userStore.put( adminUser.getUsername(), adminUser );
+}
+				</pre></code>
+					<small>Javadocs:
+					<a href="http://docs.spring.io/autorepo/docs/spring-security/4.0.3.RELEASE/apidocs/org/springframework/security/core/userdetails/User.html">User</a>,
+					<a href="http://docs.spring.io/autorepo/docs/spring-security/4.0.3.RELEASE/apidocs/org/springframework/security/core/GrantedAuthority.html">GrantedAuthority</a>
+				</small>
+				</section>
+				<section>
+					<p>Implement <code>loadUserByUsername</code> method</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+@Override
+public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
+    if ( username == null || username.isEmpty() )
+        throw new UsernameNotFoundException( "Username can't be empty" );
+
+    // let's fetch from the map
+    User user = userStore.get( username );
+    if ( user == null )
+        throw new UsernameNotFoundException( "Username '" + username + "' wasn't found" );
+
+    return user;
+}
+					</pre></code>
+					<small>
+						Final output:
+						<a href="https://github.com/TORO-IO/hei-workshop/blob/backend-starter/s2-securing-endpoints/src/main/java/io/toro/workshop/config/security/InMemoryUserDetailsService.java">InMemoryUserDetailsService.java</a>
+					</small>
+				</section>
+				<section>
+					<p>Finally, declare it as a Spring bean</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+@Bean
+public UserDetailsService userDetailsServiceBean() throws Exception {
+   return new InMemoryUserDetailsService();
+}
+					</code></pre>
+				</section>
+			</section>
+
+			<!-- Implement the login endpoint -->
+			<section>
+				<section>
+					<h3>Server Response to login (2)</h3>
+					<img src="assets/jwtdiagram.png" alt="Jwt diagram" style="background-color: white;">
+				</section>
+				<section>
+					<h3>the AuthenticationController (login)</h3>
+					<p>we'll expose a <code>POST</code> endpoint under /api/login</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+@RestController
+public class AuthenticationController {
+
+  @RequestMapping( value = "/api/login", method = RequestMethod.POST )
+  ResponseEntity&lt;Map&gt; login( @Valid @RequestBody LoginRequest request ) {
+    // TODO
+  }
+}
+			</pre></code>
+					<small>
+				<a href="https://github.com/TORO-IO/hei-workshop/blob/backend-starter/s2-securing-endpoints/src/main/java/io/toro/workshop/user/LoginRequest.java">LoginRequest</a>
+				 is a POJO for holding username-password requests payload:
+			</small>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+{
+  "username": "username",
+  "password": "password"
+}
+			</pre></code>
+				</section>
+				<section>
+					<p>inject a `UserDetailsService` bean</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+  // ..class declaration
+
+  private final UserDetailsService userDetailsService;
+
+  @Autowired
+  AuthenticationController( UserDetailsService userDetailsService ) {
+     this.userDetailsService = userDetailsService;
+  }
+
+// ..login method declaration
+				</code></pre>
+				</section>
+				<section>
+					<p>implement the login endpoint</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+ResponseEntity&lt;Map&gt; login( @Valid @RequestBody LoginRequest request ) {
+   UserDetails userDetails = userDetailsService.loadUserByUsername( request.username );
+   if ( !userDetails.getPassword().equals( request.password ) )
+     throw new BadCredentialsException( "Opps! Your password or username is not valid!" );
+
+   String token = Jwts.builder()
+            .setSubject( userDetails.getUsername() )
+            .signWith( SignatureAlgorithm.HS512, "supersecrettoken" )
+            .compact();
+
+   Map payload = new HashMap&lt;&gt;();
+   payload.put( "token", token );
+
+   return ResponseEntity.ok( payload );
+}
+				</pre></code>
+					<small>Expected response for valid users:</small>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+{ "token" : "your-token" }
+				</pre></code>
+				</section>
+				<section>
+					<p>Add an exception handler method for <code>AuthenticationException</code>s</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+// ..other exception handler methods
+
+   @ExceptionHandler( AuthenticationException.class )
+   ResponseEntity&lt;ApiException&gt; handleInvalidCredentials( AuthenticationException ex ) {
+      // 401 - HTTP Unauthorized
+      return processApiException( new ApiException( 401, ex ) );
+   }
+ 					</code></pre>
+					<small>
+						<a href="https://github.com/TORO-IO/hei-workshop/blob/backend-starter/s2-securing-endpoints/src/main/java/io/toro/workshop/exception/ExceptionController.java">ExceptionController.java</a>
+					</small>
+				</section>
+				<section>
+					<img src="assets/request-adminlogin.png" alt="Admin login request">
+					<img src="assets/response-adminlogin.png" alt="Admin login response">
+				</section>
+				<section>
+					<img src="assets/request-hackerlogin.png" alt="Hacker login request">
+					<img src="assets/response-hackerlogin.png" alt="Hacker login response">
+				</section>
+			</section>
+
+			<!-- Implement authorization -->
+			<section>
+				<section>
+					<h4>We have exposed a way for API consumers to login, but haven't really secured the APIs yet.</h4>
+					<h4 class="fragment">So..</h4>
+				</section>
+				<section>
+					<h3>Enable Security</h3>
+					<p>Extend <code>WebSecurityConfigurerAdapter</code>, a <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html">class</a> provided by
+						Spring Security for configuring security models.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+@Configuration
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+   @Override
+   protected void configure( HttpSecurity http ) throws Exception {
+      // TODO
+   }
+}
+				 </code></pre>
+				</section>
+				<section>
+					<p>Restrict endpoints by declaring the <code>authority</code> required for valid entry</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+protected void configure( HttpSecurity http ) throws Exception {
+   http.authorizeRequests()
+       .antMatchers( "/api/login" ).permitAll()
+       .antMatchers( HttpMethod.GET, "/api/blogs", "/api/blogs/*" ).permitAll()
+       .antMatchers( HttpMethod.POST, "/api/blogs" ).hasRole( "ADMIN" )
+       .antMatchers( HttpMethod.DELETE, "/api/blogs/*" ).hasRole( "ADMIN" )
+       .anyRequest().authenticated()
+       // .sessionMa..
+					</code></pre>
+				</section>
+				<section>
+					<p>RESTful APIs are <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_3">stateless</a>.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+       // .antMatc..
+       .sessionManagement()
+       .sessionCreationPolicy( SessionCreationPolicy.STATELESS )
+       .and()
+       .csrf().disable();
+ }
+					</code></pre>
+				</section>
+			</section>
+
+			<!-- Implement authorization header intercept -->
+			<section>
+				<section>
+					<h3>Server response to Authorization headers (5)</h3>
+					<img src="assets/jwtdiagram.png" alt="Jwt diagram" style="background-color: white;">
+				</section>
+				<section>
+					<h4>We need to tell the application that API consumers will pass an authorization header, on each request.</h4>
+				</section>
+				<section>
+					<h3>Chain of Responsibility</h3>
+					<p>a design pattern used to achieve <b>loose-coupling</b> where a request from client is passed to a chain of objects to process them.</p>
+					<img src="assets/filter-diagram.gif" alt="Filter diagram" />
+					<p>Spring evaluates authentication and authorization through it's <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#filter-ordering">filter chain</a>.</p>
+				</section>
+				<section>
+					<p>We need to determine whether a request is <i>authorizeable</i>, using a
+						<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html">Filter</a>.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+public class JwtHeaderFilter extends OncePerRequestFilter {
+
+   private final UserDetailsService userDetailsService;
+
+   JwtHeaderFilter( UserDetailsService userDetailsService ){
+      // we'll use this below
+      this.userDetailsService = userDetailsService;
+   }
+
+   @Override
+   protected void doFilterInternal( HttpServletRequest request,
+            HttpServletResponse response, FilterChain chain ){
+      // TODO
+
+      chain.doFilter( request, response, chain );
+   }
+}
+					</code></pre>
+					<small><code>OncePerRequestFilter</code> is a convenience class provided by Spring.</small>
+				</section>
+				<section>
+					<p>Ignore requests without an authorization header</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+protected void doFilterInternal( ... )
+   String header = request.getHeader( HttpHeaders.AUTHORIZATION );
+   if ( header == null || !header.startsWith( "Bearer " ) ) {
+      chain.doFilter( request, response );
+      return;
+   }
+   // String tok..
+				 </code></pre>
+				</section>
+				<section>
+					<p>Attempt to parse the token if exists</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+
+   // ..
+   String token = header.substring( 7 );
+   String username;
+   try {
+      // parse the token
+      username = Jwts.parser()
+            .setSigningKey( "supersecrettoken" )
+            .parseClaimsJws( token )
+            .getBody()
+            .getSubject();
+    } catch ( Exception ex ) {
+        throw new BadCredentialsException( "Invalid token " + token );
+    }
+
+   // UserDet...
+					</code></pre>
+				</section>
+				<section>
+					<p>Authorize the request</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+// ..
+    // resolve actual user
+    UserDetails userDetails = userDetailsService.loadUserByUsername( username );
+
+    // let's authenticate this request
+    Authentication auth = new PreAuthenticatedAuthenticationToken( userDetails, token, userDetails.getAuthorities() );
+    SecurityContextHolder.getContext().setAuthentication( auth );
+
+    // and allow the response the continue
+    chain.doFilter( request, response );
+
+    // remove authentication afterwards; RESTful APIs are stateless
+    SecurityContextHolder.getContext().setAuthentication( null );
+					</code></pre>
+				</section>
+				<section>
+					<p>Register the filter in <code>WebSecurityConfig</code></p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+
+@Autowired
+private UserDetailsService userDetailsService;
+
+protected void configure( HttpSecurity http ) throws Exception {
+   ...
+   // ...disable()
+   .addFilterBefore( new JwtHeaderFilter( userDetailsService ),
+         BasicAuthenticationFilter.class );
+}
+
+@Bean
+@Override
+public UserDetailsService userDetailsServiceBean() throws Exception {
+   return new InMemoryUserDetailsService();
+}
+					</code></pre>
+					<small>We moved the Bean declaration of UserDetailsService from <code>BloggingApp</code> to <code>WebSecurityConfig</code>.</small>
+				</section>
+				<section>
+					<img src="assets/request-postblogwithvalidauth.png" alt="Request - POST blog with valid auth">
+					<img src="assets/response-postblogwithvalidauth.png" alt="Response - POST blog with valid auth">
+				</section>
+			</section>
+			<section>
+				<section>
+					<h4>We're almost done, but what about <a href="https://en.wikipedia.org/wiki/Same-origin_policy">Same-Origin Policy</a>?</h4>
+					<!-- <pre>
+var client = new XMLHttpRequest();
+client.onreadystatechange = function(){
+   if (client.readyState == XMLHttpRequest.DONE)
+      console.log( client.responseText );
+}
+client.open( "GET", "http://google.com" );
+client.send();
+					</pre> -->
+					<img class="fragment" src="assets/cors-fail.png" alt="CORS failing">
+				</section>
+				<section>
+					<h3>Cross-Origin Requests (CORS)</h3>
+					<p>A mechanism that allows restricted resources on a web page to be requested from <u>outside</u> the domain from which the resource originated.</p>
+					<img src="assets/cors-diagram.png" alt="CORS diagram">
+					<!-- <small>Image taken from <a href="https://dzone.com/articles/cross-site-requests-gwt">dzone</a>.</small> -->
+				</section>
+				<section>
+					<p>Enabling CORS in Spring 4 is a <a href="https://spring.io/guides/gs/rest-service-cors/#_enabling_cors">breeze</a>.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+// AuthenticationController.java
+@CrossOrigin
+@RequestMapping( value = "/api/login", method = RequestMethod.POST )
+
+// BlogApiController.java
+@CrossOrigin
+@RestController
+@RequestMapping( value = "api/blogs" )
+					</code></pre>
+				</section>
+				<section>
+					<p>Finally, configure OPTION requests to be public.</p>
+					<pre><code class="hljs" contenteditable="" data-trim="">
+// WebSecurityConfig.java
+protected void configure( HttpSecurity http ) throws Exception {
+      // ..
+      .antMatchers( HttpMethod.OPTIONS ).permitAll()// ..
+
+      // ..
+}
+					</code></pre>
+					<img src="assets/cors-ok.png" alt="CORS ok" />
+				</section>
+			</section>
+
+			<!-- Summary -->
+			<section>
+				<section>
+					<h3>In this session, we:</h3>
+					<ol>
+						<li><b>exposed a login endpoint</b>
+							<ul>
+								<li><code>AuthenticationController</code> - /api/login</li>
+								<li><code>UserDetailsService</code> - service that provides available users</li>
+							</ul>
+						</li>
+						<li><b>secure <u>save</u> and <u>delete</u> blog operations</b>
+							<ul>
+								<li><code>WebSecurityConfig</code> - restrict urls</li>
+								<li><code>JwtHeaderFilter</code> - intercept and validate requests with token</li>
+							</ul>
+							<li><b>allow cross-origin requests</b> - required if you want apis be accessible by a browser client</li>
+					</ol>
+				</section>
+				<section>
+					<h2>Questions?</h2>
+				</section>
+			</section>
+
+
+		</div>
+		<!-- end of .slides -->
+	</div>
+	<!-- end of .reveal -->
+
+
+
+
+
+	<script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+
+</html>

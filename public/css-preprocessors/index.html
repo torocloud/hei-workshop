@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>CSS Preprocessors</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="/controldeck/app.css">
+	<style media="screen">
+		.reveal pre code {
+			max-height: none;
+		}
+		h1, h2, h3, h4 {
+			color: #00aeef !important;
+			line-height: 1.2em !important;
+		}
+		gCode {
+			color: #18CB18;
+			font-family: monospace;
+		}
+	</style>
+</head>
+<body id="body">
+  <div class="toro-io">
+    <a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+        <path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)"/>
+        <path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z" transform="translate(0 -0.156)"/>
+        <path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z" transform="translate(0 -0.156)"/>
+        <path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z" transform="translate(0 -0.156)"/>
+        <circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25"/>
+        <rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750"/>
+        <path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z" transform="translate(0 -0.156)"/>
+        <path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"/>
+      </svg>
+    </a><!-- end of toro-io-heading -->
+  </div><!-- end of .toro-io watermark -->
+
+
+  <div class="reveal">
+    <!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+    <div class="slides">
+      <!-- Hello, Let's introduce yourself. -->
+      <section data-state="blur-on">
+        <h1>CSS Preprocessors</h1>
+        <h4>
+          HTML5 Presentation Framework powered by
+          <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+        </h4>
+        <p>
+          <small>Presented By Noelito Calma</small><br>
+          <a href="#" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+          <a href="#" target="_blank"><i class="ion-social-twitter"></i></a> &nbsp;
+          <a href="#" target="_blank"><i class="ion-social-codepen"></i></a> &nbsp;
+        </p>
+      </section>
+
+			<section>
+				<h3>In this presentation we will be using the files you've downloaded in the previous topic</h3>
+				<p>On your terminal/console</p>
+				<ul>
+					<li>If you're not yet on the directory, run this command on your terminal/console <gcode>cd path/to/directory/</gcode>
+						<ul>
+							<li>Then run <gcode>npm install</gcode></li>
+						</ul>
+					</li>
+				</ul>
+      </section>
+
+      <section>
+				<h2>What is a Preprocessor?</h2>
+				<p>
+					A preprocessor is a program that takes one type of data and converts it to another type of data.
+					<br><br><small>- http://learn.shayhowe.com/advanced-html-css/preprocessors/</small>
+				</p>
+      </section>
+
+			<section>
+				<section>
+					<h2>What is a CSS Preprocessor?</h2>
+					<p>
+						A scripting language that extends CSS and gets compiled into regular CSS syntax.
+						Adding features that allow variables, mixins, functions and many other techniques that allow you to make CSS that is more maintainable, themable and extendable.
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+					</p>
+				</section>
+				<section>
+					<h2>Why use one?</h2>
+					<ul>
+						<li>Cleaner code with reusable pieces</li>
+						<li>More flexibility to do things on the fly</li>
+						<li>Sharelable snippets and libraries</li>
+						<li>Easily produce CSS that works across browsers</li>
+					</ul>
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+				</section>
+				<section>
+					<h2>Which ones are popular?</h2>
+					<img src="assets/css-preprocessors.png" alt="" />
+				</section>
+				<section>
+					<h2>Which ones are popular?</h2>
+					<ul>
+						<li>Sass (http://sass-lang.com/guide)</li>
+						<li>LESS (http://lesscss.org/)</li>
+						<li>Stylus (http://stylus-lang.com/)</li>
+					</ul>
+						<br><br><small>- https://drupalize.me/videos/what-css-preprocessor?p=1175</small>
+				</section>
+				<section>
+					<h4>In this demo we will use SCSS.</h4>
+					<p>
+						Sass 3 introduces a new syntax known as <b style="color:#CC6798">SCSS</b> which is fully compatible with the syntax of CSS, while still supporting the full power of Sass.
+					</p>
+				</section>
+			</section>
+
+      <section>
+				<section>
+					<h2>Syntax</h2>
+				</section>
+        <section>
+          <h2>Variables</h2>
+<pre>
+<code class="css">
+/* Sass (SCSS) */
+$font-size: 16px;
+
+div {
+  font-size: $font-size;
+}
+
+/* LESS */
+@font-size: 16px;
+
+div {
+  font-size: @font-size;
+}
+
+/* Stylus */
+font-size = 16px
+
+div
+  font-size font-size
+
+/* Compiled CSS */
+div {
+  font-size: 16px;
+}
+</code>
+</pre>
+
+
+        </section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* Sass (SCSS) */
+$link-color: #999;
+$link-hover: #229ed3;
+
+ul {
+  margin: 0;
+
+  li {
+    float: left;
+  }
+
+  a {
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* LESS */
+@link-color: #999;
+@link-hover: #229ed3;
+
+ul {
+  margin: 0;
+
+  li {
+    float: left;
+  }
+
+  a {
+    color: @link-color;
+
+    &:hover {
+      color: @link-hover;
+    }
+  }
+}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="stylus">
+/* Stylus */
+link-color = #999
+link-hover = #229ed3
+
+ul
+  margin 0
+  li
+    float left
+  a
+    color link-color
+    &:hover
+      color link-hover
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Nesting</h2>
+<pre>
+<code class="css">
+/* Compiled CSS */
+ul { margin: 0; }
+ul li { float: left; }
+ul a { color: #999; }
+ul a:hover { color: #229ed3; }
+
+</code>
+</pre>
+				</section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Three principle to simplify your life as a Developer</h2>
+          <ul>
+          	<li>DRY - Don't Repeat Yourself</li>
+						<li>KISS - Keep It Simple Stupid</li>
+						<li>YAGNI - You Aren’t Gonna Need It</li>
+          </ul>
+					<br><br>
+					<small>-http://www.itexico.com/blog/bid/99765/Software-Development-KISS-YAGNI-DRY-3-Principles-to-simplify-your-life</small>
+        </section>
+				<section>
+					<h4>Sample of repeating yourself in CSS</h4>
+<pre>
+<code class="css">
+.title-1 {
+  padding: 10px;
+  color: #333;
+  font-size: 48px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-2 {
+  padding: 10px;
+  color: #333;
+  font-size: 36px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-3 {
+  padding: 10px;
+  color: #333;
+  font-size: 28px;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>To apply KISS and DRY</h4>
+					<small>
+						We will use a CSS Preprocessor (Sass)
+					</small>
+<pre>
+<code class="scss">
+/* using a mixin */
+@mixin title($font-size: 48px) {
+  padding: 10px;
+  color: #333;
+  font-size: $font-size;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+}
+.title-1 { @include title(); }
+.title-2 { @include title(36px); }
+.title-3 { @include title(28px); }
+
+<h1 class="title-1"></h1>
+
+
+</code>
+</pre>
+				</section>
+				<section>
+<pre>
+<code class="css">
+/* using a base class / extends */
+.title {
+  padding: 10px;
+  color: #333;
+  font-weight: 300;
+  font-family: Open Sans,sans-serif;
+  line-height: 40px;
+  text-shadow: 0 0 0 #000;
+
+  &.title-1 { font-size: 48px; }
+  &.title-2 { font-size: 36px; }
+  &.title-3 { font-size: 28px; }
+}
+
+<h1 class="title title-1"></h1>
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>HANDS ON</h2>
+				</section>
+				<section>
+					<p> Open the files on your preferred editor </p>
+					<p>If the app is not running, type this command on your terminal/console</p>
+					<ul>
+						<li><gcode>cd stable</gcode> press enter then <gcode>node server.js</gcode></li>
+					</ul>
+					<br><br>
+					<h3>NOTE: All files that we are going to change are on <gcode>stable</gcode> folder</h3>
+				</section>
+				<section>
+					<h4>index.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+&lt;!DOCTYPE html&gt;
+&lt;html ng-app="app" ng-controller="user"&gt;
+  &lt;head&gt;
+    <title>HEI Workshop 2016</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/public/css/workshop.css">
+  &lt;/head&gt;
+  &lt;body&gt;
+    <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" ng-if="loggedIn == true">
+            <a class="nav-link" href="/post">POST</a>
+          </li>
+          <li class="nav-item" ng-if="loggedIn == false">
+            <a class="nav-link" href="/login">LOGIN</a>
+          </li>
+          <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
+            <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div ng-view class="main-view"></div>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="/javascript/directives.js"></script>
+    <script src="/javascript/controllers.js"></script>
+    <script src="/javascript/factories.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+  &lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>views/login.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" alt="Card image cap">
+        <img class="img-circle card-profile-picture img-fluid center-block" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
+        <div class="card-block">
+          <h4 class="card-title text-xs-center">Login to Dashboard</h4>
+          <form class="m-y-1">
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-person" id="basic-addon1"></span>
+                <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username">
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-unlocked" id="basic-addon1"></span>
+                <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+              </div>
+            </fieldset>
+            <div class="form-group text-xs-center m-y-2">
+              <button ng-click="login()" class="btn btn-md btn-info-outline">
+                Sign in to Dashboard
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>views/home.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <article  ng-repeat="blog in blogs" class="card m-b-2 b-r-0">
+        <header class="p-a-1 b-r-0">
+          <img src="http://placehold.it/50/373A3C/ffffff" class="img-circle pull-xs-left m-r-1" alt="" />
+          <a href="/view/{{ blog.id }}">
+            <h3 class="truncate truncate-1 m-b-0">{{ blog.title }}</h3>
+          </a>
+          <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> March 11, 2016</small>
+        </header>
+        <hr class="m-b-0 m-t-0">
+        <div class="clearfix"></div>
+        <section class="truncate truncate-3 p-x-1 p-t-1 m-b-1" ng-bind-html="blog.content"></section>
+        <small class="pull-xs-left m-l-1 m-t-1 ">Share on: </small>
+        <a class="btn btn-info m-t-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
+        <a class="btn btn-info m-t-1 pull-xs-left social-media-icons social-media-icons-google"><i class="ion-social-googleplus"></i></a>
+        <a class="btn btn-info m-t-1 pull-xs-left social-media-icons social-media-icons-twitter"><i class="ion-social-twitter"></i></a>
+
+        <a class="btn btn-info-outline m-a-1 pull-xs-right" href="/view/{{ blog.id }}">
+         Continue Reading &nbsp;&rarr;
+        </a>
+        <div class="clearfix"></div>
+        <!-- <hr ng-if="!$last"> -->
+      </article>
+    </div> <!--end of col-md-9-->
+
+    <div class="col-xs-12 col-md-4 col-lg-3" ng-if="blogs.length > 0">
+      <div class="card m-b-2">
+        <div class="card-header text-xs-center">
+          About the Author
+        </div>
+        <div class="card-block p-b-1">
+          <div class="col-xs-offset-2 col-xs-8 col-lg-offset-0 col-lg-12">
+            <img src="http://www.toro.io/cmsstatic/toro-log.png" class="img-fluid center-block m-b-1" alt="" />
+          </div>
+          <div class="clearfix"></div>
+          <p>Enterprise class software that is dramatically easier to use, manage and deploy.</p>
+          <p>Website: <a href="http://www.toro.io/" target="_blank">http://www.toro.io/</a></p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="card b-r-0 m-b-2">
+        <div class="card-header text-xs-center">
+          Archive
+        </div>
+        <div class="card-block p-a-0">
+          <ul class="list-group list-group-flush list-group-fixed">
+            <a class="list-group-item b-r-0" ng-repeat="blog in blogs" href="/view/{{ blog.id }}">
+              <p class="m-b-0 truncate truncate-1" ><span>{{ blog.title }}</span></p>
+            </a>
+          </ul>
+        </div>
+      </div> <!-- end of card -->
+
+    </div> <!-- end of col-md-3-->
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>views/post.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-2 col-md-8">
+      <fieldset class="form-group">
+        <p>Title</p>
+        <input ng-model="blog.title" type="text" class="form-control" placeholder="Blog title">
+      </fieldset>
+      <fieldset class="form-group m-b-0">
+        <p>Content</p>
+        <textarea ng-model="blog.content" id="postBlogEditor" rows="10" class="form-control" placeholder="Blog content"></textarea><br>
+      </fieldset>
+      <fieldset class="form-group">
+        <button ng-click="post()" type="button" class="btn btn-sm btn-primary pull-xs-right">Post</button>
+      </fieldset>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>views/blog.html</h4>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <article class="card m-b-2 b-r-0">
+
+        <header class="p-a-1 b-r-0">
+          <div>
+            <img src="http://placehold.it/50/373A3C/ffffff" ng-if="editMode != true" class="img-circle img-fluid pull-xs-left m-r-1" alt="" />
+            <h3 class="truncate" ng-if="editMode != true">{{ blog.title }}</h3>
+            <p ng-if="editMode == true">Blog title</p>
+            <input ng-model="blog.title"  ng-if="editMode == true" type="text" class="form-control">
+          </div>
+          <span class="pull-xs-right" ng-if="editMode != true">
+            <button ng-click="edit(true)" type="button" class="btn btn-sm btn-primary">Edit</button>
+            <button ng-click="delete()" type="button" class="btn btn-sm btn-danger">Delete</button>
+          </span>
+          <span ng-if="editMode != true">
+            <small class="display-5 m-t-2">Posted By: TORO Dev</small> | <small class="display-6 m-t-2"> March 11, 2016</small>
+          </span>
+          <div class="clearfix"></div>
+        </header>
+
+        <hr class="m-b-0 m-t-0">
+        <div class="clearfix"></div>
+
+        <div class="card-block">
+          <p ng-if="editMode == true">Blog Content</p>
+          <section class="truncate m-b-1" ng-if="editMode != true" ng-bind-html="blog.content"></section>
+          <textarea ng-model="blog.content" id="editBlogEditor"  ng-if="editMode == true" class="form-control" rows="8"></textarea>
+          <small class="pull-xs-left m-t-1 ">Share on: </small>
+          <a class="btn btn-info m-y-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons social-media-icons-google"><i class="ion-social-googleplus"></i></a>
+          <a class="btn btn-info m-y-1 pull-xs-left social-media-icons social-media-icons-twitter"><i class="ion-social-twitter"></i></a>
+
+          <span ng-if="editMode == true" class="pull-xs-right m-t-1">
+            <button ng-click="update()" type="button" class="btn btn-sm btn-primary">Save</button>
+            <button ng-click="edit(false)" type="button" class="btn btn-sm btn-warning">Cancel</button>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+        <!-- <hr ng-if="!$last"> -->
+      </article>
+    </div> <!--end of col-md-9-->
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+      <div class="card m-b-2">
+        <div class="card-header text-xs-center">
+          About the Author
+        </div>
+        <div class="card-block p-b-1">
+          <div class="col-xs-offset-2 col-xs-8 col-lg-offset-0 col-lg-12">
+            <img src="http://www.toro.io/cmsstatic/toro-log.png" class="img-fluid center-block m-b-1" alt="" />
+          </div>
+          <div class="clearfix"></div>
+          <p>Enterprise class software that is dramatically easier to use, manage and deploy.</p>
+          <p>Website: <a href="http://www.toro.io/" target="_blank">http://www.toro.io/</a></p>
+        </div>
+        <div class="clearfix"></div>
+      </div><!-- end of card -->
+
+    </div> <!-- end of col-md-3-->
+  </div>
+</div>
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>app.js</h4>
+					<p>
+						Replace the code for the angular.module('app', []) : line 1-6
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+angular
+  .module('app', [
+    'ngRoute',
+    'ngStorage',
+    'ngSanitize'
+  ])
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for the PostCtrl : line 86-100
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+function PostCtrl ($scope, $location, api) {
+  $scope.blog = {
+    title: '',
+    content: ''
+  }
+
+  // replace the textarea to make it a rich editor
+  CKEDITOR.replace('postBlogEditor')
+
+  $scope.post = function () {
+    // get the data of the editor
+    $scope.blog.content = CKEDITOR.instances.postBlogEditor.getData()
+    api.post( $scope.blog )
+      .then( function(response) {
+        $location.path( '/' );
+      }, function (error) {
+        alert('Something went wrong');
+      });
+  }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for the  BlogCtrl.$inject=[] : line 118-124
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+BlogCtrl.$inject = [
+  '$scope',
+  '$location',
+  '$routeParams',
+  '$timeout',
+  'api'
+]
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for the  BlogCtrl.$inject=[] : line 127
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+/*
+* We added $timeout in the BlogCtrl.$inject=[]
+* Therfore we need to inject it also in function BlogCtrl(){}
+*/
+
+function BlogCtrl ($scope, $location, $routeParams, $timeout, api){}
+
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for $scope.edit : line 138-142
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+$scope.edit = function (option) {
+  $scope.editMode = option;
+  ( option == true ) ?
+    $scope.unsavedBlog = angular.copy( $scope.blog ) : $scope.blog = $scope.unsavedBlog
+
+  $timeout(function () {
+    CKEDITOR.replace('editBlogEditor')
+  })
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>javascript/directives.js</h4>
+					<p>
+						Replace the code for $scope.update : line 148-155
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+$scope.update = function (entry) {
+  $scope.blog.content = CKEDITOR.instances.editBlogEditor.getData()
+  api.post( $scope.blog )
+    .then( function(response) {
+      $scope.editMode = false;
+    }, function (error) {
+      alert('Something went wrong');
+    });
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h2>Now that we have the mark up for the app, <br>let's apply some styles on it.</h2>
+				</section>
+				<section style="text-align: left;">
+					<p>
+						Open another tab or window for your terminal/console
+					</p>
+					<ul>
+						<li>Go back to the root folder</li>
+						<li>If you're on <gcode>stable</gcode> type <gcode>cd ..</gcode> else</li>
+						<li>This one <gcode>cd /path/to/directory</gocde></li>
+					</ul>
+					<p>Run this command to build our SASS files into CSS files</p>
+					<ul>
+						<li>Syntax: <gcode>node-sass [options] &lt;input&gt; [output]</gcode></li>
+						<li>To build SASS files:
+							<ul>
+								<li><gcode>node-sass stable/sass/workshop.scss stable/public/css/workshop.css</gcode></li>
+							</ul>
+						</li>
+						<li>To watch the changes in the SASS files:
+							<ul>
+								<li><gcode>node-sass --watch stable/sass/workshop.scss stable/public/css/workshop.css</gcode></li>
+							</ul>
+						</li>
+						<li>
+							<a href="https://github.com/sass/node-sass#command-line-interface">See docs here</a>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h4>sass/workshop.scss</h4>
+					<p>
+						The code below is to import the other files.
+					</p>
+<pre>
+<code class="hljs" contenteditable="" data-trim="" style="max-height: 500px;">
+@import "variables";
+@import "modifiers";
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>sass/_variables.scss</h4>
+					<p>
+						The variables that we will use for the app
+					</p>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+$padding-top: 100px;
+$padding-bottom: 100px;
+
+$header-bg-color: #F7F7F9;
+$header-font-color: #333;
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>sass/_modifiers.scss</h4>
+					<p>
+						The styles for the app
+					</p>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  min-width: 320px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+// mixins
+@mixin ellipsis($lineClamp) {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineClamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+// utility clasess
+.truncate {
+  @include ellipsis(0);
+  &.truncate-1 { @include ellipsis(1); }
+  &.truncate-3 { @include ellipsis(3); }
+  &.truncate-5 { @include ellipsis(5); }
+}
+
+.bread-word {
+  word-wrap: break-word;
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>sass/_modifiers.scss</h4>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+// for social media icons
+// usage
+// --> <a class="social-media-icons social-media-icons-xxx"><i class="fa fa-xx"></i></a>
+.social-media-icons {
+  margin-right: 10px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: table;
+  text-align: center;
+  border: none;
+  background-color: #ccc;
+  border-radius: 100%;
+  font-size: 15px;
+  i {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+  &.social-media-icons-facebook { background-color: #3B5998; }
+  &.social-media-icons-google {  background-color: #DD4B39; }
+  &.social-media-icons-twitter { background-color: #55ACEE; }
+  &.social-media-icons-instagram { background-color: #3F729B; }
+  &.social-media-icons-linkedin { background-color: #0082CA; }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h4>sass/_modifiers.scss</h4>
+<pre>
+<code class="css" contenteditable="" data-trim="" style="max-height: 500px;">
+// styles for the content
+.main-view {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+}
+
+ul {
+  li {
+    a {
+      color: $header-font-color !important;
+      &:hover {
+        color: lighten($header-font-color, 50%) !important;
+      }
+    }
+  }
+}
+
+.card {
+  .card-header {
+    background-color: $header-bg-color;
+    color: $header-font-color;
+  }
+  .card-profile-picture {
+    margin-top: -50px;
+  }
+}
+
+section {
+  p {
+    margin-bottom: 0;
+  }
+}
+</code>
+</pre>
+				</section>
+				<section>
+					<h1>That's all.</h1>
+					<h1>THANKS</h1>
+				</section>
+      </section>
+
+    </div><!-- end of .slides -->
+  </div><!-- end of .reveal -->
+
+
+
+
+
+  <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+</html>

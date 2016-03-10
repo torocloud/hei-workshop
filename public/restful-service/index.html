@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Building RESTful webservice with Spring</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/controldeck/reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="/controldeck/reveal.js/lib/css/zenburn.css">
+  <link rel="stylesheet" href="/controldeck/app.css">
+
+</head>
+<body id="body">
+  <div class="toro-io">
+    <a href="https://www.toro.io/" target="_blank" class="toro-io-heading">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 4547 1225.844">
+        <path id="T" class="cls-1" d="M221.157,153.293H-7.539V1H615.193V153.293H386.5V751.742H221.157V153.293Z" transform="translate(0 -0.156)"/>
+        <path id="O" class="cls-1" d="M1164.92,2.393c-0.23-.067-0.43-0.163-0.66-0.227-0.33-.094-0.65-0.125-0.99-0.211-1.03-.258-2.04-0.56-3.08-0.814l-0.03.155c-14.46-2.705-27.35,1.616-29.74,10.573-2.6,9.755,8.18,21.2,24.09,25.712v0.151c112.87,39.818,193.8,147.315,193.8,273.868,0,160.453-130.01,290.53-290.38,290.53S767.551,472.053,767.551,311.6c0-126.553,80.935-234.054,193.8-273.872l-0.06-.094,0-.026c15.721-4.454,26.329-15.666,23.723-25.258-2.629-9.687-17.74-14.023-33.746-9.672a49.2,49.2,0,0,0-4.886,1.653C779.068,50.389,666.2,197.239,666.2,370.327v2.111c0,209.667,163.222,379.3,390.7,379.3,227.45,0,392.77-171.737,392.77-381.411v-2.1C1449.66,192.884,1335.34,45.909,1164.92,2.393Z" transform="translate(0 -0.156)"/>
+        <path id="R" class="cls-1" d="M1530.66,0.837h343.13c95.44,0,169.43,26.816,218.75,76.148,41.81,41.83,64.33,100.807,64.33,171.594v2.149c0,121.19-65.4,197.331-160.83,232.721l183.35,268.125H1986.38L1825.53,511.335H1695.79V751.574H1530.66V0.837Zm332.41,364.649c80.42,0,126.53-42.9,126.53-106.176v-2.142c0-70.787-49.32-107.262-129.75-107.262H1695.79v215.58h167.28Z" transform="translate(0 -0.156)"/>
+        <path id="O-2" data-name="O" class="cls-1" d="M2747.54,2.744c-0.22-.067-0.42-0.163-0.65-0.227-0.34-.095-0.66-0.125-0.99-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.03.155c-14.46-2.7-27.33,1.615-29.72,10.567-2.6,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.69,147.232,193.69,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.88-233.921,193.68-273.716l-0.06-.095V37.937c15.71-4.451,26.31-15.657,23.7-25.243-2.62-9.681-17.72-14.015-33.72-9.666a48.739,48.739,0,0,0-4.88,1.652c-167.21,46.032-280.02,192.8-280.02,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C3032.11,193.125,2917.86,46.234,2747.54,2.744Z" transform="translate(0 -0.156)"/>
+        <circle id="_." data-name="." class="cls-2" cx="3190.91" cy="670.938" r="81.25"/>
+        <rect id="I" class="cls-2" x="3338.84" y="0.188" width="166.66" height="750"/>
+        <path id="O-3" data-name="O" class="cls-1" d="M4077,2.744c-0.23-.067-0.43-0.163-0.65-0.227-0.34-.095-0.66-0.125-1-0.212-1.03-.257-2.04-0.56-3.08-0.813l-0.02.155c-14.46-2.7-27.34,1.615-29.72,10.567-2.61,9.75,8.17,21.193,24.07,25.7v0.151c112.8,39.8,193.68,147.232,193.68,273.713,0,160.361-129.93,290.363-290.2,290.363s-290.2-130-290.2-290.363c0-126.481,80.89-233.921,193.69-273.716l-0.06-.095-0.01-.026c15.71-4.451,26.32-15.657,23.71-25.243-2.63-9.681-17.73-14.015-33.72-9.666a48.931,48.931,0,0,0-4.89,1.652c-167.21,46.032-280.01,192.8-280.01,365.787v2.11c0,209.547,163.12,379.083,390.45,379.083,227.31,0,392.53-171.639,392.53-381.193v-2.1C4361.57,193.125,4247.32,46.234,4077,2.744Z" transform="translate(0 -0.156)"/>
+        <path id="TM" class="cls-1" d="M4412.19,14.787h-23.61V0.161h64.55V14.787h-23.61V79.256h-17.33V14.787Zm49.94-14.626h24.38l18.43,54.4h0.24l17.42-54.4h24.39v79.1h-16.23V23.2h-0.22l-19.3,56.051h-13.36l-19.3-55.495h-0.22V79.256h-16.23V0.161Z" transform="translate(0 -0.156)"/>
+      </svg>
+    </a><!-- end of toro-io-heading -->
+  </div><!-- end of .toro-io watermark -->
+
+
+  <div class="reveal">
+    <!--
+      Heads Up: Use this comment as a reference when working on your slide.
+    -->
+    <div class="slides">
+
+      <!-- Hello, Let's introduce yourself. -->
+      <section data-state="blur-on">
+        <h2>Building RESTFul Webservice with Spring</h2>
+        <h4>
+          HTML5 Presentation Framework powered by
+          <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+        </h4>
+        <p>
+          <small>Presented By <a href="mailto:jerrickpua@gmail.com">Jerrick M. Pua</a></small><br>
+          <a href="https://github.com/jerrickpua" target="_blank"><i class="ion-social-github"></i></a> &nbsp;
+          <a href="https://ph.linkedin.com/in/jerrickpua" target="_blank"><i class="ion-social-linkedin"></i></a> &nbsp;
+        </p>
+      </section>
+      <section> 
+	      <section>
+      			<h2>What exactly is Spring?</h2>
+		           <p class="fragment">-One of the most popular application development framework for enterprise application</p>
+		           <p class="fragment">-A light weight solution in building your enterprise-ready applications</p>
+ 			  		<p class="fragment">-It is meant to make Java EE development easier to use by addresing the complexity of Enterprise application development</p>
+	      </section>
+
+      </section>
+  	<!--      <section>
+      		<section>
+      			<h2>Spring aims to simplify Java Development</h2>
+            <p class="fragment">-Minimal Invasive development</p>
+            <p class="fragment">-Loose coupling through dependency injection</p>
+      		</section>
+	  	      <section>
+	      			<h1>Minamal invasive development</h2>
+					<p class="fragment">Spring avoids ( as much as possible ) littering your application code with its API.</p>
+		      </section>
+
+		      <section>
+          <h2>A simple non-invasive POJO</h2>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class BusinessLogicBean {
+  public void doSomeBusinessLogicCode() {
+  // Business logic code...
+  } 
+}
+              </code>
+            </pre>
+          <p class="fragment">This could function equally well in a Spring application as it could in a non-Spring application</p>
+		      </section>
+		      <section>
+		      	<h1>Loose coupling through dependency injection</h1>
+            <p class="fragment">Spring empowers POJO by assembling them using Dependency Injection</p>
+		      </section>
+	      </section>
+<section>
+  <section>
+    <h2>Dependency Injection a.k.a DI</h2>
+      <p>Core concept of Spring Framework</p>
+
+  </section>
+  <section>
+      <p>Most application is made up two or more classes collaborate with each other to perform business logic</p>
+  </section>
+  <section>
+        <p>A tightly coupled code</p>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class RescuingKnight {
+  private RescuePrincessQuest quest; 
+  public RescuingKnight() {
+    this.quest = new RescuePrincessQuest(); //Knight create his own quest
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+        <p class="fragment">What we have done here is create a dependency between RescuePrincessQuest and RescuingKnight. This code makes RescuingKnight tightly coupled to RescuePrincessQuest. This severely limits the knight capabilities. What if the knight needs to slay a dragon but the only thing he knows is to rescue the princess?</p>
+  </section>
+
+  <section>
+        <p>A loosely coupled code</p>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class BraveKnight {
+  private Quest quest; 
+  public BraveKnight(Quest quest) {
+    this.quest = quest;
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+        <p class="fragment">Unlike RescuingKnight. BraveKnight does not create his own quest. Instead we create a dependency between Quest and BraveKnight. He is given a quest on construction time. </p>
+  </section>
+
+  <section>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public interface Quest {
+  public void embark();
+}
+              </code>
+            </pre>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class RescuePrincessQuest implements Quest {
+  public void embark() {
+    System.out.println("Princess! This is I your knight in shining armor!")
+  }
+}
+              </code>
+            </pre>
+            <pre>
+              <code class="hljs" contenteditable="" data-trim="">
+public class DragonSlayingQuest implements Quest{
+  public void embark() {
+    System.out.println("Dragon! Prepare to die!")
+  }
+}
+              </code>
+            </pre>
+  </section>
+  <section>
+    <h2>Where did dependency injection happened?</h2>
+            <pre class="fragment">
+              <code class="hljs" contenteditable="" data-trim="">
+public class BraveKnight {
+  private Quest quest; 
+  public BraveKnight(Quest quest) {
+    this.quest = quest;
+  } 
+  public void embarkOnQuest(){
+    quest.embark();
+  }
+}
+              </code>
+            </pre>
+  </section>
+
+</section>-->
+<section>
+  <section>
+    <h1>RESTFul webservice</h1>
+  </section>
+  <section>
+    <h2>Every system uses RESOURCES</h2>
+  </section>
+  <section>
+    <h2>What's the connection between resource and RESTFul web service?</h2>
+    <p class="fragment">REST provides a window for its client to access the resource through HTTP Protocol</p>
+  </section>
+  <section>
+    <h2>REST stands for...</h2>
+    <p class="fragment">
+    <b style="color: red;">Re</b>presentational<br>
+    <b style="color: red;">S</b>tate <br>
+    <b style="color: red;">T</b>ransfer</p>
+  </section>
+  <section>
+    <h2><b style="color: red;">Re</b>presentational</h2>
+    <p class="fragment">Resource can be represented to the client in virtually any form...</p>
+  </section>
+  <section>
+    <h2><b style="color: red;">S</b>tate</h2>
+    <p class="fragment">Working with REST means you're more concerned with the state of a resource. REST in a nutshell is stateless.</p>
+  </section>
+  <section>
+    <h2><b style="color: red;">T</b>ransfer</h2>
+    <p class="fragment">REST involves transferring resource data, in some representational form from one application to another</p>
+  </section>
+<section>
+  <img src="assets/rest-diagram.png" alt="rest-diagram" style="background-color: white;">
+
+</section>
+  <section>
+    <h1>REST Best Practice</h1>
+  </section>
+<section>
+  <h2>Resource should be identifiable through its URL</h2>
+  <p>Example: http://localhost:8080/api/blogs</p>
+</section>
+<section>
+  <h2>Actions in REST are defined by HTTP Methods</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>HTTP Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Create</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Read</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Update</td>
+        <td>PUT/PATCH</td>
+      </tr>
+      <tr>
+        <td>Delete</td>
+        <td>Delete</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>HTTP Status code to return after a successful REST calls</h2>
+  <table style=" font-size: 24px; ">
+    <thead>
+      <tr>
+        <th>HTTP Status code</th>
+        <th>HTTP Method</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>200 - OK</td>
+        <td>GET, PUT, DELETE, POST</td>
+        <td>No Error, Operation is successful. Can also be used for POST that doesn't result in resource creation</td>
+      </tr>
+      <tr>
+        <td>201 - Created</td>
+        <td>POST</td>
+        <td>Successful creation of resource. It's considered a good form to communicate the resource's URL in the Location header</td>
+      </tr>
+      <tr>
+        <td>204 - No Content</td>
+        <td>GET, PUT, DELETE</td>
+        <td>Request was processed successfully, but no response body is needed.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>HTTP Status code to return after an unsuccessful REST calls</h2>
+  <table style=" font-size: 24px; ">
+    <thead>
+      <tr>
+        <th>HTTP Status code</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>400 - Bad Request</td>
+        <td>Malformed request body</td>
+      </tr>
+      <tr>
+        <td>401 - Unauthorized</td>
+        <td>When no or invalid authentication details are provided.</td>
+      </tr>
+      <tr>
+        <td>403 - Forbidden</td>
+        <td>Authentication succeeded but user do not have access to resource.</td>
+      </tr>
+      <tr>
+        <td>404 - Not Found</td>
+        <td>Non-existent resource is requested</td>
+      </tr>
+      <tr>
+        <td>405 - Method Not Allowed</td>
+        <td>The HTTP method used is not supported/allowed on the resource</td>
+      </tr>
+      <tr>
+        <td>500 - Server Error</td>
+        <td>Internal server error. Possible cause could be due to exceptions thrown</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+<h5>A simple save blog request using HTTP POST</h5>
+  <img src="assets/example-post-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+  <h5>The headers of the save blog HTTP Post request</h5>
+    <img src="assets/post-request-headers.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+<h5>A simple get blog request using HTTP GET</h5>
+  <img src="assets/example-get-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+<section>
+<h5>A simple delete blog request using HTTP DELETE</h5>
+  <img src="assets/example-delete-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+</section>
+<section>
+<h1>Let's Spring into action!</h1>
+</section>
+<section>
+<section>
+<h2>BlogApiController code</h2>
+</section>
+<section>
+  <h3>POJO used around BlogApiController</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.blog;
+
+public class Blog {
+
+    private Long id;
+    private String title;
+    private String content;
+
+    public Blog() {
+    }
+
+    public Blog( Long id, String title, String content ) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId( Long id ) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle( String title ) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent( String content ) {
+        this.content = content;
+    }
+
+}
+    </code>
+  </pre>  
+
+</section>
+<section>
+<h3>Class level</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="" style="max-height: none;">
+
+@RestController
+@RequestMapping( value = &quot;api/blogs&quot; )
+public class BlogApiController {
+
+    /*
+     * BlogService is the object that performs the business logic
+     */
+    private final BlogService blogService;
+    
+    /*
+     * Spring automatically use dependency injection to inject the
+     * correct Concrete implementation of the BlogService
+     */
+    @Autowired
+    BlogApiController( BlogService blogService ) {
+        this.blogService = blogService;
+    }
+
+    /* REST SERVICE CODE HERE... */
+}
+
+    </code>
+  </pre>  
+</section>
+
+<section>
+<h3>Fetch a list of blogs</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @RequestMapping( method = RequestMethod.GET )
+    ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
+        List&lt;Blog&gt; blogs = blogService.findBlogs();
+        
+        return ResponseEntity.ok( blogs );
+    }
+    </code>
+  </pre>
+</section>
+
+<section>
+<h3>Fetch a blog through its id</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
+    ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
+        Blog blog = blogService.findBlog( id );
+        
+        return ResponseEntity.ok( blog );
+    }
+    </code>
+  </pre>
+</section>
+
+<section>
+<h3>Save a blog</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+       @RequestMapping( method = RequestMethod.POST )
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, UriComponentsBuilder ucb ) {
+        blog = blogService.saveBlog( blog );
+        URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
+                        .path( String.valueOf( blog.getId() ) ).build().toUri();
+        return ResponseEntity.created( locationURI ).body( blog );
+    }
+    </code>
+  </pre>
+</section>
+
+<section>
+<h3>Delete a blog through its id</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
+    ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
+        blogService.deleteBlogById( id );
+        
+        return ResponseEntity.noContent().build();
+    }
+    </code>
+  </pre>
+</section>
+
+
+<section>
+<h3>Your BlogApiController should look like this...</h3>
+  <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.blog;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+@RestController
+@RequestMapping( value = &quot;api/blogs&quot; )
+public class BlogApiController {
+    
+    private final BlogService blogService;
+    
+    @Autowired
+    BlogApiController( BlogService blogService ) {
+        this.blogService = blogService;
+    }
+    
+    @RequestMapping( method = RequestMethod.GET )
+    ResponseEntity&lt;List&lt;Blog&gt;&gt; getBlogs() {
+        List&lt;Blog&gt; blogs = blogService.findBlogs();
+        
+        return ResponseEntity.ok( blogs );
+    }
+    
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.GET )
+    ResponseEntity&lt;Blog&gt; getBlog( @PathVariable Long id ) {
+        Blog blog = blogService.findBlog( id );
+        
+        return ResponseEntity.ok( blog );
+    }
+    
+    @RequestMapping( method = RequestMethod.POST )
+    ResponseEntity&lt;Blog&gt; saveBlog( @RequestBody Blog blog, 
+                                    UriComponentsBuilder ucb ) {
+        blog = blogService.saveBlog( blog );
+        URI locationURI = ucb.path( &quot;/api/blogs/&quot; )
+                            .path( String.valueOf( blog.getId() ) ).build().toUri();
+        return ResponseEntity.created( locationURI ).body( blog );
+    }
+    
+    @RequestMapping( value = &quot;{id}&quot;, method = RequestMethod.DELETE )
+    ResponseEntity&lt;Void&gt; deleteblog( @PathVariable Long id ) {
+        blogService.deleteBlogById( id );
+        
+        return ResponseEntity.noContent().build();
+    }
+}
+
+    </code>
+  </pre>
+</section>
+
+</section>
+<section>
+  <section>
+    <h2>How to deal the "What ifs" in REST request?</h2>
+  </section>
+  <section>
+    <h2>Create an REST error handler</h2>
+  </section>
+  <section>
+    <h2>ExceptionController</h2>
+  </section>
+<section>
+<h3>Class level</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+@RestController
+@ControllerAdvice
+public class ExceptionController implements ErrorController {
+    /* EXCEPTION HANDLING CODE HERE... */
+}
+    </code>
+  </pre> 
+
+</section>
+
+<section>
+<h3>Handling APIException</h3>
+<p> Main exception handling method. Later on you will reuse this method to handle other types of exceptions.</p>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @ExceptionHandler( ApiException.class )
+    ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
+        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
+    }
+    </code>
+  </pre> 
+</section>
+<section>
+<h3>Handling ResourceNotFoundException</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @ExceptionHandler( ResourceNotFoundException.class )
+    ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
+        return processApiException( new ApiException( 404, ex ) );
+    }
+    </code>
+  </pre> 
+</section>
+
+
+<section>
+<h3>Handling HttpMessageNotReadableException</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @ExceptionHandler( HttpMessageNotReadableException.class )
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( HttpMessageNotReadableException ex ) {
+        return processApiException( new ApiException( 400, ex ) );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h4>Handling HttpRequestMethodNotSupportedException</h4>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( HttpRequestMethodNotSupportedException ex ) {
+        return processApiException( new ApiException( 405, ex ) );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>Handling Exceptions not specified in the Exception controller</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @ExceptionHandler( Exception.class )
+    ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
+        return processApiException( new ApiException( 500, ex ) );
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>Handling rest endpoint not found</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+    @RequestMapping( value = &quot;error&quot; )
+    ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
+        return handleAllException( ex );
+    }
+    
+    @Override
+    public String getErrorPath() {
+        return &quot;error&quot;;
+    }
+    </code>
+  </pre> 
+</section>
+
+<section>
+<h3>What your exception response will look like...</h3>
+  <img src="assets/example-not-found-request.png" alt="Example request diagram" style="background-color: white;">
+</section>
+
+<section>
+<h3>Your ExceptionController should look like this...</h3>
+   <pre>
+    <code class="hljs" contenteditable="" data-trim="">
+package io.toro.workshop.exception;
+
+import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@ControllerAdvice
+public class ExceptionController implements ErrorController {
+    
+    @ExceptionHandler( ApiException.class )
+    ResponseEntity&lt;ApiException&gt; processApiException( ApiException ex ) {
+        return ResponseEntity.status( ex.getHttpStatus() ).body( ex );
+    }
+    
+    @ExceptionHandler( ResourceNotFoundException.class )
+    ResponseEntity&lt;ApiException&gt; handleNotFound( ResourceNotFoundException ex ) {
+        return processApiException( new ApiException( 404, ex ) );
+    }
+    
+    @ExceptionHandler( HttpMessageNotReadableException.class )
+    ResponseEntity&lt;ApiException&gt; handleInvalidRequestBody( 
+                               HttpMessageNotReadableException ex ) {
+        return processApiException( new ApiException( 400, ex ) );
+    }
+        
+    @ExceptionHandler( HttpRequestMethodNotSupportedException.class )
+    ResponseEntity&lt;ApiException&gt; requestMethodNotSupported( 
+                            HttpRequestMethodNotSupportedException ex ) {
+        return processApiException( new ApiException( 405, ex ) );
+    }
+    
+    @ExceptionHandler( Exception.class )
+    ResponseEntity&lt;ApiException&gt; handleAllException( Exception ex ) {
+        return processApiException( new ApiException( 500, ex ) );
+    }
+    
+    @RequestMapping( value = &quot;error&quot; )
+    ResponseEntity&lt;ApiException&gt; handleEndpointNotFound( Exception ex ) {
+        return handleAllException( ex );
+    }
+    
+    @Override
+    public String getErrorPath() {
+        return &quot;error&quot;;
+    }
+}
+
+    </code>
+  </pre> 
+</section>
+
+</section>
+<section>
+  <h2>Give your REST application a spin!</h2>
+<div class="postman-run-button"
+data-postman-action="collection/import"
+data-postman-var-1="0d73431306cd4515b941"></div>
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
+</section>
+<section>
+<h1>
+  The end...
+</h1>
+</section>
+
+
+
+
+
+
+
+    </div><!-- end of .slides -->
+  </div><!-- end of .reveal -->
+
+
+
+
+
+  <script src="/controldeck/reveal.js/lib/js/head.min.js"></script>
+	<script src="/controldeck/reveal.js/js/reveal.js"></script>
+	<script src="/controldeck/app.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/controldeck/deck.js"></script>
+
+</body>
+</html>
