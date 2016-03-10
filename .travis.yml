@@ -1,0 +1,4 @@
+language : java
+branches :
+   only :
+      - heroku-blog-api

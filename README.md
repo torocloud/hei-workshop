@@ -1,6 +1,8 @@
 Blog API - Server Side
 ===
 
+[![Build Status](https://img.shields.io/travis/TORO-IO/hei-workshop/heroku-blog-api.svg)]()
+
 ### Technologies
 - [Apache Maven](https://maven.apache.org/) - Project dependency management build tool
 - [Spring Framework](http://projects.spring.io/spring-framework) - Dependency injection framework
