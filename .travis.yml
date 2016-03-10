@@ -2,3 +2,5 @@ language : java
 branches :
    only :
       - heroku-blog-api
+jdk :
+   - oraclejdk8
