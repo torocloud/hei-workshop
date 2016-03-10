@@ -20,7 +20,7 @@ body:after {
 }
 
 body:before {
-  background-image: url("https://cdn.toro.io/uikit/v2/img/architecture.jpg");
+  background-image: url("http://cdn.toro.io/uikit/v2/img/architecture.jpg");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
