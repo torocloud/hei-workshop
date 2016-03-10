@@ -3,9 +3,11 @@ http    = require 'http'
 util    = require 'util'
 url     = require 'url'
 fs      = require 'fs'
+path    = require 'path'
 server  = require 'node-static'
 
-svr = new server.Server './public'
+
+svr = new server.Server path.join(process.cwd(), 'public')
 app = http.createServer (req, res) ->
   pathname = url.parse(req.url).pathname
   req.addListener 'end', () ->
