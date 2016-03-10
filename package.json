@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "nodemon index.js"
+    "preinstall": "npm install -g gulp",
+    "postinstall": "gulp",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
