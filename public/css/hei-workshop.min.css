@@ -1,0 +1,117 @@
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  min-width: 320px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 0;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.truncate.truncate-1 {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.truncate.truncate-3 {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.truncate.truncate-5 {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.bread-word {
+  word-wrap: break-word;
+}
+
+.social-media-icons {
+  margin-right: 10px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: table;
+  text-align: center;
+  border: none;
+  background-color: #ccc;
+  border-radius: 100%;
+  font-size: 15px;
+}
+
+.social-media-icons i {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.social-media-icons.social-media-icons-facebook {
+  background-color: #3B5998;
+}
+
+.social-media-icons.social-media-icons-google {
+  background-color: #DD4B39;
+}
+
+.social-media-icons.social-media-icons-twitter {
+  background-color: #55ACEE;
+}
+
+.social-media-icons.social-media-icons-instagram {
+  background-color: #3F729B;
+}
+
+.social-media-icons.social-media-icons-linkedin {
+  background-color: #0082CA;
+}
+
+.main-view {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+ul li a {
+  color: #333 !important;
+}
+
+ul li a:hover {
+  color: #b3b3b3 !important;
+}
+
+.card .card-header {
+  background-color: #F7F7F9;
+  color: #333;
+}
+
+.card .card-profile-picture {
+  margin-top: -50px;
+}
+
+section p {
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=hei-workshop.min.css.map */

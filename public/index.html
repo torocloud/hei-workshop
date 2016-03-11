@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="UserCtrl">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>HEI Workshop: Blog Application</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/hei-workshop.css">
+
+</head>
+<body data-endpoint="http://127.0.0.1:8080/api/">
+
+  <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == true">
+          <a class="nav-link" href="/post">POST</a>
+        </li>
+        <li class="nav-item" ng-if="loggedIn == false">
+          <a class="nav-link" href="/login">LOGIN</a>
+        </li>
+        <li class="nav-item pull-xs-right" ng-if="loggedIn == true">
+          <a class="nav-link" ng-click="logout()" href="/">LOGOUT</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div ng-view class="main-view"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/tether/1.2.0/tether.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+ <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+ <script src="/app/angular.js"></script>
+ <script src="/app/hei-workshop.js"></script>
+
+</body>
+</html>

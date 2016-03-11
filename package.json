@@ -1,0 +1,58 @@
+{
+  "name": "hei-workshop",
+  "version": "1.0.0",
+  "description": "Web UI for HEI Workshop",
+  "author": "toro.io dev",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/toro-io/hei-workshop#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start index.js",
+    "stop": "pm2 stop 0",
+    "postinstall": "gulp sass-install && gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/toro-io/hei-workshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/toro-io/hei-workshop/issues"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "bootstrap": "^4.0.0-alpha.2",
+    "bourbon": "^4.2.6",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-html-replace": "^1.5.5",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-minify-html": "^1.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "imagemin-pngquant": "^4.2.0",
+    "shelljs": "^0.5.3"
+  },
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angular-sanitize": "^1.5.0",
+    "body-parser": "^1.14.2",
+    "coffee-script": "^1.10.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "ngstorage": "^0.3.10",
+    "pm2": "^1.0.0",
+    "serve-favicon": "^2.3.0"
+  }
+}

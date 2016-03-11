@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" alt="Card image cap">
+        <img class="img-circle card-profile-picture img-fluid center-block" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
+        <div class="card-block">
+          <h4 class="card-title text-xs-center">Login to Dashboard</h4>
+          <form class="m-y-1">
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-person" id="basic-addon1"></span>
+                <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username">
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
+              <div class="input-group">
+                <span class="input-group-addon ion-unlocked" id="basic-addon1"></span>
+                <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+              </div>
+            </fieldset>
+            <div class="form-group text-xs-center m-y-2">
+              <button ng-click="login()" class="btn btn-md btn-info-outline">
+                Sign in to Dashboard
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
