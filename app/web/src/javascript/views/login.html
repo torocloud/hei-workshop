@@ -1,70 +1,34 @@
-
-  <div class="block-wrapper block-wrapper-sm m-x-auto">
-    <div class="block-wrapper-content p-t-3">
-      <div class="card card-inverse card-profile">
-        <img class="card-img-top" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" width="100%" height="auto" alt="">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="http://86891a4008fe3b3a8226-f715328dc31d80fc82943252e3883cdc.r56.cf1.rackcdn.com/uikit/v2/img/docs/stormtroopr-1.jpg" alt="Card image cap">
+        <img class="img-circle card-profile-picture img-fluid center-block" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
         <div class="card-block">
-          <img class="img-circle card-profile-picture img-fluid center-block" ng-src="http://placehold.it/100/e8117f/ffffff" alt="">
-          <form name="loginForm" ng-valid ng-submit="login.initLogin(loginForm.$valid)" class="card-block p-t-3" novalidate>
-            <!-- Validation Message Status -->
-            <div ng-show="login.alert" class="alert alert-danger m-b-3" style="margin-top: -20px;">
-              <h5 class="m-b-1">Woops, Something went wrong.</h5>
-              <ul>
-                <li ng-if="loginForm.username.$error">
-                  <small>Looks like the username you have entered is incorrect.</small>
-                </li>
-                <li ng-if="loginForm.password.$error">
-                  <small>Looks like the password you have entered is incorrect.</small>
-                </li>
-              </ul>
-            </div>
-            <fieldset class="form-group" ng-class="{ 'has-danger': (loginForm.username.$touched && loginForm.username.$invalid) || login.alert }">
+          <h4 class="card-title text-xs-center">Login to Dashboard</h4>
+          <form class="m-y-1">
+            <fieldset class="form-group">
               <label class="sr-only">Username</label>
               <div class="input-group">
-                <input type="text" name="username" class="form-control form-control-success" placeholder="Username" required
-                  ng-model="login.ngModel.username"
-                  ng-class="{ 'form-control-danger': (loginForm.username.$touched && loginForm.username.$invalid) || login.alert}">
                 <span class="input-group-addon ion-person" id="basic-addon1"></span>
+                <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username">
               </div>
-              <small class="center-block p-y-1 text-danger text-sm-right"
-                ng-messages="loginForm.username.$error"
-                ng-if="loginForm.username.$touched && loginForm.username.$invalid">
-                A Username is required to login.
-              </small>
             </fieldset>
-
-            <fieldset class="form-group" ng-class="{ 'has-danger': (loginForm.password.$touched && loginForm.password.$invalid) || login.alert }">
-              <label class="sr-only">Password</label>
+            <fieldset class="form-group">
+              <label class="sr-only">Username</label>
               <div class="input-group">
-                <input type="password" name="password" class="form-control form-control-success" placeholder="Password" required
-                  ng-model="login.ngModel.password"
-                  ng-class="{ 'form-control-danger': (loginForm.password.$touched && loginForm.password.$invalid) || login.alert }">
-                <span class="input-group-addon ion-android-lock" id="basic-addon2"></span>
+                <span class="input-group-addon ion-unlocked" id="basic-addon1"></span>
+                <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
               </div>
-              <small class="center-block p-y-1 text-danger text-sm-right"
-                ng-messages="loginForm.password.$error"
-                ng-if="loginForm.password.$touched && loginForm.password.$invalid">
-                A Password is required to login.
-              </small>
             </fieldset>
-
-            <div class="form-group text-xs-center m-y-3">
-              <button type="submit" class="btn btn-md btn-info-outline">
+            <div class="form-group text-xs-center m-y-2">
+              <button ng-click="login()" class="btn btn-md btn-info-outline">
                 Sign in to Dashboard
               </button>
             </div>
-
-            <div class="form-group m-t-3">
-              <a class="" href="#">Trouble Signing In?</a>
-              <a class="pull-xs-right" href="#">No Account? Sign Up here.</a>
-            </div>
-
-          </form><!-- end of .card-block -->
-
-        </div><!-- end of .card-block -->
-      </div><!-- end of .card.card-inverse -->
-
-
-      <ng-include src="'/views/footer.html'"></ng-include>
-  </div><!-- end of .block-wrapper-content -->
-</div><!-- end of .block-wrapper block-wrapper-cover -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
