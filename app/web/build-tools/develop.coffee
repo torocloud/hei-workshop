@@ -19,35 +19,31 @@ imagemin    = require 'gulp-imagemin'
 pngquant    = require 'imagemin-pngquant'
 sourcemap   = require 'gulp-sourcemaps'
 coffeelint  = require 'gulp-coffeelint'
+replace     = require 'gulp-html-replace'
+
+pkg = require path.join(__dirname, '../package.json')
+
 
 options.angular = [
-  './bower_components/angular/angular.js'
-  './bower_components/angular-cookies/angular-cookies.js'
-  './bower_components/angular-resource/angular-resource.js'
-  './bower_components/angular-ui-router/release/angular-ui-router.js'
-  './bower_components/angular-sanitize/angular-sanitize.js'
+  './node_modules/angular/angular.js'
+  './node_modules/angular-route/angular-route.js'
+  './node_modules/angular-sanitize/angular-sanitize.js'
+  './node_modules/ngstorage/ngStorage.js'
 ]
 
 
 options.app = [
   './src/javascript/app.js'
   './src/javascript/router.js'
-  './src/javascript/controllers/auth.js'
-  './src/javascript/directives/blogs.js'
-  './src/javascript/directives/post-blog.js'
-  './src/javascript/directives/get-blog.js'
-  './src/javascript/directives/header.js'
-  './src/javascript/directives/footer.js'
-  './src/javascript/directives/login.js'
-  './src/javascript/factories/api.js'
-  './src/javascript/services/user.js'
+  './src/javascript/directives.js'
+  './src/javascript/controllers.js'
+  './src/javascript/factories.js'
 ]
 
 options.sass = {
   outputStyle: 'expanded'
   includePaths: [
-    './src/sass/bootstrap'
-    './src/sass/bourbon'
+    './src/sass'
   ]
 }
 
@@ -55,43 +51,20 @@ options.babel = {
   presets: ['es2015']
 }
 
-###
-# @name sass-install
-# @desc
-###
-gulp.task 'sass-install', () ->
-
-  bootstrap = () ->
-    return gulp.src './node_modules/bootstrap/scss/**/*.scss'
-      .pipe gulp.dest './src/sass/bootstrap'
-
-  bourbon = () ->
-    return gulp.src './node_modules/bourbon/app/assets/stylesheets/**/*.scss'
-      .pipe gulp.dest './src/sass/bourbon'
-
-  if util.env.bootstrap
-    bootstrap()
-
-  if util.env.bourbon
-    bourbon()
-
-  if util.env._.length <= 1
-    bootstrap()
-    bourbon()
-
 
 ###
 # @name sass-build
 # @desc
 ###
-gulp.task 'sass-build', () ->
-  return gulp.src './src/sass/workshop.scss'
+gulp.task 'sass:build', () ->
+  return gulp.src "./src/sass/workshop.scss"
     .pipe sass(options.sass)
-    .pipe gulp.dest './public/css'
+    .pipe rename(basename: pkg.name)
+    .pipe gulp.dest('./public/css')
     .pipe sourcemap.init()
-    .pipe rename extname: '.min.css'
+    .pipe rename (extname: '.min.css')
     .pipe sourcemap.write('.')
-    .pipe gulp.dest './public/css'
+    .pipe gulp.dest('./public/css')
 
 ###
 # @name task: eslint
@@ -107,23 +80,10 @@ gulp.task 'eslint', () ->
 
 
 ###
-# @name task: coffee-lint
-# @desc
-#   task that lints our coffeescript files making
-#  sure we comply to the team's coding standards
-###
-gulp.task 'coffeelint', () ->
-  return gulp.src './build/**/*.coffee'
-    .pipe coffeelint()
-    .pipe coffeelint.reporter('coffeelint-stylish')
-    .pipe coffeelint.reporter('fail')
-
-
-###
 # @name build-angular
 # @desc
 ###
-gulp.task 'app-angular', () ->
+gulp.task 'app:angular', () ->
   return gulp.src options.angular
     .pipe sourcemap.init()
     .pipe concat('angular.js')
@@ -137,19 +97,53 @@ gulp.task 'app-angular', () ->
 # @name build-app
 # @desc task that transpiles src es6 syntax js to es5 via babel
 ###
-gulp.task 'app-build', () ->
-  gulp.src './src/javascript/views/**/*.html'
-    .pipe htmlmin(empty: true)
-    .pipe gulp.dest('./public/app/views')
+gulp.task 'app:build', () ->
+  min  = if util.env.minify then '.min' else ''
+  gulp.src [
+    'src/javascript/views/**/*.html'
+    '!src/javascript/views/index.html'
+  ]
+  .pipe htmlmin(empty: true)
+  .pipe gulp.dest('./public/app/views')
 
   return gulp.src options.app
     .pipe sourcemap.init()
     .pipe babel(options.babel)
-    .pipe concat('workshop.js')
+    .pipe concat("#{pkg.name}#{min}.js")
     .pipe gulp.dest('./public/app')
     .pipe rename(extname: '.min.js')
     .pipe sourcemap.write('.')
     .pipe gulp.dest('./public/app')
+
+###
+# @name build-html
+###
+gulp.task 'html:resource', () ->
+  min  = if util.env.minify then '.min' else ''
+  proc = {}
+
+  proc.css =
+    src: "/css/#{pkg.name}#{min}.css"
+    tpl: '<link rel="stylesheet" href="%s">'
+
+  proc.js  =
+    src: [
+      [
+        # "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+        # "https://cdn.jsdelivr.net/tether/1.2.0/tether.min.js"
+        # "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
+        "/app/angular#{min}.js"
+        "/app/#{pkg.name}#{min}.js"
+        # "https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"
+      ]
+    ]
+    tpl: "
+      <script src=\"%s\"></script>\n
+        <script src=\"%s\"></script>"
+
+  return gulp.src "./src/javascript/views/index.html"
+    .pipe replace(proc)
+    .pipe gulp.dest('./public/')
 
 ###
 # @name develop
@@ -173,9 +167,8 @@ gulp.task 'develop', () ->
 
 
 gulp.task 'default', [
-  'coffeelint',
-  'eslint',
-  'app-build',
-  'app-angular',
-  'sass-build'
+  'app:build'
+  'app:angular'
+  'sass:build'
+  'html:resource'
 ]
