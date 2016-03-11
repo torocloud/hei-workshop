@@ -120,25 +120,41 @@ gulp.task 'app:build', () ->
 ###
 gulp.task 'html:resource', () ->
   min  = if util.env.minify then '.min' else ''
+  prod = if util.env.local then 'http://127.0.0.1:8080/api/' else 'https://hei-workshop.herokuapp.com/api/'
   proc = {}
 
+  proc.api =
+    src: "#{prod}"
+    tpl: "<body data-endpoint=\"%s\">"
+
   proc.css =
-    src: "/css/#{pkg.name}#{min}.css"
-    tpl: '<link rel="stylesheet" href="%s">'
+    src: [
+      [
+        "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+        "/css/#{pkg.name}#{min}.css"
+      ]
+    ]
+    tpl: "
+      <link rel=\"stylesheet\" href=\"%s\">\n
+        <link rel=\"stylesheet\" href=\"%s\">"
 
   proc.js  =
     src: [
       [
-        # "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
-        # "https://cdn.jsdelivr.net/tether/1.2.0/tether.min.js"
-        # "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
+        "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+        "https://cdn.jsdelivr.net/tether/1.2.0/tether.min.js"
+        "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
+        "https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"
         "/app/angular#{min}.js"
         "/app/#{pkg.name}#{min}.js"
-        # "https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"
       ]
     ]
     tpl: "
       <script src=\"%s\"></script>\n
+        <script src=\"%s\"></script>\n
+        <script src=\"%s\"></script>\n
+        <script src=\"%s\"></script>\n
+        <script src=\"%s\"></script>\n
         <script src=\"%s\"></script>"
 
   return gulp.src "./src/javascript/views/index.html"

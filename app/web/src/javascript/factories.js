@@ -12,7 +12,10 @@ angular
 
   function ApiFactory ( $rootScope, $http, $q, $location, $localStorage ) {
     var api = this;
-    var baseurl = 'https://hei-workshop.herokuapp.com/api/';
+    var baseurl = document
+      .querySelector('body[data-endpoint]')
+      .getAttribute('data-endpoint')
+
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': ( $localStorage.token ) ?

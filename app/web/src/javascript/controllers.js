@@ -10,6 +10,11 @@
       'api'
     ]
 
+
+    console.log(document
+      .querySelector('body[data-endpoint]')
+      .getAttribute('data-endpoint'))
+
     function UserCtrl ($scope, $localStorage, api) {
       $scope.loggedIn = $localStorage.token != undefined;
 

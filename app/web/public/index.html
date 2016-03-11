@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300">
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-  <link rel="stylesheet" href="/css/hei-workshop.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/hei-workshop.css">
 
 </head>
-<body>
+<body data-endpoint="http://127.0.0.1:8080/api/">
 
   <nav class="navbar navbar-light navbar-fixed-top bg-faded m-b-3">
     <div class="container">
@@ -37,7 +38,11 @@
 
   <div ng-view class="main-view"></div>
 
-  <script src="/app/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/tether/1.2.0/tether.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+ <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+ <script src="/app/angular.js"></script>
  <script src="/app/hei-workshop.js"></script>
 
 </body>
