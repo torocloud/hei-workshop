@@ -43,6 +43,7 @@ app/api/target/
 app/web/public/**/*.css
 app/web/public/**/*.js
 app/web/public/**/*.map
+app/web/public/app/index.html
 app/web/public/app/views/*.html
 app/web/src/sass/bootstrap
 app/web/src/sass/bourbon
