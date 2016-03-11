@@ -8,9 +8,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start index.js",
-    "stop": "pm2 stop 0",
-    "postinstall": "gulp sass-install && gulp"
+    "start": "node index.js",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",
