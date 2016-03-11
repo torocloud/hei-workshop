@@ -249,7 +249,7 @@ ul a:hover { color: #229ed3; }
 
       <section>
         <section>
-          <h2>Three principle to simplify your life as a Developer</h2>
+          <h2>Three principles to simplify your life as a Developer</h2>
           <ul>
           	<li>DRY - Don't Repeat Yourself</li>
 						<li>KISS - Keep It Simple Stupid</li>
@@ -461,7 +461,7 @@ ul a:hover { color: #229ed3; }
         </header>
         <hr class="m-b-0 m-t-0">
         <div class="clearfix"></div>
-        <section class="truncate truncate-3 p-x-1 p-t-1 m-b-1" ng-bind-html="blog.content"></section>
+        &lt;section class="truncate truncate-3 p-x-1 p-t-1 m-b-1" ng-bind-html="blog.content"&gt;&lt;/section&gt;
         <small class="pull-xs-left m-l-1 m-t-1 ">Share on: </small>
         <a class="btn btn-info m-t-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
         <a class="btn btn-info m-t-1 pull-xs-left social-media-icons social-media-icons-google"><i class="ion-social-googleplus"></i></a>
@@ -565,7 +565,7 @@ ul a:hover { color: #229ed3; }
 
         <div class="card-block">
           <p ng-if="editMode == true">Blog Content</p>
-          <section class="truncate m-b-1" ng-if="editMode != true" ng-bind-html="blog.content"></section>
+          &lt;section class="truncate m-b-1" ng-if="editMode != true" ng-bind-html="blog.content"&gt;&lt;/section&gt;
           <textarea ng-model="blog.content" id="editBlogEditor"  ng-if="editMode == true" class="form-control" rows="8"></textarea>
           <small class="pull-xs-left m-t-1 ">Share on: </small>
           <a class="btn btn-info m-y-1 m-l-1 pull-xs-left social-media-icons social-media-icons-facebook"><i class="ion-social-facebook"></i></a>
